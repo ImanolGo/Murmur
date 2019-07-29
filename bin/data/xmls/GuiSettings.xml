@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <MurmurRenderer>
-	<FPS>58.7422</FPS>
+	<FPS>59.4071</FPS>
 	<Scenes>
 		<TransitionTime>1.59184</TransitionTime>
 		<BlankScene>0</BlankScene>
@@ -8,7 +8,7 @@
 		<BattleOfSelfScene>0</BattleOfSelfScene>
 		<HandsWritingScene>0</HandsWritingScene>
 		<FluidFloorScene>0</FluidFloorScene>
-		<BeautifulMindScene>0</BeautifulMindScene>
+		<BeautifulMindScene>1</BeautifulMindScene>
 		<Transparency>0</Transparency>
 		<KathakScene>0</KathakScene>
 		<BirdsScene>0</BirdsScene>
@@ -20,7 +20,7 @@
 		<OpacityFront>0</OpacityFront>
 		<OpacityTop>0</OpacityTop>
 		<PostShowScene>0</PostShowScene>
-		<SonicBoomScene>1</SonicBoomScene>
+		<SonicBoomScene>0</SonicBoomScene>
 	</Scenes>
 	<Contour>
 		<Thickness>0.408163</Thickness>
@@ -43,7 +43,7 @@
 		<Offset>0.000416517, 0.000416517</Offset>
 		<Scale>1, 1</Scale>
 		<FloorOn>1</FloorOn>
-		<Speed>1.02041</Speed>
+		<Speed>1</Speed>
 		<CalibrationOn>0</CalibrationOn>
 	</BeautifulMind>
 	<Crop>
@@ -58,7 +58,7 @@
 	</Audio>
 	<Layout>
 		<Fullscreen>1</Fullscreen>
-		<CropLeft>151</CropLeft>
+		<CropLeft>83</CropLeft>
 		<CropRight>126</CropRight>
 		<CropTop>193</CropTop>
 		<CropBottom>214</CropBottom>

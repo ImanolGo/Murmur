@@ -24,7 +24,7 @@ int main( ){
     ofAddListener(secondWindow->events().draw,mainApp.get(),&MurmurRendererApp::drawScreen2);
    // ofAddListener(secondWindow->events().keyPressed,mainApp.get(),&MurmurRendererApp::keyPressed2);
     
-    ofAddListener(secondWindow->events().draw,mainApp.get(),&MurmurRendererApp::drawScreen3);
+    ofAddListener(thirdWindow->events().draw,mainApp.get(),&MurmurRendererApp::drawScreen3);
     //ofAddListener(secondWindow->events().keyPressed,mainApp.get(),&MurmurRendererApp::keyPressed3);
     
     ofRunApp(mainWindow, mainApp);

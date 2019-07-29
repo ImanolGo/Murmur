@@ -108,7 +108,9 @@ void AppManager::draw()
     }
     
     int wIndex = 0;
-    ofBackground(0,0,0); // change background color on each window
+    ofClear ( 0 );
+    ofBackground(17);
+    
     
     if (m_debugMode) {
         m_viewManager.draw();
@@ -125,11 +127,12 @@ void AppManager::draw2()
         return;
     }
     
+    
     int wIndex = 1;
     
     m_previewManager.begin(wIndex);
-    ofBackground(0,0,0); // change background color on each window
     ofClear(0, 0, 0);
+    ofBackground(0,0,0); // change background color on each window
     m_maskManager.begin(wIndex);
     
     //ofRect(0, 0, image.getWidth(), image.getHeight());
@@ -150,6 +153,7 @@ void AppManager::draw3()
     int wIndex = 2;
     
     m_previewManager.begin(wIndex);
+    ofClear(0, 0, 0);
     ofBackground(0,0,0); // change background color on each window
     m_maskManager.begin(wIndex);
     m_sceneManager.draw(WindowIndex(wIndex));

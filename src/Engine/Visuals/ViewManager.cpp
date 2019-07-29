@@ -95,7 +95,7 @@ void ViewManager::update()
 void ViewManager::draw()
 {
     
-    this->drawBackround();
+    //his->drawBackround();
     this->drawOverlays();
     this->drawVisuals();
     
@@ -108,8 +108,9 @@ void ViewManager::draw()
 
 void ViewManager::drawBackround()
 {
-    //ofClear ( 0 );
-    ofBackgroundGradient(ofColor::gray, ofColor::black);
+    ofClear ( 0 );
+    ofBackground(17);
+    //ofBackgroundGradient(ofColor::gray, ofColor::black);
     //ofColor centerColor = AppManager::getInstance().getSettingsManager()->getColor("CenterBackgroundColor");
     //ofColor edgeColor = AppManager::getInstance().getSettingsManager()->getColor("EdgeBackgroundColor");
     //ofBackgroundGradient(centerColor,edgeColor,OF_GRADIENT_CIRCULAR);
