@@ -14,7 +14,9 @@ class ofxSyphonClient {
 	public:
 	ofxSyphonClient();
 	~ofxSyphonClient();
-	
+    ofxSyphonClient(ofxSyphonClient const& s);
+    ofxSyphonClient & operator= (ofxSyphonClient const& s);
+
     void setup();
     bool isSetup();
     
@@ -29,6 +31,13 @@ class ofxSyphonClient {
   
     void bind();
     void unbind();
+    
+    /*
+     To use the texture with getTexture()
+     you should surround it with bind() and 
+     unbind() functions */
+    
+    ofTexture& getTexture() {return mTex;}
     
     void draw(float x, float y, float w, float h);
     void draw(float x, float y);

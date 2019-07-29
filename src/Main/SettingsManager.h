@@ -21,22 +21,7 @@
 
 
 
-struct WindowSettings
-{
-    string title;
-    int x, y;
-    int width, height;
-    bool fullscreen, showCursor;
-    
-    WindowSettings(): title(""), x(0),y(0), width(0), height(0), fullscreen(false),showCursor(false)
-    {
-    }
-    
-};
-
-typedef  map<int,float>              TimingMap;             ///< defines a map of duration times attached to an id
 typedef  map<string,string>          ResourcesPathMap;       ///< defines a map of path attached to the resources name
-typedef  vector<WindowSettings>      WindowSettingsVector;   ///< Defines a vector of windows settings
 
 
 class SettingsManager: public Manager
@@ -59,15 +44,7 @@ class SettingsManager: public Manager
 
         const ResourcesPathMap& getTextureResourcesPath() const {return m_texturesPath;}
 
-        const ResourcesPathMap& getSvgResourcesPath() const {return m_svgResourcesPath;}
-
         ofColor getColor(const string& colorName);
-    
-        const WindowSettingsVector& getWindowsSettings() const {return m_windowsSettings;}
-    
-        const WindowSettings& getWindowsSettings (int windowIndex) const;
-    
-        const TimingMap&  getTimings() const {return m_timings;}
     
         string getIpAddress() const {return m_ipAddress;}
 
@@ -94,31 +71,20 @@ class SettingsManager: public Manager
         //! Sets all the window properties
         void setWindowProperties();
     
-        //! Loads the time durations
-        void loadTimings();
-    
         //! Loads all the app colors
         void loadColors();
 
         //! Loads all the textures settings
         void loadTextureSettings();
-
-        //! Loads all the svg images settings
-        void loadSvgSettings();
     
-
     private:
     
         typedef             map< string, ofColor>    ColorMap;               ///< Defines a map of colors attached to a name
 
 
-        ofXml		            m_xmlSettings;          ///< instance of the xml parser
+        ofXml		            m_xml;          ///< instance of the xml parser
         ResourcesPathMap        m_texturesPath;         ///< stores the texture paths
-        TimingMap               m_timings;              ///< stores the timings
-        ResourcesPathMap        m_svgResourcesPath;     ///< stores the resources paths
         ColorMap                m_colors;               ///< stores all the application's colors
-        WindowSettingsVector    m_windowsSettings;      ///< store the settings of all the windows
-        WindowSettings          m_defaultWindow;        ///< default window setting
         int                     m_portUdpReceive;       ///< stores the UDP port to receive UDP messages from
         int                     m_portOscReceive;       ///< stores the UDP port to receive OSC messages from
         int                     m_portOscSend;          ///< stores the UDP port to send OSC messages to

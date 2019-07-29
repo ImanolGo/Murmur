@@ -10,6 +10,7 @@
 
 #include "AppManager.h"
 #include "PreviewManager.h"
+#include "WindowSettingsManager.h"
 
 
 
@@ -42,13 +43,13 @@ void PreviewManager::setup()
 
 void PreviewManager::setupFbos()
 {
-    WindowSettingsVector windowSettingsVector = AppManager::getInstance().getSettingsManager().getWindowsSettings();
+    auto windowSettingsVector = WindowSettingsManager::getInstance().getWindowsSettings();
     
     for(auto windowSettings : windowSettingsVector)
     {
         ofPtr<ofFbo> fbo =  ofPtr<ofFbo>(new ofFbo());
-        fbo->allocate(windowSettings.width, windowSettings.height, GL_RGBA);
-        ofLogNotice() <<"PreviewManager::setupFbos -> width =  " << windowSettings.width << ", height =  " << windowSettings.height;
+        fbo->allocate(windowSettings.getWidth(), windowSettings.getHeight(), GL_RGBA);
+        ofLogNotice() <<"PreviewManager::setupFbos -> width =  " << windowSettings.getWidth() << ", height =  " << windowSettings.getHeight();
 
         fbo->begin(); ofClear(0); fbo->end();
         m_fbos.push_back(fbo);
@@ -78,10 +79,10 @@ void PreviewManager::setupText()
     
     int indexWindow = 1;
     int width_offset = 0;
-    auto windowSettings = AppManager::getInstance().getSettingsManager().getWindowsSettings(0);
+    auto windowSettings =  WindowSettingsManager::getInstance().getWindowsSettings(0);
     
     if(indexWindow > 0 ||  indexWindow < m_fbos.size()){
-        width_offset = (windowSettings.width - 4*LayoutManager::MARGIN - GuiManager::GUI_WIDTH)*0.5;
+        width_offset = (windowSettings.getWidth() - 4*LayoutManager::MARGIN - GuiManager::GUI_WIDTH)*0.5;
     }
     
     
@@ -128,17 +129,17 @@ void PreviewManager::setupRectangles()
     key = "FRONT";
     int indexWindow = 1;
     if(indexWindow < m_fbos.size()){
-        auto windowSettings = AppManager::getInstance().getSettingsManager().getWindowsSettings(0);
+        auto windowSettings = WindowSettingsManager::getInstance().getWindowsSettings(0);
         
         position.y = 3*LayoutManager::MARGIN;
         position.x = 2*LayoutManager::MARGIN + GuiManager::GUI_WIDTH;
         
         if(m_fbos[indexWindow]->getWidth()> m_fbos[indexWindow]->getHeight()){
-            width = (windowSettings.width - 4*LayoutManager::MARGIN - GuiManager::GUI_WIDTH)*0.5;
+            width = (windowSettings.getWidth() - 4*LayoutManager::MARGIN - GuiManager::GUI_WIDTH)*0.5;
             height = width *  m_fbos[indexWindow]->getHeight()/  m_fbos[indexWindow]->getWidth();
         }
         else{
-            height = (windowSettings.width - 4*LayoutManager::MARGIN - GuiManager::GUI_WIDTH)*0.5;
+            height = (windowSettings.getWidth() - 4*LayoutManager::MARGIN - GuiManager::GUI_WIDTH)*0.5;
             width = height *  m_fbos[indexWindow]->getWidth()/  m_fbos[indexWindow]->getHeight();
         }
         //height = windowSettings.height * 0.4;
@@ -156,18 +157,18 @@ void PreviewManager::setupRectangles()
     key = "TOP";
     indexWindow = 2;
     if(indexWindow < m_fbos.size()){
-        auto windowSettings = AppManager::getInstance().getSettingsManager().getWindowsSettings(0);
+        auto windowSettings = WindowSettingsManager::getInstance().getWindowsSettings(0);
         
         position.x = 3*LayoutManager::MARGIN + GuiManager::GUI_WIDTH + width;
         position.y = 3*LayoutManager::MARGIN;
         
     
         if(m_fbos[indexWindow]->getWidth()> m_fbos[indexWindow]->getHeight()){
-            width = (windowSettings.width - 4*LayoutManager::MARGIN - GuiManager::GUI_WIDTH)*0.5;
+            width = (windowSettings.getWidth() - 4*LayoutManager::MARGIN - GuiManager::GUI_WIDTH)*0.5;
             height = width *  m_fbos[indexWindow]->getHeight()/  m_fbos[indexWindow]->getWidth();
         }
         else{
-            height = (windowSettings.width - 4*LayoutManager::MARGIN - GuiManager::GUI_WIDTH)*0.5;
+            height = (windowSettings.getWidth() - 4*LayoutManager::MARGIN - GuiManager::GUI_WIDTH)*0.5;
             width = height *  m_fbos[indexWindow]->getWidth()/  m_fbos[indexWindow]->getHeight();
         }
        

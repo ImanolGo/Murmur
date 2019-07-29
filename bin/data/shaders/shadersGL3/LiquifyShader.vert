@@ -1,9 +1,14 @@
-#version 150     // <-- version my machine suports
-#extension GL_ARB_texture_rectangle : enable  // <-- not supported by my machine
-#extension GL_EXT_gpu_shader4 : enable    // <-- not supported by my machine
+#version 150
 
-void main() {
-	gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
-	gl_TexCoord[0] = gl_MultiTexCoord0;
-	gl_FrontColor = gl_Color;
+uniform mat4 modelViewProjectionMatrix;
+in vec4 position;
+in vec2 texcoord;
+
+out vec2 texCoordVarying;
+
+void main()
+{
+    texCoordVarying = texcoord;
+    
+    gl_Position = modelViewProjectionMatrix * position;
 }

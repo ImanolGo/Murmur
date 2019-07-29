@@ -10,6 +10,19 @@
 
 #include "BirdsAndPaperScene.h"
 
+
+BirdsAndPaperScene::BirdsAndPaperScene(): ofxScene("BirdsAndPaperScene"), m_initialized(false)
+{
+    //! Intentionally left empty
+}
+
+
+BirdsAndPaperScene::~BirdsAndPaperScene()
+{
+    //! Intentionally left empty
+}
+
+
 void BirdsAndPaperScene::setup() {
     ofLogNotice("BirdsAndPaperScene::setup");
     this->setInitialParameters();

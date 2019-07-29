@@ -13,7 +13,7 @@
 #include "SmokyHandsScene.h"
 
 
-SmokyHandsScene::SmokyHandsScene():m_initialized(false)
+SmokyHandsScene::SmokyHandsScene():ofxScene("SmokyHandsScene"), m_initialized(false)
 {
     
 }
@@ -33,7 +33,7 @@ void SmokyHandsScene::setup()
     m_smokeFluid.setup("xmls/SmokyHandsFluid.xml");
     
     auto windowsSettings = AppManager::getInstance().getSceneManager().getWindowSettings(this);
-    m_drawArea = ofRectangle(0, 0, windowsSettings.width, windowsSettings.height);
+    m_drawArea = ofRectangle(0, 0, windowsSettings.getWidth(), windowsSettings.getHeight());
     
     m_initialized = true;
 }

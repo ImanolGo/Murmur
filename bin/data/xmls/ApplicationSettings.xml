@@ -23,36 +23,10 @@
     <texture name="calibration_image" path="images/calibration/CalibrationImage.png"/>
     <texture name="frame_mask" path="images/general/FrameMask.png"/>
     <texture name="frame_beautifulmind" path="images/general/FrameMaskWithObject.png"/>
-  	<texture name="scene_01_BLURRED_FRONT" path="images/beautiful_mind/scene_01_BLURRED_FRONT.png"/>
-  	<texture name="scene_01_BLURRED_MIDDLE" path="images/beautiful_mind/scene_01_BLURRED_MIDDLE.png"/>
-  	<texture name="scene_01_BLURRED_REAR" path="images/beautiful_mind/scene_01_BLURRED_REAR.png"/>
-  	<texture name="scene_02_CANVAS_BG" path="images/beautiful_mind/scene_02_CANVAS_BG.png"/>
-  	<texture name="scene_02_img1_FRONT" path="images/beautiful_mind/scene_02_img1_FRONT.png"/>
-  	<texture name="scene_02_img2_FRONT" path="images/beautiful_mind/scene_02_img2_FRONT.png"/>
-  	<texture name="scene_02_img3_FRONT" path="images/beautiful_mind/scene_02_img3_FRONT.png"/>
-  	<texture name="scene_02_img4_FRONT" path="images/beautiful_mind/scene_02_img4_FRONT.png"/>
-  	<texture name="scene_03_CANVAS_BG" path="images/beautiful_mind/scene_03_CANVAS_BG.png"/>
-  	<texture name="scene_03_FRONT" path="images/beautiful_mind/scene_03_FRONT.png"/>
-  	<texture name="scene_03_MIDDLE" path="images/beautiful_mind/scene_03_MIDDLE.png"/>
-  	<texture name="scene_03_REAR" path="images/beautiful_mind/scene_03_REAR.png"/>
-  	<texture name="scene_04_FRONT" path="images/beautiful_mind/scene_04_FRONT.png"/>
-  	<texture name="scene_04_MIDDLE" path="images/beautiful_mind/NEW_scene_04_MIDDLE_SHIP.png"/>
-  	<texture name="scene_04_REAR" path="images/beautiful_mind/NEW_scene_04_REAR.png"/>
-    <texture name="scene_04_MIDDLE_SAIL_1" path="images/beautiful_mind/NEW_scene_04_MIDDLE_SAIL_1.png"/>
-    <texture name="scene_04_MIDDLE_SAIL_2" path="images/beautiful_mind/NEW_scene_04_MIDDLE_SAIL_2.png"/>
-    <texture name="scene_04_MIDDLE_SAIL_3" path="images/beautiful_mind/NEW_scene_04_MIDDLE_SAIL_3.png"/>
     <texture name="postshow" path="images/general/postshow.png"/>
 
   </textures>
 
-  <timings>
-
-    <timing  id="0" duration="49.0"/>
-    <timing  id="1" duration="35.0"/>
-    <timing  id="2" duration="31.0"/>
-    <timing  id="3" duration="68.0"/>
-
-  </timings>
 
   <fonts>
 

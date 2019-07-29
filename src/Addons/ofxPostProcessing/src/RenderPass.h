@@ -42,9 +42,13 @@
 
 #define STRINGIFY(A) #A
 
+using namespace std;
+#include <sstream>
+#include "ofMain.h"
+
 namespace itg
 {
-    using namespace tr1;
+    //using namespace std::tr1;
     
     class RenderPass
 #ifdef _ITG_TWEAKABLE

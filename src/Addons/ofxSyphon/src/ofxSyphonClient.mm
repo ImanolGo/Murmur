@@ -11,9 +11,10 @@
 #import <Syphon/Syphon.h>
 #import "SyphonNameboundClient.h"
 
-ofxSyphonClient::ofxSyphonClient()
+ofxSyphonClient::ofxSyphonClient() :
+mClient(nil), latestImage(nil), width(0), height(0), bSetup(false)
 {
-	bSetup = false;
+
 }
 
 ofxSyphonClient::~ofxSyphonClient()
@@ -26,12 +27,47 @@ ofxSyphonClient::~ofxSyphonClient()
     [pool drain];
 }
 
+ofxSyphonClient::ofxSyphonClient(ofxSyphonClient const& s) :
+mClient([(SyphonNameboundClient*)s.mClient retain]),
+latestImage([(SyphonImage*)s.latestImage retain]),
+mTex(s.mTex),
+width(s.width),
+height(s.height),
+bSetup(s.bSetup),
+appName(s.appName),
+serverName(s.serverName)
+{
+
+}
+
+ofxSyphonClient & ofxSyphonClient::operator= (ofxSyphonClient const& s)
+{
+    if (&s == this)
+    {
+        return *this;
+    }
+    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+
+    [(SyphonNameboundClient*)mClient release];
+    mClient = [(SyphonNameboundClient*)s.mClient retain];
+    [(SyphonImage*)latestImage release];
+    latestImage = [(SyphonImage*)s.latestImage retain];
+    mTex = s.mTex;
+    width = s.width;
+    height = s.height;
+    bSetup = s.bSetup;
+    appName = s.appName;
+    serverName = s.serverName;
+
+    [pool drain];
+}
+
 void ofxSyphonClient::setup()
 {
     // Need pool
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
         
-	mClient = [[SyphonNameboundClient alloc] init]; 
+	mClient = [[SyphonNameboundClient alloc] initWithContext:CGLGetCurrentContext()];
                
 	bSetup = true;
     
@@ -116,7 +152,7 @@ void ofxSyphonClient::bind()
      	[(SyphonNameboundClient*)mClient lockClient];
         SyphonClient *client = [(SyphonNameboundClient*)mClient client];
         
-        latestImage = [client newFrameImageForContext:CGLGetCurrentContext()];
+        latestImage = [client newFrameImage];
 		NSSize texSize = [(SyphonImage*)latestImage textureSize];
         
         // we now have to manually make our ofTexture's ofTextureData a proxy to our SyphonImage
@@ -128,7 +164,7 @@ void ofxSyphonClient::bind()
         mTex.texData.tex_h = texSize.height;
         mTex.texData.tex_t = texSize.width;
         mTex.texData.tex_u = texSize.height;
-        mTex.texData.glTypeInternal = GL_RGBA;
+        mTex.texData.glInternalFormat = GL_RGBA;
 #if (OF_VERSION_MAJOR == 0) && (OF_VERSION_MINOR < 8)
         mTex.texData.glType = GL_RGBA;
         mTex.texData.pixelType = GL_UNSIGNED_BYTE;

@@ -13,7 +13,7 @@
 #include "HandsWritingScene.h"
 
 
-HandsWritingScene::HandsWritingScene():m_initialized(false), m_skipFrames(0)
+HandsWritingScene::HandsWritingScene():ofxScene("HandsWritingScene"), m_initialized(false), m_skipFrames(0)
 {
     
 }
@@ -42,10 +42,10 @@ void HandsWritingScene::setup()
 
 void HandsWritingScene::setupFbo()
 {
-    auto windowsSettings = AppManager::getInstance().getSceneManager().getWindowSettings(this);
-    m_drawArea = ofRectangle(0, 0, windowsSettings.width, windowsSettings.height);
+    auto windowsSettings = AppManager::getInstance().getSceneManager().getWindowSettings((ofxScene*)this);
+    m_drawArea = ofRectangle(0, 0, windowsSettings.getWidth(), windowsSettings.getHeight());
     
-    m_fbo.allocate(windowsSettings.width, windowsSettings.height);
+    m_fbo.allocate(windowsSettings.getWidth(), windowsSettings.getHeight());
     m_fbo.begin(); ofClear(0); m_fbo.end();
 }
 
@@ -99,7 +99,7 @@ void HandsWritingScene::updateHands()
     ofPushStyle();
         if(m_skipFrames>=numSkipFrames){
             ofSetColor(0,0,0,decrease);
-            ofRect(0,0,m_fbo.getWidth(),m_fbo.getHeight());
+            ofDrawRectangle(0,0,m_fbo.getWidth(),m_fbo.getHeight());
             m_skipFrames = 0;
         }
     //ofSetColor(0,0,0,5);
@@ -109,8 +109,8 @@ void HandsWritingScene::updateHands()
         for (auto hand : hands) {
             
             ofPoint pos = hand;
-            pos.x *= windowsSettings.width;
-            pos.y *= windowsSettings.height;
+            pos.x *= windowsSettings.getWidth();
+            pos.y *= windowsSettings.getHeight();
             m_brush.setPosition(pos);
             //ofSetColor(255,255,255);
             m_brush.draw();

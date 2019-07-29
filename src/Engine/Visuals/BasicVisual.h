@@ -73,6 +73,12 @@ class BasicVisual
 
         //! Set width
         virtual void setHeight(float height) {m_height = height;}
+    
+        //! Sets the value.
+        virtual float getValue() const{ return m_value;}
+    
+        //! Changes the value.
+        virtual void setValue(float value) {m_value = value;}
 
     protected:
 
@@ -82,6 +88,8 @@ class BasicVisual
         ofColor         m_color;        ///< color of the BasicVisual
         ofVec3f         m_scale;        ///< saves the current scale factor
         ofVec3f         m_rotation;     ///< saves the current rotation
+        float           m_value;        ///< saves a float value for any kind of anmation
+
 
     };
 

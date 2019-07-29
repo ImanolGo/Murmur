@@ -434,3 +434,58 @@ void ColorEffect::update()
     m_color = m_startColor.lerp( m_endColor , amount );
     m_visual->setColor(m_color);
 }
+
+
+//==============================================================================
+//===============================  VALUE EFFECT ================================
+//==============================================================================
+
+ValueEffect::ValueEffect(ofPtr<BasicVisual> visual, EasingFunction function, EasingType type): VisualEffect(visual,function,type),
+m_value(0.0), m_start(0.0),m_end(1.0)
+{
+    m_name = "ValueEffect";
+}
+
+
+
+void ValueEffect::setParameters(double start,double end, double animationTime)
+{
+    m_elapsedTime = 0.0;
+    m_start = start;
+    m_end = end;
+    m_animationTime = animationTime;
+}
+
+void ValueEffect::setParameters(double end, double animationTime)
+{
+    this->setParameters(m_visual->getValue(), end, animationTime);
+}
+
+
+void ValueEffect::update()
+{
+    if(!m_isActive){
+        return;
+    }
+    
+    double dt = ofGetLastFrameTime();
+    
+    if(m_elaspedTimeToStart < m_startTime) {
+        m_elaspedTimeToStart += dt;
+        return;
+    }
+    
+    m_elapsedTime = m_elapsedTime + dt;
+    
+    if(m_elapsedTime > m_animationTime) {
+        m_visual->setValue(m_end);
+        this->finish();
+        return;
+    }
+    
+    m_value = this->function(m_elapsedTime,m_start,m_end,m_animationTime);
+    m_visual->setValue(m_value);
+    
+}
+
+

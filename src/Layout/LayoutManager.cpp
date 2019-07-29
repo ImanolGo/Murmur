@@ -39,7 +39,6 @@ void LayoutManager::setup()
 	Manager::setup();
 
     this->createTextVisuals();
-    this->createSvgVisuals();
     this->createImageVisuals();
 
     //this->addVisuals();
@@ -50,11 +49,6 @@ void LayoutManager::setup()
 
 
 void LayoutManager::createTextVisuals()
-{
-    ///To implement in case we have text visuals
-}
-
-void LayoutManager::createSvgVisuals()
 {
     ///To implement in case we have text visuals
 }
@@ -86,9 +80,6 @@ void LayoutManager::draw()
 void LayoutManager::addVisuals()
 {
     int depthLevel = -1;
-    for(SvgMap::iterator it = m_svgVisuals.begin(); it!= m_svgVisuals.end(); ++it){
-        //AppManager::getInstance().getViewManager().addOverlay(it->second,depthLevel);
-    }
     
     for(TextMap::iterator it = m_textVisuals.begin(); it!= m_textVisuals.end(); ++it){
         //AppManager::getInstance().getViewManager().addOverlay(it->second,depthLevel);

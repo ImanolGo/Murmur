@@ -12,7 +12,7 @@
 
 
 
-BeautifulMindScene::BeautifulMindScene(): m_initialized(false)
+BeautifulMindScene::BeautifulMindScene(): ofxScene("BeautifulMindScene"), m_initialized(false)
 {
     //! Intentionally left empty
 }
@@ -44,7 +44,7 @@ void BeautifulMindScene::setup() {
 void BeautifulMindScene::setupFbos()
 {
     auto windowsSettings = AppManager::getInstance().getSceneManager().getWindowSettings(this);
-    m_fboVideo.allocate(windowsSettings.width, windowsSettings.height,GL_RGB);
+    m_fboVideo.allocate(windowsSettings.getWidth(), windowsSettings.getHeight(),GL_RGB);
     m_fboVideo.begin(); ofClear(0, 0, 0);  ; m_fboVideo.end();
     
 }
@@ -57,12 +57,12 @@ void BeautifulMindScene::setupImages()
     ofPoint position = ofPoint(0,0,0);
     
     ofPtr<ImageVisual> image = ofPtr<ImageVisual>(new ImageVisual(position,resourceName));
-     image->setWidth(windowsSettings.width); image->setHeight(windowsSettings.height);
+     image->setWidth(windowsSettings.getWidth()); image->setHeight(windowsSettings.getHeight());
     m_images[resourceName] = image;
     
     resourceName = "calibration_image";
     image = ofPtr<ImageVisual>(new ImageVisual(position,resourceName));
-    image->setHeight(windowsSettings.height); image->setWidth(windowsSettings.width);
+    image->setHeight(windowsSettings.getHeight()); image->setWidth(windowsSettings.getWidth());
     m_images[resourceName] = image;
     
 }
@@ -72,7 +72,7 @@ void BeautifulMindScene::setupShader()
 {
     auto windowsSettings = AppManager::getInstance().getSceneManager().getWindowSettings(this);
     
-    m_mask.setup(windowsSettings.width, windowsSettings.height, ofxMaskAddon::LUMINANCE);
+    m_mask.allocate(windowsSettings.getWidth(), windowsSettings.getHeight(), ofxMask::LUMINANCE);
     this->setupMask();
 }
 
@@ -191,10 +191,10 @@ ofRectangle BeautifulMindScene::getDrawingArea()
     auto rect = AppManager::getInstance().getBeautifulMindManager().getRectangleSpace();
     auto windowsSettings = AppManager::getInstance().getSceneManager().getWindowSettings(this);
     
-    rect.x *= windowsSettings.width;
-    rect.width *= windowsSettings.width;
-    rect.y *= windowsSettings.height;
-    rect.height *= windowsSettings.height;
+    rect.x *= windowsSettings.getWidth();
+    rect.width *= windowsSettings.getWidth();
+    rect.y *= windowsSettings.getHeight();
+    rect.height *= windowsSettings.getHeight();
     
     return rect;
 }

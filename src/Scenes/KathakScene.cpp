@@ -15,7 +15,7 @@
 #include "KathakScene.h"
 
 
-KathakScene::KathakScene():m_initialized(false)
+KathakScene::KathakScene(): ofxScene("KathakScene"), m_initialized(false)
 {
     
 }
@@ -44,12 +44,12 @@ void KathakScene::setup()
 void KathakScene::setupFbos()
 {
     auto windowsSettings = AppManager::getInstance().getSceneManager().getWindowSettings(this);
-    m_fboMask.allocate(windowsSettings.width, windowsSettings.height);
+    m_fboMask.allocate(windowsSettings.getWidth(), windowsSettings.getHeight());
     
-    ImageVisual gradientMask = ImageVisual(ofPoint(windowsSettings.width*0.5, windowsSettings.height*0.5), "floor_mask", true );
-    gradientMask.setHeight(windowsSettings.height, true);
-    if(windowsSettings.height>windowsSettings.width){
-        gradientMask.setHeight(windowsSettings.width,true);
+    ImageVisual gradientMask = ImageVisual(ofPoint(windowsSettings.getWidth()*0.5, windowsSettings.getHeight()*0.5), "floor_mask", true );
+    gradientMask.setHeight(windowsSettings.getHeight(), true);
+    if(windowsSettings.getHeight()>windowsSettings.getWidth()){
+        gradientMask.setHeight(windowsSettings.getWidth(),true);
     }
     
     m_fboMask.begin();
@@ -57,7 +57,7 @@ void KathakScene::setupFbos()
         gradientMask.draw();
     m_fboMask.end();
     
-    m_drawArea = ofRectangle(0, 0, windowsSettings.width, windowsSettings.height);
+    m_drawArea = ofRectangle(0, 0, windowsSettings.getWidth(), windowsSettings.getHeight());
 }
 
 void KathakScene::setupShaders()
@@ -77,7 +77,7 @@ void KathakScene::setupWaterRipples()
     auto windowsSettings = AppManager::getInstance().getSceneManager().getWindowSettings(this);
     
     ofImage waterBackground;
-    waterBackground.allocate(windowsSettings.width, windowsSettings.height, OF_IMAGE_GRAYSCALE);
+    waterBackground.allocate(windowsSettings.getWidth(), windowsSettings.getHeight(), OF_IMAGE_GRAYSCALE);
     m_water.loadBackground(waterBackground);
     m_water.setDensity(0.97);
     
@@ -107,8 +107,8 @@ void KathakScene::updateWaterRipples()
     auto position = AppManager::getInstance().getFloorManager().getPosition();
     auto windowsSettings = AppManager::getInstance().getSceneManager().getWindowSettings(this);
     
-    position.x *= windowsSettings.width;
-    position.y *= windowsSettings.height;
+    position.x *= windowsSettings.getWidth();
+    position.y *= windowsSettings.getHeight();
     
     //ofLogNotice() << "KathakScene::updateWaterDrops: " << volume;
     
@@ -120,8 +120,8 @@ void KathakScene::updateWaterRipples()
         ofSetColor(color);
         //ofSetColor(ofNoise( ofGetFrameNum() ) * 255 * 5, 255);
         //ofSetColor(ofColor::blue);
-        float radius = ofMap(volume, 0.0, 1.0, 70, windowsSettings.height/2.5);
-        ofCircle(position, radius);
+        float radius = ofMap(volume, 0.0, 1.0, 70, windowsSettings.getHeight()/2.5);
+        ofDrawCircle(position, radius);
         //ofCircle(ofGetMouseX(), ofGetMouseY(), radius);
     m_water.end();
     

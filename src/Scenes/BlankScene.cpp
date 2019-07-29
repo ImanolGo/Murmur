@@ -9,6 +9,17 @@
 
 #include "BlankScene.h"
 
+BlankScene::BlankScene(): ofxScene("BlankScene"), m_initialized(false)
+{
+    
+}
+
+BlankScene::~BlankScene()
+{
+    //Intentionally left empty
+}
+
+
 void BlankScene::setup() {
     ofLogNotice("BlankScene::setup");
 }

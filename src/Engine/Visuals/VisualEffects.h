@@ -257,3 +257,45 @@ protected:
 
 };
 
+
+//==============================================================================
+/** \class ValueEffect VisualEffects.h
+ *    \brief Value animation class for visuals.
+ *    \details Provides basic member attributes and methods
+ *             to provide value animations.
+ */
+//==============================================================================
+
+class ValueEffect: public VisualEffect
+{
+public:
+    
+    //! Constructor
+    ValueEffect(ofPtr<BasicVisual> visual, EasingFunction function = LINEAR, EasingType type = EASE_IN);
+    
+    
+    //========================= Fade Interface ================================
+    
+    //! updates the fade visual if active
+    virtual void update();
+    
+    
+    //==============================================================================
+    
+    //! Sets the final alpha value and the duration of the animation
+    virtual void setParameters(double end, double animationTime);
+    
+    //! Sets the starting and final alpha value and the duration of the animation
+    virtual void setParameters(double start,double end, double animationTime);
+    
+    
+protected:
+    
+    float    m_value;        ///< current  value
+    double    m_start;        ///< start  value
+    double    m_end;         ///< end  value
+    
+    
+};
+
+

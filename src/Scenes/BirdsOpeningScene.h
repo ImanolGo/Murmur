@@ -15,6 +15,12 @@ class BirdsOpeningScene : public ofxScene {
 
 public:
 
+    //Contructor
+    BirdsOpeningScene();
+    
+    //Destructor
+    ~BirdsOpeningScene();
+    
     //! Set up the scene
     void setup();
 
@@ -47,6 +53,7 @@ private:
     float m_swarmSize;
     
      BasicVisual         m_visual;   ///< Visual representing position and size of the swarm. Used for animations
+    bool    m_initialized;
 
 };
 

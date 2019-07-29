@@ -10,6 +10,17 @@
 
 #include "BirdsOpeningScene.h"
 
+BirdsOpeningScene::BirdsOpeningScene(): ofxScene("BirdsOpeningScene"), m_initialized(false)
+{
+    
+}
+
+BirdsOpeningScene::~BirdsOpeningScene()
+{
+    //Intentionally left empty
+}
+
+
 void BirdsOpeningScene::setup() {
     ofLogNotice("BirdsOpeningScene::setup");
     

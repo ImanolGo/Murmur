@@ -8,6 +8,7 @@
 
 #include "FluidVisual.h"
 #include "HandsManager.h"
+#include "WindowSettingsManager.h"
 
 const int HandsManager::HANDS_CIRCLE_RADIUS = 20;
 
@@ -42,23 +43,25 @@ void HandsManager::update()
 
 void HandsManager::draw()
 {
+    auto windowsSettings = WindowSettingsManager::getInstance().getWindowsSettings(1);
+    
     ofPushMatrix();
     ofPushStyle();
    
     ofSetColor(ofColor::white);
     
         ofNoFill();
-        ofRect(m_handsRectangleSpace.position.x*ofGetWidth(), m_handsRectangleSpace.position.y*ofGetHeight(), m_handsRectangleSpace.width*ofGetWidth(), m_handsRectangleSpace.height*ofGetHeight() );
+        ofDrawRectangle(m_handsRectangleSpace.position.x*windowsSettings.getWidth(), m_handsRectangleSpace.position.y*windowsSettings.getHeight(), m_handsRectangleSpace.width*windowsSettings.getWidth(), m_handsRectangleSpace.height*windowsSettings.getHeight() );
     
         for (auto hand: m_hands){
             
             auto transformedHand = hand;
-            transformedHand.x *= ofGetWidth();
-            transformedHand.y *= ofGetHeight();
+            transformedHand.x *= windowsSettings.getWidth();
+            transformedHand.y *= windowsSettings.getHeight();
             
             
-            ofCircle(transformedHand, HANDS_CIRCLE_RADIUS);
-            ofCircle(transformedHand, HANDS_CIRCLE_RADIUS/10);
+            ofDrawCircle(transformedHand, HANDS_CIRCLE_RADIUS);
+            ofDrawCircle(transformedHand, HANDS_CIRCLE_RADIUS/10);
             //ofLogNotice() <<"HandsManager::readHands << x:  " << hand.x << ", y: " << hand.y;
             
         }

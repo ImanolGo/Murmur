@@ -1,24 +1,34 @@
 #include "ofMain.h"
-#include "ofxMultiGLFWWindow.h"
-#include "ofGLProgrammableRenderer.cpp"
+#include "WindowSettingsManager.h"
 #include "MurmurRendererApp.h"
 
 
 //========================================================================
 int main( ){
     
-    //ofSetCurrentRenderer(ofGLProgrammableRenderer::TYPE);
     
-    ofxMultiGLFWWindow glfw;
-    //glfw.hideBorder();
-    glfw.setOpenGLVersion(2,1); // must be set
-    //glfw.setStencilBits(8);
+    WindowSettingsManager::WindowSettingsVector windowSettings = WindowSettingsManager::getInstance().getWindowsSettings();
     
-    glfw.windowCount = 1;
     
-    //glfw.setMultiDisplayFullscreen(true);
-    ofSetupOpenGL(&glfw,1920,1200,OF_WINDOW);
+    shared_ptr<ofAppBaseWindow> mainWindow = ofCreateWindow(windowSettings[0]);
     
-    ofRunApp(new MurmurRendererApp());
+    windowSettings[1].shareContextWith = mainWindow;
+    shared_ptr<ofAppBaseWindow> secondWindow = ofCreateWindow(windowSettings[1]);
+    
+    windowSettings[2].shareContextWith = mainWindow;
+    shared_ptr<ofAppBaseWindow> thirdWindow = ofCreateWindow(windowSettings[2]);
+    
+    //secondWindow->setVerticalSync(false);
+    
+    shared_ptr<MurmurRendererApp> mainApp(new MurmurRendererApp);
+    ofAddListener(secondWindow->events().draw,mainApp.get(),&MurmurRendererApp::drawScreen2);
+   // ofAddListener(secondWindow->events().keyPressed,mainApp.get(),&MurmurRendererApp::keyPressed2);
+    
+    ofAddListener(secondWindow->events().draw,mainApp.get(),&MurmurRendererApp::drawScreen3);
+    //ofAddListener(secondWindow->events().keyPressed,mainApp.get(),&MurmurRendererApp::keyPressed3);
+    
+    ofRunApp(mainWindow, mainApp);
+    mainWindow->setWindowShape(windowSettings[0].getWidth(), windowSettings[0].getHeight());
+    ofRunMainLoop();
     
 }

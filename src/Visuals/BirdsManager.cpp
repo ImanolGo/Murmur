@@ -9,6 +9,7 @@
 
 #include "AppManager.h"
 #include "BirdsManager.h"
+#include "WindowSettingsManager.h"
 
 
 BirdsManager::BirdsManager()
@@ -39,9 +40,9 @@ void BirdsManager::setup()
 void BirdsManager::setupSyphon()
 {
     int windowIndex = 1;
-    auto windowsSettings = AppManager::getInstance().getSettingsManager().getWindowsSettings(windowIndex);
+    auto windowsSettings = WindowSettingsManager::getInstance().getWindowsSettings(windowIndex);
     
-    m_syphonVisual.setWidth(windowsSettings.width); m_syphonVisual.setHeight(windowsSettings.height);
+    m_syphonVisual.setWidth(windowsSettings.getWidth()); m_syphonVisual.setHeight(windowsSettings.getHeight());
     
     //m_syphonVisual.setup("","Simple Server");
     //m_syphonVisual.setup("Main Camera","Unity");

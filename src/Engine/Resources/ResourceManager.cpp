@@ -40,7 +40,6 @@ void ResourceManager::setup()
 void ResourceManager::loadResources()
 {
     this->loadTextures();
-    this->loadSVGs();
 }
 
 void ResourceManager::loadTextures()
@@ -66,22 +65,20 @@ void ResourceManager::loadTextures()
     }
 }
 
-void ResourceManager::loadSVGs()
+void ResourceManager::loadTexture(const string& name, const string& path)
 {
-    ResourcesPathMap svgPathMap = AppManager::getInstance().getSettingsManager().getSvgResourcesPath();
-
-    for(ResourcesPathMap::iterator it = svgPathMap.begin(); it!= svgPathMap.end(); it++)
-    {
-        string svgName = it->first;
-        string svgPath = it->second;
-
-        ofPtr<ofxSVG> svg = ofPtr<ofxSVG>(new ofxSVG);
-        svg->load(svgPath);
-        m_SVGs[svgName] = svg;
-        ofLogNotice() <<"ResourceManager::loadSVGs-> allocated svg " << svgName ;
+    ofPtr<ofTexture> texture = ofPtr<ofTexture>(new ofTexture());
+    
+    if(ofLoadImage(*texture,path)){
+        m_textures[name] = texture;
+        ofLogNotice() <<"ResourceManager::loadTextures-> allocated texture " << name ;
+        
+    }
+    else{
+        ofLogNotice() <<"ResourceManager::loadTextures-> unable to load texture " << name
+        << " from path " << path ;
     }
 }
-
 
 ofPtr<ofTexture> ResourceManager::getTexture(const string& name) const
 {
@@ -108,28 +105,22 @@ bool ResourceManager::containsTexture(const string& name) const
 	return true;
 }
 
-
-ofPtr<ofxSVG> ResourceManager::getSVG(const string& name)
+bool ResourceManager::addTexture(string name, string path)
 {
-    if(this->containsSvg(name)) {
-		return m_SVGs.at(name);
-	}
-
-    ofPtr<ofxSVG> svg = ofPtr<ofxSVG> (new ofxSVG);
-	return svg;
+    ofPtr<ofTexture> texture = ofPtr<ofTexture>(new ofTexture());
+    
+    if(ofLoadImage(*texture,path)){
+        m_textures[name] = texture;
+        ofLogNotice() <<"ResourceManager::loadTextures-> allocated texture " << name ;
+        return true;
+        
+    }
+    else{
+        ofLogNotice() <<"ResourceManager::loadTextures-> unable to load texture " << name
+        << " from path " << path ;
+        return false;
+    }
 }
-
-bool ResourceManager::containsSvg(const string& name) const
-{
-	if(m_SVGs.find(name) == m_SVGs.end()) {
-        ofLogNotice() <<"ResourceManager::containsSvg-> no resource with name " << name ;
-		return false; // no entries for the specified name
-	}
-
-	return true;
-}
-
-
 
 
 

@@ -12,7 +12,7 @@
 #include "ofMain.h"
 #include "BasicVisual.h"
 #include "ImageVisual.h"
-#include "SettingsManager.h"
+
 
 
 //========================== class SonicBoomParticle ==============================
@@ -106,8 +106,6 @@ private:
      
      typedef vector< ofPtr<SonicBoomParticle> > ParticlesVector;
      ParticlesVector  m_particles;
-     
-     WindowSettings         m_windowsSettings;
      
      ofFbo                  m_fbo;
      

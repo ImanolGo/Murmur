@@ -13,7 +13,7 @@
 #include "BattleOfSelfScene.h"
 
 
-BattleOfSelfScene::BattleOfSelfScene():m_initialized(false)
+BattleOfSelfScene::BattleOfSelfScene(): ofxScene("BattleOfSelfScene"), m_initialized(false)
 {
     
 }
@@ -30,9 +30,7 @@ void BattleOfSelfScene::setup()
     }
     
     this->setupFbos();
-    this->setupPostProcessing();
-    
-    //this->setupShaders();
+    this->setupShaders();
     
     m_sonicBoomVisual.setup();
     
@@ -45,11 +43,11 @@ void BattleOfSelfScene::setup()
 
 void BattleOfSelfScene::setupFbos()
 {
-    auto windowsSettings = AppManager::getInstance().getSceneManager().getWindowSettings(this);
+    auto windowsSettings = AppManager::getInstance().getSceneManager().getWindowSettings((ofxScene *) this);
     
-    m_drawArea = ofRectangle(0, 0, windowsSettings.width, windowsSettings.height);
+    m_drawArea = ofRectangle(0, 0, windowsSettings.getWidth(), windowsSettings.getHeight());
     
-    m_fbo.allocate(windowsSettings.width, windowsSettings.height);
+    m_fbo.allocate(windowsSettings.getWidth(), windowsSettings.getHeight());
     m_fbo.begin(); ofClear(0); m_fbo.end();
     
 }
@@ -66,30 +64,6 @@ void BattleOfSelfScene::setupShaders()
         m_shader.load("shaders/shadersGL2/LiquifyShader");
         
     }
-}
-
-void BattleOfSelfScene::setupPostProcessing()
-{
-    auto windowsSettings = AppManager::getInstance().getSceneManager().getWindowSettings(this);
-    
-    // Setup post-processing chain
-    m_postProcessing.init(windowsSettings.width, windowsSettings.height);
-    m_postProcessing.createPass<FxaaPass>()->setEnabled(true);
-    //m_postProcessing.createPass<BloomPass>()->setEnabled(true);
-    
-    //ofPtr<ZoomBlurPass> zoomBlurPass =  m_postProcessing.createPass<ZoomBlurPass>();
-    //zoomBlurPass->setDensity(0.5);
-    //zoomBlurPass->setEnabled(true);
-    
-    ofPtr<NoiseWarpPass> noisePass =  m_postProcessing.createPass<NoiseWarpPass>();
-    noisePass->setAmplitude(0.01);
-    noisePass->setSpeed(0.3);
-    noisePass->setFrequency(5);
-    noisePass->setEnabled(true);
-    
-    
-    //m_postProcessing.createPass<ZoomBlurPass>()->setEnabled(true);
-    //m_postProcessing.createPass<NoiseWarpPass>()->setEnabled(true);
 }
 
 void BattleOfSelfScene::update()
@@ -139,17 +113,15 @@ void BattleOfSelfScene::drawSonicBoom()
         return;
     }
     
-    m_postProcessing.begin();
-    //ofPushStyle();
-    ofPushMatrix();
-        ofScale(1, -1);
-        ofTranslate(0, -m_fbo.getHeight());
-        m_sonicBoomVisual.draw();
     
-    ofPopMatrix();
-    m_postProcessing.end();
-    //ofPopStyle();
-    //ofDisableAlphaBlending();
+    m_shader.begin();
+    m_shader.setUniform1f("time", ofGetElapsedTimef());
+    m_shader.setUniform1f("frequency", 5);
+    m_shader.setUniform1f("amplitude", 0.01);
+    m_shader.setUniform1f("speed", 0.3);
+        m_sonicBoomVisual.draw();
+    m_shader.end();
+
 }
 
 void BattleOfSelfScene::drawFluid()
@@ -169,7 +141,7 @@ void BattleOfSelfScene::drawFluid()
     //ofClear(0, 0, 0);
     
     ofSetColor(0,0,0,80);
-    ofRect(0,0,m_fbo.getWidth(),m_fbo.getHeight());
+    ofDrawRectangle(0,0,m_fbo.getWidth(),m_fbo.getHeight());
     
     ofEnableBlendMode(OF_BLENDMODE_ADD);
     ofSetColor(160,160,255);

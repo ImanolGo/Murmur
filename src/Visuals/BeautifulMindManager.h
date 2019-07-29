@@ -82,8 +82,7 @@ private:
     ofVec2f             m_handsOffset;
     ofVec2f             m_handsScale;
     ofRectangle         m_rectangleSpace;
-    TimingMap           m_timings;              ///< stores the timings
-     
+    
     bool                m_floorOn;
     bool                m_calibrationOn;
     float               m_floorSpeed;

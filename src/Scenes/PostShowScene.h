@@ -17,6 +17,12 @@ class PostShowScene : public ofxScene {
 
 public:
 
+    //Contructor
+    PostShowScene();
+    
+    //Destructor
+    ~PostShowScene();
+    
     //! Set up the scene
     void setup();
 
@@ -50,6 +56,7 @@ private:
 private:
     
     ImageVisual     m_image;
+    bool            m_initialized;
 
 };
 

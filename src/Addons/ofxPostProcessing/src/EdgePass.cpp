@@ -30,6 +30,7 @@
  *
  */
 #include "EdgePass.h"
+#include <sstream>
 
 namespace itg
 {

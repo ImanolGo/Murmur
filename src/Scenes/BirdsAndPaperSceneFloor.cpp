@@ -14,7 +14,7 @@
 #include "BirdsAndPaperSceneFloor.h"
 
 
-BirdsAndPaperSceneFloor::BirdsAndPaperSceneFloor():m_initialized(false)
+BirdsAndPaperSceneFloor::BirdsAndPaperSceneFloor(): ofxScene("BirdsAndPaperSceneFloor"), m_initialized(false)
 {
     
 }
@@ -43,14 +43,14 @@ void BirdsAndPaperSceneFloor::setup()
 
 void BirdsAndPaperSceneFloor::setupFbos()
 {
-    auto windowsSettings = AppManager::getInstance().getSceneManager().getWindowSettings(this);
-    m_fboMask.allocate(windowsSettings.width, windowsSettings.height);
-    m_fboFluid.allocate(windowsSettings.width, windowsSettings.height);
+    auto windowsSettings = AppManager::getInstance().getSceneManager().getWindowSettings((ofxScene *)this);
+    m_fboMask.allocate(windowsSettings.getWidth(), windowsSettings.getHeight());
+    m_fboFluid.allocate(windowsSettings.getWidth(), windowsSettings.getHeight());
     
-    ImageVisual gradientMask = ImageVisual(ofPoint(windowsSettings.width*0.5, windowsSettings.height*0.5), "floor_mask", true );
-    gradientMask.setHeight(windowsSettings.height,true);
-    if(windowsSettings.height>windowsSettings.width){
-        gradientMask.setHeight(windowsSettings.width,true);
+    ImageVisual gradientMask = ImageVisual(ofPoint(windowsSettings.getWidth()*0.5, windowsSettings.getHeight()*0.5), "floor_mask", true );
+    gradientMask.setHeight(windowsSettings.getHeight(),true);
+    if(windowsSettings.getHeight()>windowsSettings.getWidth()){
+        gradientMask.setHeight(windowsSettings.getWidth(),true);
     }
     
     ofLogNotice()<<"BirdsAndPaperSceneFloor::mask width = " << gradientMask.getWidth() << ", height = " << gradientMask.getHeight() ;
@@ -65,7 +65,7 @@ void BirdsAndPaperSceneFloor::setupFbos()
         ofClear(0);
     m_fboFluid.end();
     
-    m_drawArea = ofRectangle(0,0, windowsSettings.width, windowsSettings.height);
+    m_drawArea = ofRectangle(0,0, windowsSettings.getWidth(), windowsSettings.getHeight());
 }
 
 void BirdsAndPaperSceneFloor::setupShaders()

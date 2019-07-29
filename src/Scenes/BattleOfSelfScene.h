@@ -11,7 +11,6 @@
 
 #include "FluidVisual.h"
 #include "ofxScene.h"
-#include "ofxPostProcessing.h"
 #include "SonicBoomVisual.h"
 #include "ofxWater.h"
 
@@ -52,8 +51,6 @@ private:
     
     void setupShaders();
     
-    void setupPostProcessing();
-    
     void setupSonicBoom();
     
     void drawFluid();
@@ -72,7 +69,6 @@ private:
     ofShader                m_shader;
     FluidVisual             m_fluid;
     ofFbo                   m_fbo;
-    ofxPostProcessing       m_postProcessing;
     SonicBoomVisual         m_sonicBoomVisual;
         
     ofRectangle             m_drawArea;

@@ -25,6 +25,14 @@ void MurmurRendererApp::draw(){
     AppManager::getInstance().draw();
 }
 
+void MurmurRendererApp::drawScreen2(ofEventArgs & args){
+    AppManager::getInstance().draw2();
+}
+
+void MurmurRendererApp::drawScreen3(ofEventArgs & args){
+    AppManager::getInstance().draw3();
+}
+
 void MurmurRendererApp::exit()
 {
     ofLogNotice() <<"MurmurRenderer::Exit";

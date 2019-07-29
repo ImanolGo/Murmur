@@ -7,7 +7,7 @@
  */
 
 #include "SonicBoomVisual.h"
-
+#include "WindowSettingsManager.h"
 #include "AppManager.h"
 
 
@@ -88,9 +88,9 @@ SonicBoomVisual::~SonicBoomVisual()
 
 void SonicBoomVisual::setup()
 {
-    m_windowsSettings = AppManager::getInstance().getSettingsManager().getWindowsSettings(1);
+    auto windowsSettings = WindowSettingsManager::getInstance().getWindowsSettings(1);
     
-    m_fbo.allocate(m_windowsSettings.width, m_windowsSettings.height);
+    m_fbo.allocate(windowsSettings.getWidth(), windowsSettings.getHeight());
     m_fbo.begin(); ofClear(0); m_fbo.end();
 }
 
@@ -104,11 +104,12 @@ void SonicBoomVisual::update()
 void SonicBoomVisual::updateParticles()
 {
     auto hands = AppManager::getInstance().getHandsManager().getHands();
+    auto windowsSettings = WindowSettingsManager::getInstance().getWindowsSettings(1);
     
     for (auto hand : hands) {
         ofPoint pos = hand;
-        pos.x *= m_windowsSettings.width;
-        pos.y *= m_windowsSettings.height;
+        pos.x *= windowsSettings.getWidth();
+        pos.y *= windowsSettings.getHeight();
         this->addParticle(pos);
     }
     

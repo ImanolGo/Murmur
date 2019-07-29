@@ -48,7 +48,7 @@ namespace flowTools {
 	public:
 		ftShader() {
 			
-			if(ofGetGLProgrammableRenderer())
+			if(ofIsGLProgrammableRenderer())
 				isProgrammableRenderer = true;
 			else
 				isProgrammableRenderer = false;

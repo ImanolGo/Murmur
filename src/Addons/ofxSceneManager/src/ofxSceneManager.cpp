@@ -39,6 +39,37 @@ void ofxSceneManager::run() {
     ofAddListener(ofEvents().messageEvent, this, &ofxSceneManager::_gotMessage);
 }
 
+void ofxSceneManager::run(int width, int height) {
+    
+    _fbo.allocate(width, height, GL_RGBA);
+    _nextFbo.allocate(width, height, GL_RGBA);
+    
+    _fbo.begin();
+    ofClear(255, 255, 255, 0);
+    _fbo.end();
+    
+    _nextFbo.begin();
+    ofClear(255, 255, 255, 0);
+    _nextFbo.end();
+    
+    ofPtr<ofxScene> previousScene;
+    previousScene = _currentScene;
+    _currentScene = scenes.at(_sceneIndex);
+    _currentScene->setupScene(previousScene);
+    
+    // Events
+    ofAddListener(ofEvents().keyPressed, this, &ofxSceneManager::_keyPressed);
+    ofAddListener(ofEvents().keyReleased, this, &ofxSceneManager::_keyReleased);
+    ofAddListener(ofEvents().mouseMoved, this, &ofxSceneManager::_mouseMoved);
+    ofAddListener(ofEvents().mouseDragged, this, &ofxSceneManager::_mouseDragged);
+    ofAddListener(ofEvents().mousePressed, this, &ofxSceneManager::_mousePressed);
+    ofAddListener(ofEvents().mouseReleased, this, &ofxSceneManager::_mouseReleased);
+    ofAddListener(ofEvents().windowResized, this, &ofxSceneManager::_windowResized);
+    ofAddListener(ofEvents().fileDragEvent, this, &ofxSceneManager::_dragEvent);
+    ofAddListener(ofEvents().messageEvent, this, &ofxSceneManager::_gotMessage);
+}
+
+
 void ofxSceneManager::update() {
     if (transition == TRANSITION_DISSOLVE && _isInTransition) {
         _nextScene->updateScene();
@@ -68,6 +99,8 @@ void ofxSceneManager::draw() {
         _nextFbo.draw(0, 0);
         ofPopStyle();
     }
+    
+    currentAlpha = _currentScene->getSceneAlpha();
 }
 
 void ofxSceneManager::changeScene() {
@@ -82,6 +115,16 @@ void ofxSceneManager::changeScene(int sceneIndex) {
     _currentScene->exitScene();
 }
 
+void ofxSceneManager::changeScene(std::string sceneName) {
+    for( int i = 0; i < scenes.size(); i++){
+        if(scenes[i]->getName() == sceneName){
+            changeScene(i);
+            break;
+        }
+    }
+}
+
+
 void ofxSceneManager::addScene(ofPtr<ofxScene> pScene) {
     ofAddListener(pScene->startFadingInEvent, this, &ofxSceneManager::_onStartFadingIn);
     ofAddListener(pScene->startDrawingEvent, this, &ofxSceneManager::_onStartDrawing);
@@ -90,6 +133,28 @@ void ofxSceneManager::addScene(ofPtr<ofxScene> pScene) {
     ofAddListener(pScene->finishSceneEvent, this, &ofxSceneManager::_onFinishScene);
     scenes.push_back(pScene);
 }
+
+
+
+void ofxSceneManager::removeScene(ofPtr<ofxScene> pScene) {
+   
+   
+    for(vector<ofPtr<ofxScene> >::iterator it = scenes.begin(); it != scenes.end();)
+    {
+        if(*it == pScene) {
+            ofRemoveListener(pScene->startFadingInEvent, this, &ofxSceneManager::_onStartFadingIn);
+            ofRemoveListener(pScene->startDrawingEvent, this, &ofxSceneManager::_onStartDrawing);
+            ofRemoveListener(pScene->finishedDrawingEvent, this, &ofxSceneManager::_onFinishedDrawing);
+            ofRemoveListener(pScene->startFadingOutEvent, this, &ofxSceneManager::_onStartFadingOut);
+            ofRemoveListener(pScene->finishSceneEvent, this, &ofxSceneManager::_onFinishScene);
+            it = scenes.erase(it);
+        }
+        else{
+            ++it;
+        }
+    }
+}
+
 
 void ofxSceneManager::setExitByTime(bool b) {
     for (int i=0; i<scenes.size(); i++) {

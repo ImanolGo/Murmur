@@ -9,12 +9,16 @@
 #pragma once
 
 #include "ofMain.h"
-#include "ofxTween.h"
+//#include "ofxTween.h"
+#include "ofxEasing.h"
 
 class ofxScene {
 public:
 
 #pragma mark - Basics
+    
+    ofxScene(std::string name):_name(name) {}
+    
     void setupScene(ofPtr<ofxScene> previousScene) {
         setup();
         if (!_isSetupOverridden) {
@@ -26,7 +30,7 @@ public:
     }
     
     void updateScene() {
-        _alphaTween.update();
+        //_alphaTween.update();
         
         if (finishedFadeIn()) {
             startDrawing();
@@ -48,6 +52,10 @@ public:
         // Call this function to exit scene.
         startFadingOut();
     }
+    
+    /// get/set the scenes name
+    inline void setName(std::string name)   {_name = name;}
+    inline std::string getName()            {return _name;}
     
 #pragma mark - Status
     bool isFadingIn() {
@@ -96,7 +104,12 @@ public:
     }
     
     float getSceneAlpha() {
-        return _alphaTween.getTarget(0);
+        auto duration = 1.f;
+        auto endTime = _initAlphaTime + _fadeInSec;
+        auto now = ofGetElapsedTimef();
+        
+        return ofxeasing::map_clamp(now, _initAlphaTime, endTime, 255-_targetAlphaValue, _targetAlphaValue, &ofxeasing::linear::easeIn);
+        //return _alphaTween.getTarget(0);
     }
     
 #pragma mark - Events
@@ -118,6 +131,9 @@ public:
     ofEvent<bool> finishSceneEvent;
 
 private:
+    
+    std::string _name; ///< the name of this scene
+    
     bool _bExitByTime = false;
     enum {FADINGIN, DRAWING, FADINGOUT, FINISHED} _status = FINISHED;
     
@@ -126,8 +142,10 @@ private:
     float _fadeOutSec = 0.3;
     float _statusEndTime = 0;
     
-    ofxTween _alphaTween;
-    ofxEasingLinear _easing;
+   // ofxTween _alphaTween;
+    float _initAlphaTime;
+    float _targetAlphaValue;
+    //ofxEasingLinear _easing;
     
     bool _isSetupOverridden = true;  // a bit hacky...
     
@@ -149,7 +167,9 @@ private:
         }
         _status = FADINGIN;
         _statusEndTime = _fadeInSec + ofGetElapsedTimef();
-        _alphaTween.setParameters(_easing, ofxTween::easeOut, 0, 255, _fadeInSec*1000, 0);
+        //_alphaTween.setParameters(_easing, ofxTween::easeOut, 0, 255, _fadeInSec*1000, 0);
+        _initAlphaTime = ofGetElapsedTimef();
+        _targetAlphaValue = 255;
         willFadeIn();
         
         bool b = true;
@@ -176,7 +196,10 @@ private:
         }
         _status = FADINGOUT;
         _statusEndTime = _fadeOutSec + ofGetElapsedTimef();
-        _alphaTween.setParameters(_easing, ofxTween::easeOut, 255, 0, _fadeOutSec*1000, 0);  
+        //_alphaTween.setParameters(_easing, ofxTween::easeOut, 255, 0, _fadeOutSec*1000, 0);
+        _initAlphaTime = ofGetElapsedTimef();
+        _targetAlphaValue = 0;
+        
         willFadeOut();
         
         bool b = true;        

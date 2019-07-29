@@ -41,7 +41,7 @@ public:
     void update();
     
     //! Get the windows settings of a specific scene
-    WindowSettings getWindowSettings(ofxScene* scene);
+    ofGLFWWindowSettings getWindowSettings(ofxScene* scene);
     
     //! Draw a specific Scene Manager
     void draw(WindowIndex w);

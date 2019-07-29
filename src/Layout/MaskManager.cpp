@@ -10,6 +10,7 @@
 
 #include "AppManager.h"
 #include "MaskManager.h"
+#include "WindowSettingsManager.h"
 
 
 
@@ -41,15 +42,14 @@ void MaskManager::setup()
 void MaskManager::setupMasks()
 {
     
-    
-    WindowSettingsVector windowSettingsVector = AppManager::getInstance().getSettingsManager().getWindowsSettings();
+    auto windowSettingsVector = WindowSettingsManager::getInstance().getWindowsSettings();
     
     for(auto windowSettings : windowSettingsVector)
     {
-        ofPtr<ofxMaskAddon> mask =  ofPtr<ofxMaskAddon>(new ofxMaskAddon());
-        mask->setup(windowSettings.width, windowSettings.height, ofxMaskAddon::LUMINANCE);
+        ofPtr<ofxMask> mask =  ofPtr<ofxMask>(new ofxMask());
+        mask->allocate(windowSettings.getWidth(), windowSettings.getHeight(), ofxMask::LUMINANCE);
     
-        ofLogNotice() <<"MaskManager::setupMasks -> width =  " << windowSettings.width << ", height =  " << windowSettings.height;
+        ofLogNotice() <<"MaskManager::setupMasks -> width =  " << windowSettings.getWidth() << ", height =  " << windowSettings.getHeight();
         m_masks.push_back(mask);
     }
     

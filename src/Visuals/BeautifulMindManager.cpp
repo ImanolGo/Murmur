@@ -28,25 +28,9 @@ void BeautifulMindManager::setup()
     ofLogNotice() <<"BeautifulMindManager::initialized" ;
     
     this->setupRectangleSpace();
-    this->setupTiming();
     
 }
 
-
-void BeautifulMindManager::setupTiming()
-{
-    m_timings = AppManager::getInstance().getSettingsManager().getTimings();
-}
-
-
-float BeautifulMindManager::getTiming(int id) const
-{
-    if(m_timings.find(id) != m_timings.end() ){
-        return m_timings.at(id);
-    }
-    
-    return 0.0f;
-}
 
 void BeautifulMindManager::draw()
 {
@@ -56,7 +40,7 @@ void BeautifulMindManager::draw()
     ofSetColor(ofColor::white);
     
         ofNoFill();
-        ofRect(m_rectangleSpace.position.x*ofGetWidth(), m_rectangleSpace.position.y*ofGetHeight(), m_rectangleSpace.width*ofGetWidth(), m_rectangleSpace.height*ofGetHeight() );
+        ofDrawRectangle(m_rectangleSpace.position.x*ofGetWidth(), m_rectangleSpace.position.y*ofGetHeight(), m_rectangleSpace.width*ofGetWidth(), m_rectangleSpace.height*ofGetHeight() );
     
     ofPopStyle();
     ofPopMatrix();

@@ -13,7 +13,7 @@
 
 
 
-BeautifulMindSceneFloor::BeautifulMindSceneFloor(): m_initialized(false)
+BeautifulMindSceneFloor::BeautifulMindSceneFloor(): ofxScene("BeautifulMindSceneFloor"), m_initialized(false)
 {
     //! Intentionally left empty
 }
@@ -46,11 +46,11 @@ void BeautifulMindSceneFloor::setupVideo()
     
     string videoFileName = "videos/alpha rays.mov";
     m_video.setResource(videoFileName);
-    m_video.setHeight(windowsSettings.height,true);
+    m_video.setHeight(windowsSettings.getHeight(),true);
     m_video.setCentred(true);
     
-    float x = windowsSettings.width*0.5;
-    float y = windowsSettings.height*0.5;
+    float x = windowsSettings.getWidth()*0.5;
+    float y = windowsSettings.getHeight()*0.5;
     m_video.setPosition(ofPoint(x,y));
     m_video.setLoopState(OF_LOOP_NONE);
 }

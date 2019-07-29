@@ -25,13 +25,17 @@ public:
     
     void run();
     
+    void run(int width, int height);
+    
     void update();
     void draw();
 
     void changeScene();
     void changeScene(int sceneIndex);
+    void changeScene(std::string sceneName);
 
     void addScene(ofPtr<ofxScene> pScene);
+    void removeScene(ofPtr<ofxScene> pScene);
 
     void setExitByTime(bool b);
     void setSceneDuration(float fadeInSec, float fadeOutSec);
@@ -40,6 +44,8 @@ public:
     void setTransitionDissolve();
     
     void setAlpha(float _alpha){alpha = _alpha;}
+    
+    float getCurrentAlpha(){return currentAlpha;}
 
     vector<ofPtr<ofxScene> > scenes;
 
@@ -73,6 +79,7 @@ public:
     void _gotMessage(ofMessage & msg);
     
     float alpha;
+    float currentAlpha;
 };
 
 #endif /* defined(__KokiNomura__ofxSceneManager__) */

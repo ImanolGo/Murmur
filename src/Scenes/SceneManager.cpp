@@ -23,6 +23,7 @@
 #include "BirdsOpeningScene.h"
 #include "PostShowScene.h"
 #include "SonicBoomScene.h"
+#include "WindowSettingsManager.h"
 
 #include "AppManager.h"
 
@@ -69,6 +70,9 @@ void SceneManager::createScenes()
 {
     this->createFrontScenes();
     this->createTopScenes();
+    
+    m_sceneManagers[WindowIndex(FRONT)]->run();
+    m_sceneManagers[WindowIndex(TOP)]->run();
 }
 
 void SceneManager::createFrontScenes()
@@ -156,20 +160,20 @@ bool SceneManager::addSceneToSceneManager(ofPtr<Scene> scene, WindowIndex w)
 
 void SceneManager::setupText()
 {
-    auto windowSettings = AppManager::getInstance().getSettingsManager().getWindowsSettings(0);
+    auto windowSettings = WindowSettingsManager::getInstance().getWindowsSettings(0);
     
     ofVec3f position;
     
-    float width =  (windowSettings.width - 4*LayoutManager::MARGIN - GuiManager::GUI_WIDTH)*0.5 - LayoutManager::MARGIN;
+    float width =  (windowSettings.getWidth() - 4*LayoutManager::MARGIN - GuiManager::GUI_WIDTH)*0.5 - LayoutManager::MARGIN;
     int fontSize = 12;
     float height = fontSize*3;
     
     
     string text = "SCENE";
-    float width_offset = (windowSettings.width - 4*LayoutManager::MARGIN - GuiManager::GUI_WIDTH)*0.5;
+    float width_offset = (windowSettings.getWidth() - 4*LayoutManager::MARGIN - GuiManager::GUI_WIDTH)*0.5;
     
     position.x = GuiManager::GUI_WIDTH + 2.5*LayoutManager::MARGIN + LayoutManager::MARGIN  + width_offset;
-    position.y = LayoutManager::MARGIN + windowSettings.height*0.5;
+    position.y = LayoutManager::MARGIN + windowSettings.getHeight()*0.5;
     
     ofPtr<TextVisual> textVisual = ofPtr<TextVisual>(new TextVisual(position, width, height));
     textVisual->setText(text, "fonts/open-sans/OpenSans-Semibold.ttf", fontSize);
@@ -189,7 +193,7 @@ void SceneManager::setupText()
     
     
     fontSize = 36;
-    width =  (windowSettings.width - 4*LayoutManager::MARGIN - GuiManager::GUI_WIDTH)*0.5 - LayoutManager::MARGIN;
+    width =  (windowSettings.getWidth() - 4*LayoutManager::MARGIN - GuiManager::GUI_WIDTH)*0.5 - LayoutManager::MARGIN;
     height = fontSize*3;
     
     position.x = GuiManager::GUI_WIDTH + 2.5*LayoutManager::MARGIN + LayoutManager::MARGIN  + width_offset;
@@ -330,13 +334,15 @@ void SceneManager::onTransitionTimeChange(float & value){
     }
 }
 
-WindowSettings SceneManager::getWindowSettings(ofxScene* scene)
+ofGLFWWindowSettings SceneManager::getWindowSettings(ofxScene* scene)
 {
     for(auto scene_ : m_scenes) {
         if(scene_->scene.get() == scene){
-            return AppManager::getInstance().getSettingsManager().getWindowsSettings((int) scene_->window_index);
+            return WindowSettingsManager::getInstance().getWindowsSettings((int) scene_->window_index);
         }
     }
+    
+    return WindowSettingsManager::getInstance().getWindowsSettings(0);
     
 }
 

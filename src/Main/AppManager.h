@@ -11,8 +11,6 @@
 #include "ofMain.h"
 
 #include "Manager.h"
-#include "ofxMultiGLFWWindow.h"
-
 #include "SettingsManager.h"
 #include "LayoutManager.h"
 #include "GuiManager.h"
@@ -29,7 +27,6 @@
 #include "BeautifulMindManager.h"
 #include "AudioManager.h"
 #include "BirdsManager.h"
-#include "MidiManager.h"
 #include "PreviewManager.h"
 #include "MaskManager.h"
 
@@ -58,6 +55,12 @@ public:
 
     //! calls the view manager to draw
     void draw();
+    
+    //! calls the view manager to draw 2
+    void draw2();
+    
+    //! calls the view manager to draw 3
+    void draw3();
 
     //==========================================================================
 
@@ -109,9 +112,6 @@ public:
     //! Returns the Birds Manager
     BirdsManager&  getBirdsManager() { return m_birdsManager; }
     
-    //! Returns the Midi Manager
-    MidiManager&  getMidiManager() { return m_midiManager; }
-    
     //! Returns the Preview Manager
     PreviewManager&  getPreviewManager() { return m_previewManager; }
     
@@ -157,9 +157,6 @@ private:
 
 private:
     
-    ofxMultiGLFWWindow*             m_glfw;                     ///< Pointer to the multi-GLFW window
-    vector<GLFWwindow*>*            m_windows;                  ///< Pointer the vector holding all the GLFW windows
-
     SettingsManager                 m_settingsManager;          ///< Manages the application's settings
     LayoutManager                   m_layoutManager;            ///< Manages the layoutx
     GuiManager                      m_guiManager;               ///< Manages the graphical user interface
@@ -176,12 +173,11 @@ private:
     BeautifulMindManager            m_beautifulMindManager;     ///< Manages the Beautiful Mind Scene
     AudioManager                    m_audioManager;             ///< Manages the audio input
     BirdsManager                    m_birdsManager;             ///< Manages the birds
-    MidiManager                     m_midiManager;              ///< Manages the midi input messages
     PreviewManager                  m_previewManager;           ///< Manages the preview
     MaskManager                     m_maskManager;              ///< Manages the masking
     
-
     bool                            m_debugMode;
+    bool                            m_initialized;
 };
 
 //==========================================================================

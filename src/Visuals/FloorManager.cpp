@@ -46,8 +46,8 @@ void FloorManager::draw()
         transformedPosition.x *= ofGetWidth();
         transformedPosition.y *= ofGetHeight();
     
-        ofCircle(transformedPosition, FLOOR_POS_CIRCLE_RADIUS);
-        ofCircle(transformedPosition, FLOOR_POS_CIRCLE_RADIUS/10);
+        ofDrawCircle(transformedPosition, FLOOR_POS_CIRCLE_RADIUS);
+        ofDrawCircle(transformedPosition, FLOOR_POS_CIRCLE_RADIUS/10);
         //ofLogNotice() <<"FloorManager::draw << x:  " << transformedPosition << ", y: " << transformedPosition.y;
 
     ofPopStyle();
@@ -67,8 +67,8 @@ void FloorManager::draw(const ofRectangle& area)
     transformedPosition.x *= area.width;
     transformedPosition.y *= area.height;
     
-    ofCircle(transformedPosition, FLOOR_POS_CIRCLE_RADIUS);
-    ofCircle(transformedPosition, FLOOR_POS_CIRCLE_RADIUS/10);
+    ofDrawCircle(transformedPosition, FLOOR_POS_CIRCLE_RADIUS);
+    ofDrawCircle(transformedPosition, FLOOR_POS_CIRCLE_RADIUS/10);
     //ofLogNotice() <<"FloorManager::draw << x:  " << transformedPosition << ", y: " << transformedPosition.y;
     
     ofPopStyle();

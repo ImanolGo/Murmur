@@ -10,7 +10,6 @@
 
 
 #include "ofxScene.h"
-#include "ofxPostProcessing.h"
 #include "SonicBoomVisual.h"
 
 class SonicBoomScene : public ofxScene {
@@ -48,11 +47,11 @@ private:
 
     void setupFbos();
 
-    void setupPostProcessing();
-
     void setupSonicBoom();
 
     void updateSonicBoom();
+    
+    void setupShaders();
 
     void drawSonicBoom();
 
@@ -63,7 +62,6 @@ private:
 
     ofShader                m_shader;
     ofFbo                   m_fbo;
-    ofxPostProcessing       m_postProcessing;
     SonicBoomVisual         m_sonicBoomVisual;
 
     ofRectangle             m_drawArea;

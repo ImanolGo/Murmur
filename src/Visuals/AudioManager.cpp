@@ -8,6 +8,7 @@
 
 
 #include "AudioManager.h"
+#include "WindowSettingsManager.h"
 #include "AppManager.h"
 
 
@@ -46,20 +47,20 @@ void AudioManager::setupFFT()
 
 void AudioManager::setupText()
 {
-    auto windowSettings = AppManager::getInstance().getSettingsManager().getWindowsSettings(0);
+    auto windowSettings = WindowSettingsManager::getInstance().getWindowsSettings(0);
     
     ofVec3f position;
     
-    float width =  (windowSettings.width - 4*LayoutManager::MARGIN - GuiManager::GUI_WIDTH)*0.5 - LayoutManager::MARGIN;
+    float width =  (windowSettings.getWidth() - 4*LayoutManager::MARGIN - GuiManager::GUI_WIDTH)*0.5 - LayoutManager::MARGIN;
     int fontSize = 12;
     float height = fontSize*3;
     
     
     string text = "AUDIO";
-    float width_offset = (windowSettings.width - 4*LayoutManager::MARGIN - GuiManager::GUI_WIDTH)*0.5;
+    float width_offset = (windowSettings.getWidth() - 4*LayoutManager::MARGIN - GuiManager::GUI_WIDTH)*0.5;
     
     position.x = GuiManager::GUI_WIDTH + 2.5*LayoutManager::MARGIN + LayoutManager::MARGIN  + width_offset;
-    position.y = LayoutManager::MARGIN + windowSettings.height*0.5;
+    position.y = LayoutManager::MARGIN + windowSettings.getHeight()*0.5;
     
     ofPtr<TextVisual> textVisual = ofPtr<TextVisual>(new TextVisual(position, width, height));
     textVisual->setText(text, "fonts/open-sans/OpenSans-Semibold.ttf", fontSize);
@@ -105,19 +106,19 @@ void AudioManager::draw()
 void AudioManager::drawCircle()
 {
     int mainWindowIndex = 0;
-    WindowSettings windowSettings = AppManager::getInstance().getSettingsManager().getWindowsSettings(mainWindowIndex);
+    auto windowSettings = WindowSettingsManager::getInstance().getWindowsSettings(mainWindowIndex);
     
     ofPoint pos;
-    pos.x = windowSettings.width -   windowSettings.width*0.25;
-    pos.y = windowSettings.height -   windowSettings.height*0.25;
+    pos.x = windowSettings.getWidth() -   windowSettings.getWidth()*0.25;
+    pos.y = windowSettings.getHeight() -   windowSettings.getHeight()*0.25;
     
-    float radio = ofMap(m_fft.getAveragePeak(), 0.0, 1.0, windowSettings.height*0.05, windowSettings.height*0.2, true);
+    float radio = ofMap(m_fft.getAveragePeak(), 0.0, 1.0, windowSettings.getHeight()*0.05, windowSettings.getHeight()*0.2, true);
     
     
     ofPushStyle();
     ofSetCircleResolution(100);
         ofSetColor(255);
-        ofCircle(pos, radio);
+        ofDrawCircle(pos, radio);
     ofPopStyle();
     
   

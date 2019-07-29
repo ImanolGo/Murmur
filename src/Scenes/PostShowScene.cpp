@@ -10,6 +10,16 @@
 #include "PostShowScene.h"
 #include "AppManager.h"
 
+PostShowScene::PostShowScene(): ofxScene("PostShowScene"), m_initialized(false)
+{
+    
+}
+
+PostShowScene::~PostShowScene()
+{
+    //Intentionally left empty
+}
+
 void PostShowScene::setup() {
     ofLogNotice("PostShowScene::setup");
     
@@ -62,10 +72,10 @@ ofRectangle PostShowScene::getDrawingArea()
     auto rect = AppManager::getInstance().getBeautifulMindManager().getRectangleSpace();
     auto windowsSettings = AppManager::getInstance().getSceneManager().getWindowSettings(this);
     
-    rect.x *= windowsSettings.width;
-    rect.width *= windowsSettings.width;
-    rect.y *= windowsSettings.height;
-    rect.height *= windowsSettings.height;
+    rect.x *= windowsSettings.getWidth();
+    rect.width *= windowsSettings.getWidth();
+    rect.y *= windowsSettings.getHeight();
+    rect.height *= windowsSettings.getHeight();
     
     return rect;
 }

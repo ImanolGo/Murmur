@@ -13,7 +13,7 @@
 #include "SonicBoomScene.h"
 
 
-SonicBoomScene::SonicBoomScene():m_initialized(false)
+SonicBoomScene::SonicBoomScene():ofxScene("SonicBoomScene"), m_initialized(false)
 {
 
 }
@@ -30,7 +30,7 @@ void SonicBoomScene::setup()
     }
 
     this->setupFbos();
-    this->setupPostProcessing();
+    this->setupShaders();
 
     m_sonicBoomVisual.setup();
 
@@ -40,42 +40,30 @@ void SonicBoomScene::setup()
 
 }
 
+void SonicBoomScene::setupShaders()
+{
+    
+    if(ofIsGLProgrammableRenderer()){
+        m_shader.load("shaders/shadersGL3/LiquifyShader");
+    }
+    else{
+        m_shader.load("shaders/shadersGL2/LiquifyShader");
+        
+    }
+}
+
 void SonicBoomScene::setupFbos()
 {
-    auto windowsSettings = AppManager::getInstance().getSceneManager().getWindowSettings(this);
+    auto windowsSettings = AppManager::getInstance().getSceneManager().getWindowSettings((ofxScene *)this);
 
-    m_drawArea = ofRectangle(0, 0, windowsSettings.width, windowsSettings.height);
+    m_drawArea = ofRectangle(0, 0, windowsSettings.getWidth(), windowsSettings.getHeight());
 
-    m_fbo.allocate(windowsSettings.width, windowsSettings.height);
+    m_fbo.allocate(windowsSettings.getWidth(), windowsSettings.getHeight());
     m_fbo.begin(); ofClear(0); m_fbo.end();
 
 }
 
 
-
-void SonicBoomScene::setupPostProcessing()
-{
-    auto windowsSettings = AppManager::getInstance().getSceneManager().getWindowSettings(this);
-
-    // Setup post-processing chain
-    m_postProcessing.init(windowsSettings.width, windowsSettings.height);
-    m_postProcessing.createPass<FxaaPass>()->setEnabled(true);
-    //m_postProcessing.createPass<BloomPass>()->setEnabled(true);
-
-    //ofPtr<ZoomBlurPass> zoomBlurPass =  m_postProcessing.createPass<ZoomBlurPass>();
-    //zoomBlurPass->setDensity(0.5);
-    //zoomBlurPass->setEnabled(true);
-
-    ofPtr<NoiseWarpPass> noisePass =  m_postProcessing.createPass<NoiseWarpPass>();
-    noisePass->setAmplitude(0.01);
-    noisePass->setSpeed(0.3);
-    noisePass->setFrequency(5);
-    noisePass->setEnabled(true);
-
-
-    //m_postProcessing.createPass<ZoomBlurPass>()->setEnabled(true);
-    //m_postProcessing.createPass<NoiseWarpPass>()->setEnabled(true);
-}
 
 void SonicBoomScene::update()
 {
@@ -86,8 +74,8 @@ void SonicBoomScene::update()
 
 void SonicBoomScene::updateSonicBoom()
 {
-    auto windowsSettings = AppManager::getInstance().getSceneManager().getWindowSettings(this);
-    ofPoint pos = ofPoint(ofRandom(windowsSettings.width), ofRandom(windowsSettings.height));
+    auto windowsSettings = AppManager::getInstance().getSceneManager().getWindowSettings((ofxScene *)this);
+    ofPoint pos = ofPoint(ofRandom(windowsSettings.getWidth()), ofRandom(windowsSettings.getHeight()));
     m_sonicBoomVisual.addParticle(pos);
     m_sonicBoomVisual.update();
 }
@@ -114,16 +102,14 @@ void SonicBoomScene::drawSonicBoom()
     if (m_sonicBoomVisual.empty()) {
         return;
     }
-
-    m_postProcessing.begin();
-
-    ofPushMatrix();
-        ofScale(1, -1);
-        ofTranslate(0, -m_fbo.getHeight());
+    
+    m_shader.begin();
+    m_shader.setUniform1f("time", ofGetElapsedTimef());
+    m_shader.setUniform1f("frequency", 5);
+    m_shader.setUniform1f("amplitude", 0.01);
+    m_shader.setUniform1f("speed", 0.3);
         m_sonicBoomVisual.draw();
-
-    ofPopMatrix();
-    m_postProcessing.end();
+    m_shader.end();
 }
 
 

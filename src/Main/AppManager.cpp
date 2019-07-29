@@ -21,7 +21,7 @@ AppManager& AppManager::getInstance()
 
 }
 
-AppManager::AppManager(): Manager(), m_debugMode(true)
+AppManager::AppManager(): Manager(), m_debugMode(true), m_initialized(false)
 {
     //Intentioanlly left empty
 }
@@ -42,12 +42,12 @@ void AppManager::setup()
     
     this->setupOF();
 	this->setupManagers();
-    this->setupMultipleWidows();
     m_guiManager.setup();
     
     setDebugMode(m_debugMode);
     
     ofLogNotice() << "AppManager::initialized";
+    m_initialized = true;
 }
 
 void AppManager::setupOF()
@@ -56,70 +56,6 @@ void AppManager::setupOF()
     
     ofSetVerticalSync(true);
     ofSetEscapeQuitsApp(false);
-}
-void AppManager::setupMultipleWidows()
-{
-    
-    m_glfw = (ofxMultiGLFWWindow*)ofGetWindowPtr();
-    
-    WindowSettingsVector windowSettingsVector = AppManager::getInstance().getSettingsManager().getWindowsSettings();
-    
-    m_windows = &m_glfw->windows;
-    
-    int i = 0;
-    for(auto windowSettings : windowSettingsVector) {
-        ofLogNotice() << "AppManager::setupMultipleWidows -> creating window: " << i;
-        
-        m_glfw->undecorate(windowSettings.fullscreen);
-       // m_glfw->hideBorder();
-        if (i>0) {
-            m_glfw->createWindow(windowSettings.width, windowSettings.height);
-        }
-        m_glfw->setWindow(m_windows->at(i));    // set window pointer
-        
-        m_glfw->initializeWindow();       // initialize events (mouse, keyboard, etc) on window (optional)
-        
-        //m_glfw->setWindowShape(windowSettings.width, windowSettings.height);
-        
-        if (i>0) {
-            m_glfw->setWindowShape(windowSettings.width, windowSettings.height);
-        }
-        
-        m_glfw->setWindowPosition(windowSettings.x, windowSettings.y);
-        //m_glfw->undecorate(windowSettings.fullscreen);
-        //ofSetWindowPosition(windowSettings.x, windowSettings.y);    // business as usual...
-        //ofSetWindowShape(windowSettings.width, windowSettings.height);
-        ofSetWindowTitle(windowSettings.title);
-       
-        //ofSetFullscreen(windowSettings.fullscreen);        // order important with fullscreen
-        //ofLogNotice() << "AppManager::setupGlfwWidows -> width = " << ofGetWidth() << ", height = " << ofGetHeight();
-        
-        if(windowSettings.showCursor){
-            m_glfw->showCursor();
-        }
-        else{
-            m_glfw->hideCursor();
-        }
-        
-        m_sceneManager.run(WindowIndex(i));
-        
-        i++;
-    }
-    
-    // vector of windows, count set in main
-    m_windows = &m_glfw->windows;
-    m_glfw->setWindow(m_windows->at(0));
-    
-    auto windowSettings = AppManager::getInstance().getSettingsManager().getWindowsSettings(0);
-    m_glfw->setWindowShape(windowSettings.width, windowSettings.height);
-   
-    if(windowSettings.showCursor){
-         m_glfw->showCursor();
-    }
-    else{
-         m_glfw->hideCursor();
-    }
-    
 }
 
 
@@ -142,13 +78,18 @@ void AppManager::setupManagers()
     m_audioManager.setup();
     m_keyboardManager.setup();
     m_birdsManager.setup();
-    m_midiManager.setup();
     m_previewManager.setup();
     m_maskManager.setup();
+    
+  
 }
 
 void AppManager::update()
 {
+    if(!m_initialized){
+        return;
+    }
+    
     m_audioManager.update();
     m_oscManager.update();
     m_udpManager.update();
@@ -162,46 +103,61 @@ void AppManager::update()
 
 void AppManager::draw()
 {
-    int wIndex = m_glfw->getWindowIndex();
+    if(!m_initialized){
+        return;
+    }
     
-    switch (wIndex) { // switch on window index
-        case 0:
-            ofBackground(0,0,0); // change background color on each window
-            
-            if (m_debugMode) {
-                m_viewManager.draw();
-                m_sceneManager.draw(WindowIndex(wIndex));
-                m_previewManager.draw();
-                m_guiManager.draw();
-                m_audioManager.draw();
-            }
-           
-            break;
-        case 1:
-            m_previewManager.begin(wIndex);
-                ofBackground(0,0,0); // change background color on each window
-                ofClear(0, 0, 0);
-                m_maskManager.begin(wIndex);
-           
-                    //ofRect(0, 0, image.getWidth(), image.getHeight());
-                    m_sceneManager.draw(WindowIndex(wIndex));
-                    m_layoutManager.draw();
-                m_maskManager.end(wIndex);
-            
-            m_previewManager.end(wIndex);
-            m_previewManager.draw(wIndex);
-            break;
-        case 2:
-            m_previewManager.begin(wIndex);
-                ofBackground(0,0,0); // change background color on each window
-                m_maskManager.begin(wIndex);
-                    m_sceneManager.draw(WindowIndex(wIndex));
-                m_maskManager.end(wIndex);
-            m_previewManager.end(wIndex);
-            m_previewManager.draw(wIndex);
-            break;
+    int wIndex = 0;
+    ofBackground(0,0,0); // change background color on each window
+    
+    if (m_debugMode) {
+        m_viewManager.draw();
+        m_sceneManager.draw(WindowIndex(wIndex));
+        m_previewManager.draw();
+        m_guiManager.draw();
+        m_audioManager.draw();
     }
 }
+
+void AppManager::draw2()
+{
+    if(!m_initialized){
+        return;
+    }
+    
+    int wIndex = 1;
+    
+    m_previewManager.begin(wIndex);
+    ofBackground(0,0,0); // change background color on each window
+    ofClear(0, 0, 0);
+    m_maskManager.begin(wIndex);
+    
+    //ofRect(0, 0, image.getWidth(), image.getHeight());
+    m_sceneManager.draw(WindowIndex(wIndex));
+    m_layoutManager.draw();
+    m_maskManager.end(wIndex);
+    
+    m_previewManager.end(wIndex);
+    m_previewManager.draw(wIndex);
+}
+
+void AppManager::draw3()
+{
+    if(!m_initialized){
+        return;
+    }
+    
+    int wIndex = 2;
+    
+    m_previewManager.begin(wIndex);
+    ofBackground(0,0,0); // change background color on each window
+    m_maskManager.begin(wIndex);
+    m_sceneManager.draw(WindowIndex(wIndex));
+    m_maskManager.end(wIndex);
+    m_previewManager.end(wIndex);
+    m_previewManager.draw(wIndex);
+}
+
 
 void AppManager::toggleDebugMode()
 {

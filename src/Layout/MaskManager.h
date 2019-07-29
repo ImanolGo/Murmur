@@ -9,7 +9,7 @@
 #pragma once
 
 #include "Manager.h"
-#include "ofxMaskAddon.h"
+#include "ofxMask.h"
 
 //========================== class MaskManager ==============================
 //============================================================================
@@ -52,7 +52,7 @@ private:
 
 private:
     
-    typedef  vector<ofPtr<ofxMaskAddon> >  MaskVector;        ///< defines a vector of ofxMaskAddons
+    typedef  vector<ofPtr<ofxMask> >  MaskVector;        ///< defines a vector of ofxMaskAddons
     
     MaskVector      m_masks;
     

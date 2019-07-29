@@ -159,8 +159,8 @@ namespace flowTools {
 		void update(ofFbo& _buffer, float _decay, int _radius = 5, int _passes = 1){
 			if (pingPong.getWidth() != _buffer.getWidth() ||
 				pingPong.getHeight() != _buffer.getHeight() ||
-				pingPong.getInternalFormat() != _buffer.getTextureReference().getTextureData().glTypeInternal) {
-				pingPong.allocate(_buffer.getWidth(),  _buffer.getHeight(), _buffer.getTextureReference().getTextureData().glTypeInternal );
+				pingPong.getInternalFormat() != _buffer.getTextureReference().getTextureData().glInternalFormat) {
+				pingPong.allocate(_buffer.getWidth(),  _buffer.getHeight(), _buffer.getTextureReference().getTextureData().glInternalFormat );
 				
 			}
 			

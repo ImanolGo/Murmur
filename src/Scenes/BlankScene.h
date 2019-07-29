@@ -15,6 +15,12 @@ class BlankScene : public ofxScene {
 
 public:
 
+    //Contructor
+    BlankScene();
+    
+    //Destructor
+    ~BlankScene();
+    
     //! Set up the scene
     void setup();
 
@@ -35,6 +41,10 @@ public:
 
     //! Called when exit
     void willExit();
+
+private:
+    
+    bool m_initialized;
 
 };
 

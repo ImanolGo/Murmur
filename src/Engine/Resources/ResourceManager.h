@@ -10,7 +10,6 @@
 
 #include "ofMain.h"
 #include "Manager.h"
-#include "ofxSvg.h"
 
 
 //==============================================================================
@@ -36,9 +35,12 @@ class ResourceManager: public Manager
 
         //! Searches for the specified texture name and returns the first found.
         ofPtr<ofTexture> getTexture(const string& name) const;
-
-        //! Searches for the specified SVG name and returns the first found.
-        ofPtr<ofxSVG> getSVG(const string& name);
+    
+        //! Add new texture externally
+        bool addTexture(string name, string path);
+    
+        //! Load a certain texture
+        void loadTexture(const string& name, const string& path);
 
 	private:
 
@@ -48,29 +50,22 @@ class ResourceManager: public Manager
 		//! Tells if the textures is already in the container
 		bool containsTexture(const string& name) const;
 
-		//! Tells if the svg is already in the container
-		bool containsSvg(const string& name) const;
-
 		//! Loads all the resources.
 		void loadResources();
 
 		//! Loads all the textures.
 		void loadTextures();
-
-		//! Loads all the SVG files.
-		void loadSVGs();
-
+    
+    
 	private:
 
 		//======================= Typedefs =====================================
 
 		typedef std::map< string, ofPtr<ofTexture> >	TextureMap;			///< holds a list of textures sorted by name
-		typedef std::map< string, ofPtr<ofxSVG> >	    SvgMap;			    ///< holds a list of svgs sorted by name
 
 		//======================================================================
 
 		TextureMap		    m_textures;        ///< map of textures handles attached to a name
-		SvgMap		        m_SVGs;            ///< map of SVGs handles attached to a name
 		ofPtr<ofTexture>    m_defaultTexture;  ///< stores a default texture in case another resource cannot be loaded
 
 };

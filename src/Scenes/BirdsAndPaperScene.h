@@ -15,7 +15,13 @@
 class BirdsAndPaperScene : public ofxScene {
 
 public:
-
+    
+    //! Constructor
+    BirdsAndPaperScene();
+    
+    //! Destructor
+    ~BirdsAndPaperScene();
+   
     //! Set up the scene
     void setup();
 
@@ -46,6 +52,7 @@ private:
 private:
     
     BirdsSwarmVisual         m_visual;   ///< Visual representing position and size of the swarm. Used for animations
+    bool                    m_initialized;
 
 };
 
