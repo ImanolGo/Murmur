@@ -4,13 +4,20 @@
   <of_settings>
 
     <debug showCursor="1" setVerbose="0"/>
-    <network ipAddress="murmurtop.local" portOscSend="7890" portOscReceive="50000" portUdpReceive="44409" portOscUnity="8000"/>
+      <network ipFloor="10.0.0.14"  portOscFloor="7890" ipContour="murmurrear.local" portOscContour="7890" portOscReceive="50000" portUdpReceive="44409" portOscUnity="8000"/>
 
   	<window title="Murmur Renderer" x="0" y="0" width="1920" height="1200" fullscreen="0" showCursor="1"/>
-    <window title="Murmur Renderer Front" x="1920" y="0" width="1920" height="1200" fullscreen="1" showCursor="0"/>
-    <window title="Murmur Renderer Top" x="3840" y="0" width="1920" height="1200" fullscreen="1" showCursor="0"/>
+    <window title="Murmur Front" x="1920" y="0" width="1920" height="1200" fullscreen="1" showCursor="0"/>
+    <window title="Murmur Top" x="3840" y="0" width="1920" height="1200" fullscreen="1" showCursor="0"/>
 
   </of_settings>
+
+  <projector_settings>
+
+    <projector ipAddress="10.0.0.80"/>
+    <projector ipAddress="10.0.0.81"/>
+    
+  </projector_settings>
 
   <textures>
 
@@ -34,7 +41,13 @@
   </fonts>
 
   <colors>
-  </colors>
 
+    <color name="BackgroundColor" r="40" g="40" b="43" a="255"/>
+    <color name="CenterBackgroundColor" r="85" g="78" b="68" a="255"/>
+    <color name="EdgeBackgroundColor" r="30" g="30" b="30" a="255"/>
+    <color  name="FrameRectangle" r="90" g="95" b="103" a="255"/>
+
+
+  </colors>
 
 </settings>

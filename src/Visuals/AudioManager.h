@@ -53,6 +53,8 @@ public:
     
     void setAudioMax(float audioMax);
     
+    void onSendAudioVolume(float& value); //Send audio volume command
+    
 private:
     
     void setupText();
@@ -68,6 +70,7 @@ private:
     ofxFFTLive      m_fft;
     bool            m_audioOn;
     float           m_audioMax;
+    ofPoint         m_circlePosition;
     
     ofPtr<TextVisual>        m_audioText;
     ofPtr<RectangleVisual>   m_audioRect;

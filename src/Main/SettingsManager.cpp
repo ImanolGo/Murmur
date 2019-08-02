@@ -18,7 +18,7 @@ const int SettingsManager::MAX_NUM_WINDOWS = 3;
 
 
 
-SettingsManager::SettingsManager(): Manager(), m_portUdpReceive(0), m_portOscReceive(0), m_portOscSend(0), m_portOscUnity(0), m_ipAddress(LOCALHOST)
+SettingsManager::SettingsManager(): Manager(), m_portUdpReceive(0), m_portOscReceive(0), m_portOscFloor(0), m_portOscUnity(0), m_ipFloor(LOCALHOST), m_ipContour(LOCALHOST)
 {
     //Intentionally left empty
 }
@@ -103,16 +103,19 @@ void SettingsManager::setNetworkProperties()
     auto xml = m_xml.findFirst(path);
     if(xml) {
         
-        m_ipAddress  = xml.getAttribute("ipAddress").getValue();
+        m_ipContour  = xml.getAttribute("ipContour").getValue();
+        m_ipFloor  = xml.getAttribute("ipFloor").getValue();
         m_portUdpReceive = xml.getAttribute("portUdpReceive").getIntValue();
-        m_portOscSend = xml.getAttribute("portOscSend").getIntValue();
+        m_portOscFloor = xml.getAttribute("portOscFloor").getIntValue();
+        m_portOscContour = xml.getAttribute("portOscContour").getIntValue();
+        m_portOscUnity = xml.getAttribute("m_portOscUnity").getIntValue();
         m_portOscReceive = xml.getAttribute("portOscReceive").getIntValue();
         m_portUdpReceive = xml.getAttribute("portUdpReceive").getIntValue();
         m_portOscUnity = xml.getAttribute("portOscUnity").getIntValue();
         
         ofLogNotice() <<"SettingsManager::setNetworkProperties->  successfully loaded the network settings" ;
-        ofLogNotice() <<"SettingsManager::setNetworkProperties->  receive UDP port = " << m_portUdpReceive << ". receive OSC port = "<< m_portOscReceive<<", send OSC port = " << m_portOscSend<<", host = "
-        <<m_ipAddress << ", send OSC Unity = "<< m_portOscUnity;
+        ofLogNotice() <<"SettingsManager::setNetworkProperties->  receive UDP port = " << m_portUdpReceive << ". receive OSC port = "<< m_portOscReceive<<", send OSC port = " << m_portOscFloor<<", host = "
+        <<m_ipFloor << ", send OSC Unity = "<< m_portOscUnity;
         return;
     }
     

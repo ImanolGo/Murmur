@@ -39,6 +39,8 @@
 		08A93D5722F449A3002AC20A /* ofxFluid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08A93D5322F449A2002AC20A /* ofxFluid.cpp */; };
 		08A93D5822F449A3002AC20A /* ofxFlocking.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08A93D5522F449A3002AC20A /* ofxFlocking.cpp */; };
 		08A93D5E22F44B96002AC20A /* GuiTheme.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08A93D5C22F44B96002AC20A /* GuiTheme.cpp */; };
+		08A93D6422F4C143002AC20A /* ProjectorCalibrationScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08A93D6022F4C142002AC20A /* ProjectorCalibrationScene.cpp */; };
+		08A93D6522F4C143002AC20A /* ProjectorCalibrationSceneFloor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08A93D6222F4C143002AC20A /* ProjectorCalibrationSceneFloor.cpp */; };
 		092A30A4355A2025EEEDFCBA /* SyphonVisual.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E9CB81F874C1F45572A2A0 /* SyphonVisual.cpp */; };
 		0AF1F1EF104F9E8C043B93AC /* PreviewManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F8E4584C425FC821D5E7742 /* PreviewManager.cpp */; };
 		0C8E6109528865C738BFD818 /* SyphonNameboundClient.m in Sources */ = {isa = PBXBuildFile; fileRef = A78388489306C3277E37BA4F /* SyphonNameboundClient.m */; };
@@ -267,6 +269,11 @@
 		08A93D5B22F449B3002AC20A /* ofxKaleidoscope.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ofxKaleidoscope.h; path = Addons/ofxFX/src/transformers/ofxKaleidoscope.h; sourceTree = "<group>"; };
 		08A93D5C22F44B96002AC20A /* GuiTheme.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GuiTheme.cpp; path = Layout/GuiTheme.cpp; sourceTree = "<group>"; };
 		08A93D5D22F44B96002AC20A /* GuiTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GuiTheme.h; path = Layout/GuiTheme.h; sourceTree = "<group>"; };
+		08A93D5F22F4B9E3002AC20A /* scenes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = scenes.h; path = Scenes/scenes.h; sourceTree = "<group>"; };
+		08A93D6022F4C142002AC20A /* ProjectorCalibrationScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ProjectorCalibrationScene.cpp; path = ../../../../../MoritzWaldemeyer/Bentley/software/OpenFrameworks/BentleyApp/src/Scenes/ProjectorCalibrationScene.cpp; sourceTree = "<group>"; };
+		08A93D6122F4C142002AC20A /* ProjectorCalibrationScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProjectorCalibrationScene.h; path = ../../../../../MoritzWaldemeyer/Bentley/software/OpenFrameworks/BentleyApp/src/Scenes/ProjectorCalibrationScene.h; sourceTree = "<group>"; };
+		08A93D6222F4C143002AC20A /* ProjectorCalibrationSceneFloor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ProjectorCalibrationSceneFloor.cpp; path = ../../../../../MoritzWaldemeyer/Bentley/software/OpenFrameworks/BentleyApp/src/Scenes/ProjectorCalibrationSceneFloor.cpp; sourceTree = "<group>"; };
+		08A93D6322F4C143002AC20A /* ProjectorCalibrationSceneFloor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProjectorCalibrationSceneFloor.h; path = ../../../../../MoritzWaldemeyer/Bentley/software/OpenFrameworks/BentleyApp/src/Scenes/ProjectorCalibrationSceneFloor.h; sourceTree = "<group>"; };
 		09F8F2DF1D53E65319F30B96 /* LightManager.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = LightManager.cpp; path = src/Engine/3D/LightManager.cpp; sourceTree = SOURCE_ROOT; };
 		0AA88815461607B32F84A7A9 /* ofxNetworkUtils.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = ofxNetworkUtils.cpp; path = ../../../../../../../Applications/of_v0.10.1_osx_release/addons/ofxNetwork/src/ofxNetworkUtils.cpp; sourceTree = SOURCE_ROOT; };
 		0AC6C1985F2FAA22F80B84D1 /* ofxGuiGroup.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxGuiGroup.h; path = ../../../../../../../Applications/of_v0.10.1_osx_release/addons/ofxGui/src/ofxGuiGroup.h; sourceTree = SOURCE_ROOT; };
@@ -1393,7 +1400,12 @@
 				42166A8082EF054C8408B34B /* KathakScene.h */,
 				2BF788F2AC2A2E1DAE979DBB /* PostShowScene.cpp */,
 				EB3173F2B41558F48CF13784 /* PostShowScene.h */,
+				08A93D6022F4C142002AC20A /* ProjectorCalibrationScene.cpp */,
+				08A93D6122F4C142002AC20A /* ProjectorCalibrationScene.h */,
+				08A93D6222F4C143002AC20A /* ProjectorCalibrationSceneFloor.cpp */,
+				08A93D6322F4C143002AC20A /* ProjectorCalibrationSceneFloor.h */,
 				24A12CAE2BF65B56CF935103 /* Scene.h */,
+				08A93D5F22F4B9E3002AC20A /* scenes.h */,
 				1A14124BF720E4CA8987CC24 /* SceneManager.cpp */,
 				76C4479895B14357D331E849 /* SceneManager.h */,
 				9AD6BEA54D7F39A88D3E53E0 /* SmokyHandsScene.cpp */,
@@ -1886,6 +1898,7 @@
 				B6BE40122B03EB32993CDF3A /* LICENSE in Sources */,
 				65765878631ECAE01B74DFD0 /* ofxaddons_thumbnail.png in Sources */,
 				08A93D5E22F44B96002AC20A /* GuiTheme.cpp in Sources */,
+				08A93D6422F4C143002AC20A /* ProjectorCalibrationScene.cpp in Sources */,
 				0874591F22EF2CC7002B50FC /* ftFluidSimulation.cpp in Sources */,
 				8F52C759A6C3C36918C79710 /* README.md in Sources */,
 				0874590122E748FC002B50FC /* UdpManager.cpp in Sources */,
@@ -1991,6 +2004,7 @@
 				3AF9A901BBDE64663CB0F12E /* ofxOscBundle.cpp in Sources */,
 				B927D183290E6E9DB5E81F23 /* ofxOscMessage.cpp in Sources */,
 				8A9DE2A88859CE778024B63D /* ofxOscParameterSync.cpp in Sources */,
+				08A93D6522F4C143002AC20A /* ProjectorCalibrationSceneFloor.cpp in Sources */,
 				DF4C15F8565848E410DE4C55 /* ofxOscReceiver.cpp in Sources */,
 				B7FE300877934D662F0AAD81 /* ofxOscSender.cpp in Sources */,
 			);

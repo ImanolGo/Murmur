@@ -13,36 +13,40 @@
 #include "Manager.h"
 #include "ofxOsc.h"
 #include "TextVisual.h"
+#include "RectangleVisual.h"
 
 //========================== class OscManager =======================================
 //==============================================================================
 /** \class OscManager OscManager.h
- *	\brief class for managing the OSC events
- *	\details It reads all the OSC events and create the proper application events
+ *    \brief class for managing the OSC events
+ *    \details It reads all the OSC events and create the proper application events
  */
 
 
 class OscManager: public Manager
 {
-
+    
 public:
     //! Constructor
     OscManager();
-
+    
     //! Destructor
     virtual ~OscManager();
-
+    
     //! setups the manager
     void setup();
-
+    
     //! updates the manager
     void update();
     
     //! draw the manager
     void draw();
     
-    // Send Osc message to the OSC message sender
-    void sendMessage(ofxOscMessage& message);
+    // Send Osc message to the floor tracking software
+    void sendMessageToFloorTracking(ofxOscMessage& message);
+    
+    // Send Osc message to the contour tracking software
+    void sendMessageToContourTracking(ofxOscMessage& message);
     
     // Send Osc message to Unity 3D
     void sendMessageToUnity(ofxOscMessage& message);
@@ -56,7 +60,8 @@ public:
     //Send Paper Reset Background command
     void onResetTopBackground();
     
-
+    ofPtr<RectangleVisual> getBoundingBox() const {return m_boundingBox;}
+    
 private:
     
     //! sets upt the osc receiver
@@ -69,26 +74,31 @@ private:
     void setupText();
     
     //! updates the sending information text visuals
-    void updateSendText();
+    void updateSendFloorText();
+    
+    //! updates the sending information text visuals
+    void updateSendContourText();
     
     //! updates receiving information text visuals
     void updateReceiveText();
     
     //! gets string formatted OSC message
     string getMessageAsString(const ofxOscMessage& m) const;
-
-
- private:
     
-     ofxOscReceiver m_oscReceiver;          ///< OSC receiver class
-     ofxOscSender   m_oscSender;            ///< OSC sender class
-     ofxOscSender   m_oscSenderUnity;       ///< OSC sender connected with Unity 3D
-     ofxOscMessage  m_latestOscMessage;    ///< latest OSC message
     
-     ofPtr<TextVisual>     m_sendingInformation;
-     ofPtr<TextVisual>     m_receivingInformation;
+private:
     
-     int                   m_numberOfContours;
-
+    ofxOscReceiver m_oscReceiver;          ///< OSC receiver class
+    ofxOscSender   m_oscFloorTrackingSender;            ///< OSC sender class
+    ofxOscSender   m_oscContourTrackingSender;            ///< OSC sender class
+    ofxOscSender   m_oscSenderUnity;       ///< OSC sender connected with Unity 3D
+    ofxOscMessage  m_latestOscMessage;    ///< latest OSC message
+    
+    ofPtr<TextVisual>          m_sendingInformation;
+    ofPtr<TextVisual>          m_receivingInformation;
+    ofPtr<RectangleVisual>     m_boundingBox;
+    
+    int                   m_numberOfContours;
+    
 };
 

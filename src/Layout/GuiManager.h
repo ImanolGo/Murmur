@@ -70,28 +70,6 @@ public:
     
     void setScene(const string& sceneName);
     
-    void onSetBlankScene(bool& value);
-    
-    void onSetSmokyHandsScene(bool& value);
-    
-    void onSetBattleOfSelfScene(bool& value);
-    
-    void onSetHandsWritingScene(bool& value);
-    
-    void onSetBeautifulMindScene(bool& value);
-    
-    void onSetFluidFloorScene(bool& value);
-    
-    void onSetKathakScene(bool& value);
-    
-    void onSetBirdsAndPaperScene(bool& value);
-    
-    void onSetBirdsOpeningScene(bool& value);
-    
-    void onSetPostShowScene(bool& value);
-    
-    void onSetSonicBoomScene(bool& value);
-    
     void setAudioVolume(float& value){m_audioVolume = value;}
     
     void setAudioOn(bool& value){m_audioOn = value;}
@@ -244,6 +222,7 @@ private:
     ofParameter<ofVec2f>    m_contourScale;
     
     ofParameter<float>      m_audioVolume;
+    ofParameter<float>      m_audioExternalVolume;
     ofParameter<bool>       m_audioOn;
     
     ofParameter<ofVec2f>    m_handsOffset;

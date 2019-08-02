@@ -109,19 +109,15 @@ void AudioManager::drawCircle()
     int mainWindowIndex = 0;
     auto windowSettings = WindowSettingsManager::getInstance().getWindowsSettings(mainWindowIndex);
     
-    ofPoint pos;
-    pos.x = windowSettings.getWidth() -   windowSettings.getWidth()*0.25;
-    pos.y = windowSettings.getHeight() -   windowSettings.getHeight()*0.25;
+    float radius = ofMap(m_audioMax, 0.0, 1.0, windowSettings.getHeight()*0.05, windowSettings.getHeight()*0.15, true);
     
-    float radio = ofMap(m_fft.getAveragePeak(), 0.0, 1.0, windowSettings.getHeight()*0.05, windowSettings.getHeight()*0.2, true);
-    
+    //ofColor color = AppManager::getInstance().getSettingsManager().getColor("GUI1");
     
     ofPushStyle();
     ofSetCircleResolution(100);
-        ofSetColor(255);
-        ofDrawCircle(pos, radio);
+    ofSetColor(ofColor::white);
+    ofDrawCircle(m_circlePosition, radius);
     ofPopStyle();
-    
   
 }
 
@@ -152,4 +148,11 @@ float AudioManager::getAudioMax()
 {
     return m_audioMax;
 }
-\
+
+void AudioManager::onSendAudioVolume(float& value)
+{
+    ofxOscMessage m;
+    m.setAddress("/MurmurContourTracking/AudioVolume");
+    m.addFloatArg(value);
+    AppManager::getInstance().getOscManager().sendMessageToContourTracking(m);
+}

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <group>
-	<TransitionTime>0.5</TransitionTime>
+	<TransitionTime>2.521</TransitionTime>
 	<Opacity>0</Opacity>
 	<OpacityFront>0</OpacityFront>
 	<OpacityTop>0</OpacityTop>
@@ -21,7 +21,8 @@
 	<CropBottom>0</CropBottom>
 	<FloorOn>0</FloorOn>
 	<CalibrationOn>0</CalibrationOn>
-	<AudioOn>0</AudioOn>
-	<Volume>0.5</Volume>
+	<InternalAudioOn>0</InternalAudioOn>
+	<InternalVolume>0.5</InternalVolume>
+	<ExternalVolume>0.5</ExternalVolume>
 	<PaperThrowerSpeed>0</PaperThrowerSpeed>
 </group>

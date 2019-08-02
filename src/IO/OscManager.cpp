@@ -51,12 +51,16 @@ void OscManager::setupOscReceiver()
 
 void OscManager::setupOscSender()
 {
-    int portSend = AppManager::getInstance().getSettingsManager().getOscPortSend();
-    string host = AppManager::getInstance().getSettingsManager().getIpAddress();
+    int portSend = AppManager::getInstance().getSettingsManager().getOscPortFloor();
+    string host = AppManager::getInstance().getSettingsManager().getIpFloor();
+    m_oscFloorTrackingSender.setup(host, portSend);
+    ofLogNotice() <<"OscManager::setupOscSenderFloor -> open osc connection " << host << ":" << portSend;
     
-    ofLogNotice() <<"OscManager::setupOscSender -> open osc connection " << host << ":" << portSend;
+    portSend = AppManager::getInstance().getSettingsManager().getOscPortContour();
+    host = AppManager::getInstance().getSettingsManager().getIpContour();
+    m_oscContourTrackingSender.setup(host, portSend);
+    ofLogNotice() <<"OscManager::setupOscSenderContour -> open osc connection " << host << ":" << portSend;
     
-    m_oscSender.setup(host, portSend);
     
     portSend = AppManager::getInstance().getSettingsManager().getOscPortUnity();
     host = "127.0.0.1";
@@ -72,15 +76,16 @@ void OscManager::setupText()
     auto guiManager = AppManager::getInstance().getGuiManager();
     
     ofVec3f position;
-  
-    int width =  (windowSettings.getWidth() - 4*LayoutManager::MARGIN - guiManager.getWidth())*0.5 - LayoutManager::MARGIN;
+    
+    int width =  (windowSettings.getWidth() - 4*LayoutManager::MARGIN - GuiManager::GUI_WIDTH)*0.5 - LayoutManager::MARGIN;
     int fontSize = 12;
     int height = fontSize*3;
+    float y_offset = 500;;
     
     
     string text = "COMMUNICATIONS";
-    position.x = guiManager.getWidth() + 2.5*LayoutManager::MARGIN;
-    position.y = LayoutManager::MARGIN + windowSettings.getHeight()*0.5;
+    position.x = GuiManager::GUI_WIDTH + 2.5*LayoutManager::MARGIN;
+    position.y = LayoutManager::MARGIN + y_offset;
     
     ofPtr<TextVisual> textVisual = ofPtr<TextVisual>(new TextVisual(position, width, height));
     textVisual->setText(text, "fonts/open-sans/OpenSans-Semibold.ttf", fontSize);
@@ -92,23 +97,24 @@ void OscManager::setupText()
     position.y -= LayoutManager::MARGIN*0.5;
     height = textVisual->getHeight() + LayoutManager::MARGIN;
     width = textVisual->getWidth() + LayoutManager::MARGIN;
-    ofPtr<RectangleVisual> rectangleVisual = ofPtr<RectangleVisual>(new RectangleVisual(position, width, height));
+    //ofColor color = AppManager::getInstance().getSettingsManager().getColor("GUI2");
+    m_boundingBox = ofPtr<RectangleVisual>(new RectangleVisual(position, width, height));
     ofColor color(60,60,60);
-    rectangleVisual->setColor(color);
+    m_boundingBox->setColor(color);
     
-    AppManager::getInstance().getViewManager().addOverlay(rectangleVisual,2);
+    AppManager::getInstance().getViewManager().addOverlay(m_boundingBox,2);
     
     
-    int portSend = AppManager::getInstance().getSettingsManager().getOscPortSend();
-    string host = AppManager::getInstance().getSettingsManager().getIpAddress();
+    int portSend = AppManager::getInstance().getSettingsManager().getOscPortFloor();
+    string host = AppManager::getInstance().getSettingsManager().getIpFloor();
     text = ">> OSC sending -> Host: " + host + ", Port: " + ofToString(portSend);
     
     
-    width =  (windowSettings.getWidth() - 4*LayoutManager::MARGIN - guiManager.getWidth())*0.5 - LayoutManager::MARGIN;
+    width =  (windowSettings.getWidth() - 4*LayoutManager::MARGIN - GuiManager::GUI_WIDTH)*0.5 - LayoutManager::MARGIN;
     height = fontSize*3;
     
-    position.x = guiManager.getWidth() + 2.5*LayoutManager::MARGIN ;
-    position.y = LayoutManager::MARGIN + rectangleVisual->getPosition().y + rectangleVisual->getHeight();
+    position.x = GuiManager::GUI_WIDTH + 2.5*LayoutManager::MARGIN ;
+    position.y = LayoutManager::MARGIN + m_boundingBox->getPosition().y + m_boundingBox->getHeight();
     
     m_sendingInformation =  ofPtr<TextVisual> (new TextVisual(position, width, height));
     m_sendingInformation->setText(text, "fonts/open-sans/OpenSans-Semibold.ttf", fontSize);
@@ -130,18 +136,16 @@ void OscManager::setupText()
     AppManager::getInstance().getViewManager().addOverlay(m_receivingInformation);
     
     
-    
     width += LayoutManager::MARGIN;
     height = 5.5*LayoutManager::MARGIN;
     
     position.x -= LayoutManager::MARGIN*0.5;
-    position.y =  0.5*LayoutManager::MARGIN + rectangleVisual->getPosition().y + rectangleVisual->getHeight();
+    position.y =  0.5*LayoutManager::MARGIN + m_boundingBox->getPosition().y + m_boundingBox->getHeight();
     
-    rectangleVisual = ofPtr<RectangleVisual>(new RectangleVisual(position, width, height));
-    rectangleVisual->setColor(color);
+    m_boundingBox = ofPtr<RectangleVisual>(new RectangleVisual(position, width, height));
+    m_boundingBox->setColor(color);
     
-    AppManager::getInstance().getViewManager().addOverlay(rectangleVisual,2);
-    
+    AppManager::getInstance().getViewManager().addOverlay(m_boundingBox,2);
 }
 
 
@@ -562,17 +566,35 @@ void OscManager::sendMessageToUnity(ofxOscMessage& message)
     //this->updateSendText();
 }
 
-void OscManager::sendMessage(ofxOscMessage& message)
+void OscManager::sendMessageToFloorTracking(ofxOscMessage& message)
 {
     m_latestOscMessage = message;
-    m_oscSender.sendMessage(message);
-    this->updateSendText();
+    m_oscFloorTrackingSender.sendMessage(message);
+    this->updateSendFloorText();
 }
 
-void OscManager::updateSendText()
+void OscManager::sendMessageToContourTracking(ofxOscMessage& message)
 {
-    int portSend = AppManager::getInstance().getSettingsManager().getOscPortSend();
-    string host = AppManager::getInstance().getSettingsManager().getIpAddress();
+    m_latestOscMessage = message;
+    m_oscContourTrackingSender.sendMessage(message);
+    this->updateSendContourText();
+}
+
+
+void OscManager::updateSendFloorText()
+{
+    int portSend = AppManager::getInstance().getSettingsManager().getOscPortFloor();
+    string host = AppManager::getInstance().getSettingsManager().getIpFloor();
+    string text = ">> OSC sending -> Host: " + host + ", Port: " + ofToString(portSend) + "\n";
+    
+    text += this->getMessageAsString(m_latestOscMessage);
+    m_sendingInformation->setText(text);
+}
+
+void OscManager::updateSendContourText()
+{
+    int portSend = AppManager::getInstance().getSettingsManager().getOscPortContour();
+    string host = AppManager::getInstance().getSettingsManager().getIpContour();
     string text = ">> OSC sending -> Host: " + host + ", Port: " + ofToString(portSend) + "\n";
     
     text += this->getMessageAsString(m_latestOscMessage);
@@ -620,7 +642,7 @@ void OscManager::onChangePaperThrowerSpeed(int& value)
     ofxOscMessage m;
     m.setAddress("/MurmurFloorTracking/PaperThrowerSpeed");
     m.addIntArg(value);
-    this->sendMessage(m);
+    this->sendMessageToFloorTracking(m);
 }
 
 void OscManager::onFirePaperThrower()
@@ -628,7 +650,7 @@ void OscManager::onFirePaperThrower()
     ofxOscMessage m;
     m.setAddress("/MurmurFloorTracking/PaperThrowerFire");
     m.addIntArg(1);
-    this->sendMessage(m);
+    this->sendMessageToFloorTracking(m);
 }
 
 void OscManager::onResetTopBackground()
@@ -636,8 +658,9 @@ void OscManager::onResetTopBackground()
     ofxOscMessage m;
     m.setAddress("/MurmurFloorTracking/ResetBackground");
     m.addIntArg(1);
-    this->sendMessage(m);
+    this->sendMessageToFloorTracking(m);
 }
+
 
 
 

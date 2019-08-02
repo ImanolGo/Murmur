@@ -40,4 +40,10 @@ void MurmurRendererApp::exit()
 
 }
 
+void MurmurRendererApp::windowResized(int w, int h){
+    AppManager::getInstance().getLayoutManager().windowResized(w,h);
+    
+    
+}
+
 

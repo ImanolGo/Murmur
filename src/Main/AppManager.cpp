@@ -84,8 +84,6 @@ void AppManager::setupManagers()
     m_maskManager.setup();
     
     m_guiManager.setup();
-    
-  
 }
 
 void AppManager::update()
@@ -103,7 +101,7 @@ void AppManager::update()
     m_birdsManager.update();
     m_sceneManager.update();
     m_handsManager.update();
-    
+    m_layoutManager.update();
 }
 
 
@@ -113,62 +111,32 @@ void AppManager::draw()
         return;
     }
     
-    int wIndex = 0;
-    ofClear ( 0 );
-    ofBackground(17);
-    
-    ofEnableAlphaBlending();
-    if (m_debugMode) {
-        m_viewManager.draw();
-        m_sceneManager.draw(WindowIndex(wIndex));
-        m_previewManager.draw();
-        m_guiManager.draw();
-        m_audioManager.draw();
-    }
+    ofBackground(17,17,17);
+    m_layoutManager.draw();
+    m_guiManager.draw();
 }
 
 void AppManager::draw2()
 {
     ofClear(0);
+    ofBackground(0);
     if(!m_initialized){
         return;
     }
     
-    int wIndex = 1;
-    
-    ofEnableAlphaBlending();
-    m_previewManager.begin(wIndex);
-    ofClear(0);
-    ofBackground(0,0,0); // change background color on each window
-    m_maskManager.begin(wIndex);
-    
-    //ofRect(0, 0, image.getWidth(), image.getHeight());
-    m_sceneManager.draw(WindowIndex(wIndex));
-    m_layoutManager.draw();
-    m_maskManager.end(wIndex);
-    
-    m_previewManager.end(wIndex);
-    m_previewManager.draw(wIndex);
+    m_layoutManager.drawFront();
 }
 
 void AppManager::draw3()
 {
     
     ofClear(0);
+    ofBackground(0);
     if(!m_initialized){
         return;
     }
     
-    int wIndex = 2;
-    ofEnableAlphaBlending();
-    m_previewManager.begin(wIndex);
-    ofClear(0);
-    ofBackground(0,0,0); // change background color on each window
-    m_maskManager.begin(wIndex);
-    m_sceneManager.draw(WindowIndex(wIndex));
-    m_maskManager.end(wIndex);
-    m_previewManager.end(wIndex);
-    m_previewManager.draw(wIndex);
+    m_layoutManager.drawTop();
 }
 
 
@@ -194,7 +162,6 @@ void AppManager::setDebugMode(bool showDebug)
     }
     
    // m_guiManager.showGui(m_debugMode);
-
 }
 
 void AppManager::setFullScreen(bool& value)

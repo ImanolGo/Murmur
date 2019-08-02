@@ -153,13 +153,17 @@ void GuiManager::setupAudioGui()
     auto audioManager = &AppManager::getInstance().getAudioManager();
     m_parametersAudio.setName("Audio");
     
-    m_audioOn.set("AudioOn", false);
+    m_audioOn.set("InternalAudioOn", false);
     m_audioOn.addListener(audioManager, &AudioManager::onChangeAudioOn);
     m_parameters.add(m_audioOn);
     
-    m_audioVolume.set("Volume", 0.5, 0.0, 1.0);
+    m_audioVolume.set("InternalVolume", 0.5, 0.0, 1.0);
     m_audioVolume.addListener(audioManager, &AudioManager::onChangeVolume);
     m_parameters.add(m_audioVolume);
+    
+    m_audioExternalVolume.set("ExternalVolume", 0.5, 0.0, 1.0);
+    m_audioExternalVolume.addListener(audioManager, &AudioManager::onSendAudioVolume);
+    m_parameters.add(m_audioExternalVolume);
     
 }
 
@@ -323,8 +327,6 @@ void GuiManager::drawGui()
         
         ImGui::Text("%.1f FPS (%.3f ms/frame)", ofGetFrameRate(), 1000.0f / ImGui::GetIO().Framerate);
         
-        int oscPort = AppManager::getInstance().getSettingsManager().getOscPortReceive();
-        
         if (ImGui::Button("Save Gui"))
         {
             this->saveGuiValues();
@@ -376,6 +378,8 @@ void GuiManager::drawGui()
         {
             ofxImGui::AddParameter(m_audioOn);
             ofxImGui::AddParameter(m_audioVolume);
+            ofxImGui::AddParameter(m_audioExternalVolume);
+        
             ofxImGui::EndTree(mainSettings);
         }
         
@@ -439,7 +443,7 @@ void GuiManager::drawGui()
     ofxImGui::EndWindow(mainSettings);
     m_gui.end();
     
-    ofDisableAlphaBlending();
+    //ofDisableAlphaBlending();
     
     this->updateSize(mainSettings);
     

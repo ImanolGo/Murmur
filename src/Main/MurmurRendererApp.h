@@ -21,6 +21,8 @@ class MurmurRendererApp : public ofBaseApp{
 		void draw();
 		void exit();
     
+        void windowResized(int w, int h);
+    
         void drawScreen2(ofEventArgs & args);
         //void keyPressed2(ofKeyEventArgs &e);
         void drawScreen3(ofEventArgs & args);

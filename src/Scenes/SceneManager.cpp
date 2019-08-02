@@ -10,19 +10,7 @@
 
 
 #include "SceneManager.h"
-#include "BlankScene.h"
-#include "SmokyHandsScene.h"
-#include "BattleOfSelfScene.h"
-#include "HandsWritingScene.h"
-#include "BeautifulMindScene.h"
-#include "BeautifulMindSceneFloor.h"
-#include "FluidFloorScene.h"
-#include "KathakScene.h"
-#include "BirdsAndPaperScene.h"
-#include "BirdsAndPaperSceneFloor.h"
-#include "BirdsOpeningScene.h"
-#include "PostShowScene.h"
-#include "SonicBoomScene.h"
+#include "scenes.h"
 #include "WindowSettingsManager.h"
 
 #include "AppManager.h"
@@ -78,7 +66,7 @@ void SceneManager::createScenes()
 
 void SceneManager::createSceneNames()
 {
-    vector<string> names = {"BlankScene", "SmokyHandsScene", "BattleOfSelfScene", "HandsWritingScene","BeautifulMindScene","BeautifulMindScene", "SonicBoomScene"};
+    vector<string> names = {"BlankScene", "SmokyHandsScene", "BattleOfSelfScene", "HandsWritingScene","BeautifulMindScene","BirdsAndPaperScene", "BirdsOpeningScene", "SonicBoomScene", "ProjectorCalibrationScene"};
     m_sceneNames = names;
 }
 
@@ -114,25 +102,61 @@ void SceneManager::createFrontScenes()
     
     //Create Birds And Paper Scene
     scene = ofPtr<ofxScene> (new BirdsAndPaperScene());
-    this->createScene("BeautifulMindScene", SceneIndex(i), scene, WindowIndex(FRONT));
+    this->createScene("BirdsAndPaperScene", SceneIndex(i), scene, WindowIndex(FRONT));
     i++;
     
     //Create Birds Opening Scene
     scene = ofPtr<ofxScene> (new BirdsOpeningScene());
     this->createScene("BirdsOpeningScene", SceneIndex(i), scene, WindowIndex(FRONT));
     i++;
-    
-//    //Create Postshow Scene
-//    scene = ofPtr<ofxScene> (new PostShowScene());
-//    this->createScene("PostShowScene", SceneIndex(i), scene, WindowIndex(FRONT));
-//    i++;
-    
-    //Create Postshow Scene
+   
+    //Create Sonic Boom Scene
     scene = ofPtr<ofxScene> (new SonicBoomScene());
     this->createScene("SonicBoomScene", SceneIndex(i), scene, WindowIndex(FRONT));
     i++;
     
+    //Create ProjectorCalibrationScene Scene
+    scene = ofPtr<ofxScene> (new ProjectorCalibrationScene());
+    this->createScene("ProjectorCalibrationScene", SceneIndex(i), scene, WindowIndex(FRONT));
+    i++;
+    
 }
+
+void SceneManager::createTopScenes()
+{
+    
+    int i = 0;
+    ofPtr<ofxScene> scene;
+    
+    //Create Blank Scene
+    scene = ofPtr<ofxScene> (new BlankScene());
+    this->createScene("BlankScene", SceneIndex(i), scene, WindowIndex(TOP));
+    i++;
+    
+    scene = ofPtr<ofxScene> (new FluidFloorScene());
+    this->createScene("FluidFloorScene", SceneIndex(i), scene, WindowIndex(TOP));
+    i++;
+    
+    scene = ofPtr<ofxScene> (new KathakScene());
+    this->createScene("KathakScene", SceneIndex(i), scene, WindowIndex(TOP));
+    i++;
+    
+    scene = ofPtr<ofxScene> (new BeautifulMindSceneFloor());
+    this->createScene("BeautifulMindScene", SceneIndex(i), scene, WindowIndex(TOP));
+    i++;
+    
+    scene = ofPtr<ofxScene> (new BirdsAndPaperSceneFloor());
+    this->createScene("BirdsAndPaperScene", SceneIndex(i), scene, WindowIndex(TOP));
+    i++;
+    
+    
+    scene = ofPtr<ofxScene> (new ProjectorCalibrationSceneFloor());
+    this->createScene("ProjectorCalibrationScene", SceneIndex(i), scene, WindowIndex(TOP));
+    i++;
+    
+    
+}
+
 
 void SceneManager::createScene(string name, SceneIndex i, ofPtr<ofxScene> ofx_scene, WindowIndex w)
 {
@@ -237,35 +261,6 @@ void SceneManager::updateText(const string& text)
     
 }
 
-void SceneManager::createTopScenes()
-{
-    
-    int i = 0;
-    ofPtr<ofxScene> scene;
-    
-    //Create Blank Scene
-    scene = ofPtr<ofxScene> (new BlankScene());
-    this->createScene("BlankScene", SceneIndex(i), scene, WindowIndex(TOP));
-    i++;
-    
-    scene = ofPtr<ofxScene> (new FluidFloorScene());
-    this->createScene("FluidFloorScene", SceneIndex(i), scene, WindowIndex(TOP));
-    i++;
-    
-    scene = ofPtr<ofxScene> (new KathakScene());
-    this->createScene("KathakScene", SceneIndex(i), scene, WindowIndex(TOP));
-    i++;
-    
-    scene = ofPtr<ofxScene> (new BeautifulMindSceneFloor());
-    this->createScene("BeautifulMindScene", SceneIndex(i), scene, WindowIndex(TOP));
-    i++;
-    
-    scene = ofPtr<ofxScene> (new BirdsAndPaperSceneFloor());
-    this->createScene("BirdsAndPaperScene", SceneIndex(i), scene, WindowIndex(TOP));
-    i++;
-    
-    
-}
 
 
 bool SceneManager::run(WindowIndex w)

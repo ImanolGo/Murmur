@@ -22,6 +22,8 @@
 
 
 typedef  map<string,string>          ResourcesPathMap;       ///< defines a map of path attached to the resources name
+typedef  vector<string>              IpsVector;     ///< Defines a vector of ip addresses
+
 
 
 class SettingsManager: public Manager
@@ -46,14 +48,20 @@ class SettingsManager: public Manager
 
         ofColor getColor(const string& colorName);
     
-        string getIpAddress() const {return m_ipAddress;}
+        const IpsVector& getProjectorsIps() const {return m_projectorsIps;}
+        
+        string getIpFloor() const {return m_ipFloor;}
+        
+        string getIpContour() const {return m_ipContour;}
 
         int getOscPortReceive() const {return m_portOscReceive;}
     
-        int getOscPortSend() const {return m_portOscSend;}
-    
+        int getOscPortFloor() const {return m_portOscFloor;}
+
+        int getOscPortContour() const {return m_portOscContour;}
+
         int getUdpPortReceive() const {return m_portUdpReceive;}
-    
+
         int getOscPortUnity() const {return m_portOscUnity;}
 
 
@@ -87,9 +95,12 @@ class SettingsManager: public Manager
         ColorMap                m_colors;               ///< stores all the application's colors
         int                     m_portUdpReceive;       ///< stores the UDP port to receive UDP messages from
         int                     m_portOscReceive;       ///< stores the UDP port to receive OSC messages from
-        int                     m_portOscSend;          ///< stores the UDP port to send OSC messages to
+        int                     m_portOscFloor;         ///< stores the UDP port to send OSC messages to Floor computer
+        int                     m_portOscContour;       ///< stores the UDP port to send OSC messages to Contour computer
         int                     m_portOscUnity;         ///< stores the UDP port to send OSC messages to Unity 3D
-        string                  m_ipAddress;            ///< stores the Ip Address used for the Network communications
+        string                  m_ipFloor;              ///< stores the Ip Address of the floor tracking computer
+        string                  m_ipContour;            ///< stores the Ip Address of the contour tracking computer
+        IpsVector               m_projectorsIps;        ///< stores the Ip adresses of all the projectors
 };
 
 
