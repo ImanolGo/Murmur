@@ -111,7 +111,8 @@ void AppManager::draw()
         return;
     }
     
-    ofBackground(17,17,17);
+    ofClear(0);
+    ofBackground(0);
     m_layoutManager.draw();
     m_guiManager.draw();
 }

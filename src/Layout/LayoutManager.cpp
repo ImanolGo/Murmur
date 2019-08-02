@@ -91,21 +91,6 @@ void LayoutManager::setupWindowFrames()
 
 void LayoutManager::resetWindowRects()
 {
-    float gui_offset = AppManager::getInstance().getGuiManager().getWidth() +  2*AppManager::getInstance().getGuiManager().getPosition().x;
-    float frame_width = ofGetWindowWidth() - gui_offset;
-    float frame_height= ofGetWindowHeight();
-    
-    m_windowRects["FRONT"]->width = frame_width/2 - 2*MARGIN;
-    m_windowRects["FRONT"]->height = frame_height - 2*MARGIN;
-    m_windowRects["FRONT"]->x = gui_offset  + 2*MARGIN;
-    m_windowRects["FRONT"]->y = MARGIN;
-    
-    m_windowRects["TOP"]->width = m_windowRects["FRONT"]->width;
-    m_windowRects["TOP"]->height = m_windowRects["FRONT"]->height;
-    m_windowRects["TOP"]->x = gui_offset  + 2*MARGIN;
-    m_windowRects["TOP"]->y = MARGIN;
-    
-    
     for (auto& frame : m_windowFrames)
     {
         float x_offset = frame.second->getPosition().x + FRAME_MARGIN;
@@ -141,8 +126,8 @@ void LayoutManager::resetWindowFrames()
     float frame_width = ofGetWindowWidth() - gui_offset;
     float frame_height= ofGetWindowHeight();
     
-    m_windowFrames["FRONT"]->setWidth(frame_width/2 - 2*MARGIN + 2*FRAME_MARGIN);
-    m_windowFrames["FRONT"]->setHeight(frame_height - 2*MARGIN + 2*FRAME_MARGIN);
+    m_windowFrames["FRONT"]->setWidth(frame_width - 2*MARGIN + 2*FRAME_MARGIN);
+    m_windowFrames["FRONT"]->setHeight(frame_height/2 - 2*MARGIN + 2*FRAME_MARGIN);
     float x = gui_offset  + 2*MARGIN - FRAME_MARGIN;
     float y =  MARGIN- FRAME_MARGIN;
     m_windowFrames["FRONT"]->setPosition(ofPoint(x,y));
@@ -150,7 +135,7 @@ void LayoutManager::resetWindowFrames()
     
     m_windowFrames["TOP"]->setWidth( m_windowFrames["FRONT"]->getWidth());
     m_windowFrames["TOP"]->setHeight(m_windowFrames["FRONT"]->getHeight());
-    x =  x + m_windowFrames["FRONT"]->getWidth();
+    y =  y + m_windowFrames["FRONT"]->getHeight() + MARGIN;
     m_windowFrames["TOP"]->setPosition(ofPoint(x,y));
     
 }
@@ -250,7 +235,7 @@ void LayoutManager::drawFbos()
 {
     for (auto fbo : m_fbos)
     {
-        m_windowFrames[fbo.first]->draw();
+        //m_windowFrames[fbo.first]->draw();
         //fbo.second->draw(m_windowRects[fbo.first]->x, m_windowRects[fbo.first]->y, m_windowRects[fbo.first]->width, m_windowRects[fbo.first]->height);
         //fbo.second->draw(0,0);
         m_fbos[fbo.first]->draw(m_windowRects[fbo.first]->x, m_windowRects[fbo.first]->y, m_windowRects[fbo.first]->width, m_windowRects[fbo.first]->height);
@@ -308,9 +293,9 @@ void LayoutManager::windowResized(int w, int h)
         return;
     }
     
-//    this->resetWindowRects();
-//    this->resetWindowFrames();
-//    this->resetWindowTitles();
+    this->resetWindowFrames();
+    this->resetWindowRects();
+    this->resetWindowTitles();
 }
 
 
