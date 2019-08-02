@@ -70,9 +70,16 @@ void SceneManager::createScenes()
 {
     this->createFrontScenes();
     this->createTopScenes();
+    this->createSceneNames();
     
     m_sceneManagers[WindowIndex(FRONT)]->run();
     m_sceneManagers[WindowIndex(TOP)]->run();
+}
+
+void SceneManager::createSceneNames()
+{
+    vector<string> names = {"BlankScene", "SmokyHandsScene", "BattleOfSelfScene", "HandsWritingScene","BeautifulMindScene","BeautifulMindScene", "SonicBoomScene"};
+    m_sceneNames = names;
 }
 
 void SceneManager::createFrontScenes()
@@ -107,7 +114,7 @@ void SceneManager::createFrontScenes()
     
     //Create Birds And Paper Scene
     scene = ofPtr<ofxScene> (new BirdsAndPaperScene());
-    this->createScene("BirdsAndPaperScene", SceneIndex(i), scene, WindowIndex(FRONT));
+    this->createScene("BeautifulMindScene", SceneIndex(i), scene, WindowIndex(FRONT));
     i++;
     
     //Create Birds Opening Scene
@@ -115,10 +122,10 @@ void SceneManager::createFrontScenes()
     this->createScene("BirdsOpeningScene", SceneIndex(i), scene, WindowIndex(FRONT));
     i++;
     
-    //Create Postshow Scene
-    scene = ofPtr<ofxScene> (new PostShowScene());
-    this->createScene("PostShowScene", SceneIndex(i), scene, WindowIndex(FRONT));
-    i++;
+//    //Create Postshow Scene
+//    scene = ofPtr<ofxScene> (new PostShowScene());
+//    this->createScene("PostShowScene", SceneIndex(i), scene, WindowIndex(FRONT));
+//    i++;
     
     //Create Postshow Scene
     scene = ofPtr<ofxScene> (new SonicBoomScene());
@@ -329,29 +336,15 @@ bool SceneManager::changeScene(string sceneName)
 
 void SceneManager::changeSceneIndex(int& sceneIndex)
 {
-    if(sceneIndex < 0 || sceneIndex >=m_scenes.size()){
+    if(sceneIndex < 0 || sceneIndex >=m_sceneNames.size()){
         return;
     }
     
     ofLogNotice() <<"SceneManager::changeSceneIndex << scene index " << sceneIndex;
     
-    this->changeScene(m_scenes[sceneIndex]->name);
+    this->changeScene(m_sceneNames[sceneIndex]);
 }
 
-int SceneManager::getNumberScenes()
-{
-    return m_scenes.size();
-}
-
-string SceneManager::getSceneName(int sceneIndex)
-{
-    if(sceneIndex < 0 || sceneIndex >=m_scenes.size()){
-        return "";
-    }
-    
-    return m_scenes[sceneIndex]->name;
-    
-}
 
 
 void SceneManager::onTransitionTimeChange(float & value){

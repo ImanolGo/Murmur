@@ -89,8 +89,9 @@ void GuiManager::setupScenesGui()
     m_sceneMode.addListener(sceneManager, &SceneManager::changeSceneIndex);
     m_parametersScenes.add(m_sceneMode);
     
-    for(int i=0; i< sceneManager->getNumberScenes(); i++){
-        m_sceneNames.push_back(sceneManager->getSceneName(i));
+    auto scenes = sceneManager->getSceneNames();
+    for(auto scene: scenes){
+        m_sceneNames.push_back(scene);
     }
     
     m_sceneTransitionTime.set("TransitionTime", 0.5, 0.0, 30);
@@ -503,12 +504,13 @@ void GuiManager::loadGuiValues(string path)
 
 void GuiManager::setScene(const string &sceneName)
 {
-    if(!m_parametersScenes.contains(sceneName)){
-        return;
+    for(int i = 0; i < m_sceneNames.size(); i++)
+    {
+        if(m_sceneNames[i] == sceneName){
+            m_sceneMode = i;
+            ofLogNotice() <<"GuiManager::setScene -> " << m_sceneNames[i];
+        }
     }
-    
-    ofParameter<bool>& scene = (ofParameter<bool>&) m_parametersScenes.get(sceneName);
-    scene.set(true);
 }
 
 void GuiManager::onSetSceneOpacity(float& value)

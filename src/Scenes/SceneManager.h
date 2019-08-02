@@ -52,11 +52,8 @@ public:
     //! Changes the scene according to a index
     void changeSceneIndex(int& sceneIndex);
     
-    //! Returns the number of total secenes
-    int getNumberScenes();
-    
-    //! Returns the name of a scene given the index
-    string getSceneName(int sceneIndex);
+    //! Returns all the scene names
+    vector<string> getSceneNames() const {return m_sceneNames;}
     
     //! Runs the scene manager attached to a window
     bool run(WindowIndex w);
@@ -97,6 +94,8 @@ private:
     //! Create the top scenes
     void createTopScenes();
     
+    void createSceneNames();
+    
     //! setups the text layout
     void setupText();
     
@@ -111,6 +110,7 @@ private:
     
     SceneManagerMap     m_sceneManagers;
     SceneVector         m_scenes;
+    vector< string >    m_sceneNames;
     
     ofPtr<TextVisual>        m_sceneText;
     ofPtr<RectangleVisual>   m_sceneRect;
