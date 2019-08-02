@@ -117,15 +117,12 @@ void HandsWritingScene::updateHands()
         }
     ofPopStyle();
     m_fbo.end();
-    ofDisableAlphaBlending();
+    //ofDisableAlphaBlending();
 }
 
 
 void HandsWritingScene::draw() {
-    //ofBackground(0,0,0);
-    //AppManager::getInstance().getHandsManager().draw();
-    //this->drawFluid();
-
+    ofBackground(0);
     this->drawHands();
 }
 
@@ -146,7 +143,7 @@ void HandsWritingScene::updateFluid()
 
 void HandsWritingScene::drawHands()
 {
-    ofBackground(0, 0, 0);
+
     m_fbo.draw(0, 0);
     
     /* ofEnableBlendMode(OF_BLENDMODE_ADD);

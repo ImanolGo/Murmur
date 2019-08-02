@@ -48,6 +48,7 @@ void AudioManager::setupFFT()
 void AudioManager::setupText()
 {
     auto windowSettings = WindowSettingsManager::getInstance().getWindowsSettings(0);
+    //auto guiManager = AppManager::getInstance().getGuiManager();
     
     ofVec3f position;
     

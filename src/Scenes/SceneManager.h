@@ -49,6 +49,15 @@ public:
     //! Changes the scene according to a name
     bool changeScene(string sceneName);
     
+    //! Changes the scene according to a index
+    void changeSceneIndex(int& sceneIndex);
+    
+    //! Returns the number of total secenes
+    int getNumberScenes();
+    
+    //! Returns the name of a scene given the index
+    string getSceneName(int sceneIndex);
+    
     //! Runs the scene manager attached to a window
     bool run(WindowIndex w);
     

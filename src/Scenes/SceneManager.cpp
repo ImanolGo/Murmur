@@ -161,18 +161,19 @@ bool SceneManager::addSceneToSceneManager(ofPtr<Scene> scene, WindowIndex w)
 void SceneManager::setupText()
 {
     auto windowSettings = WindowSettingsManager::getInstance().getWindowsSettings(0);
+    auto guiManager = AppManager::getInstance().getGuiManager();
     
     ofVec3f position;
     
-    float width =  (windowSettings.getWidth() - 4*LayoutManager::MARGIN - GuiManager::GUI_WIDTH)*0.5 - LayoutManager::MARGIN;
+    float width =  (windowSettings.getWidth() - 4*LayoutManager::MARGIN - guiManager.getWidth())*0.5 - LayoutManager::MARGIN;
     int fontSize = 12;
     float height = fontSize*3;
     
     
     string text = "SCENE";
-    float width_offset = (windowSettings.getWidth() - 4*LayoutManager::MARGIN - GuiManager::GUI_WIDTH)*0.5;
+    float width_offset = (windowSettings.getWidth() - 4*LayoutManager::MARGIN - guiManager.getWidth())*0.5;
     
-    position.x = GuiManager::GUI_WIDTH + 2.5*LayoutManager::MARGIN + LayoutManager::MARGIN  + width_offset;
+    position.x = guiManager.getWidth() + 2.5*LayoutManager::MARGIN + LayoutManager::MARGIN  + width_offset;
     position.y = LayoutManager::MARGIN + windowSettings.getHeight()*0.5;
     
     ofPtr<TextVisual> textVisual = ofPtr<TextVisual>(new TextVisual(position, width, height));
@@ -193,10 +194,10 @@ void SceneManager::setupText()
     
     
     fontSize = 36;
-    width =  (windowSettings.getWidth() - 4*LayoutManager::MARGIN - GuiManager::GUI_WIDTH)*0.5 - LayoutManager::MARGIN;
+    width =  (windowSettings.getWidth() - 4*LayoutManager::MARGIN - guiManager.getWidth())*0.5 - LayoutManager::MARGIN;
     height = fontSize*3;
     
-    position.x = GuiManager::GUI_WIDTH + 2.5*LayoutManager::MARGIN + LayoutManager::MARGIN  + width_offset;
+    position.x = guiManager.getWidth() + 2.5*LayoutManager::MARGIN + LayoutManager::MARGIN  + width_offset;
     position.y = LayoutManager::MARGIN + rectangleVisual->getPosition().y + rectangleVisual->getHeight();
     
     m_sceneText =  ofPtr<TextVisual>(new TextVisual(position, width, height));
@@ -281,13 +282,13 @@ void SceneManager::update()
 
 void SceneManager::draw(WindowIndex w)
 {
-    
+    ofEnableAlphaBlending();
     if(m_sceneManagers.find(w)!= m_sceneManagers.end()){
-        ofPushStyle();
-        ofEnableAlphaBlending();
+        //ofPushStyle();
+    
             m_sceneManagers[w]->draw();
-        ofDisableAlphaBlending();
-        ofPopStyle();
+        //ofDisableAlphaBlending();
+        //ofPopStyle();
         return;
     }
     
@@ -321,8 +322,34 @@ bool SceneManager::changeScene(string sceneName)
             sceneManager.second->changeScene(0);
         }
        
-
     }
+    
+    return true;
+}
+
+void SceneManager::changeSceneIndex(int& sceneIndex)
+{
+    if(sceneIndex < 0 || sceneIndex >=m_scenes.size()){
+        return;
+    }
+    
+    ofLogNotice() <<"SceneManager::changeSceneIndex << scene index " << sceneIndex;
+    
+    this->changeScene(m_scenes[sceneIndex]->name);
+}
+
+int SceneManager::getNumberScenes()
+{
+    return m_scenes.size();
+}
+
+string SceneManager::getSceneName(int sceneIndex)
+{
+    if(sceneIndex < 0 || sceneIndex >=m_scenes.size()){
+        return "";
+    }
+    
+    return m_scenes[sceneIndex]->name;
     
 }
 

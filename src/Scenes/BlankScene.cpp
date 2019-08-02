@@ -29,7 +29,8 @@ void BlankScene::update() {
 }
 
 void BlankScene::draw() {
-    ofBackground(0,0,0);
+    //ofBackground(0,0,0);
+    ofBackground(255);
 }
 
 void BlankScene::willFadeIn() {

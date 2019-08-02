@@ -36,6 +36,7 @@ void MurmurRendererApp::drawScreen3(ofEventArgs & args){
 void MurmurRendererApp::exit()
 {
     ofLogNotice() <<"MurmurRenderer::Exit";
+    ofExit();
 
 }
 

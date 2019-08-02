@@ -9,7 +9,7 @@
 #pragma once
 
 #include "Manager.h"
-#include "ofxGui.h"
+#include "ofxImGui.h"
 //========================== class GuiManager ==============================
 //============================================================================
 /** \class GuiManager GuiManager.h
@@ -23,8 +23,11 @@ class GuiManager: public Manager
     
     static const string GUI_SETTINGS_FILE_NAME;
     static const string GUI_SETTINGS_NAME;
+   
     
 public:
+    
+    static const int GUI_WIDTH;
     
     //! Constructor
     GuiManager();
@@ -35,20 +38,25 @@ public:
     //! Set-up the gui
     void setup();
     
+    //! update the gui
+    void update();
+    
     //! Draw the gui
     void draw();
     
-    void saveGuiValues();
+    void saveGuiValues(string path = "");
     
-    void loadGuiValues();
+    void loadGuiValues(string path = "");
     
     void toggleGui();
     
     void showGui(bool show){m_showGui=show;}
     
-    int getWidth()  {return m_gui.getWidth();}
+    int getWidth() {return m_width;}
     
-    int getHeight()  {return m_gui.getHeight();}
+    int getHeight() {return m_height;}
+    
+    ofPoint  getPosition() {return m_position;}
     
     void setSceneOpacity(float value) {m_sceneOpacity = value;}
     
@@ -171,6 +179,12 @@ public:
     
 private:
     
+    void setupGuiParameters();
+    
+    void drawRectangle();
+    
+    void drawGui();
+    
     void setupScenesGui();
     
     void setupAudioGui();
@@ -189,14 +203,17 @@ private:
     
     void setupBirdsGui();
     
-    
-public:
-    
-    static const int GUI_WIDTH;
+    void updateSize(const ofxImGui::Settings& settings);
+
     
 private:
     
-    ofxPanel                m_gui;
+    ofxImGui::Gui   m_gui;
+    
+    
+    ofParameterGroup      m_parameters;
+    
+    
     ofParameterGroup        m_parametersContour;
     ofParameterGroup        m_parametersScenes;
     ofParameterGroup        m_parametersHands;
@@ -206,26 +223,18 @@ private:
     ofParameterGroup        m_parametersAudio;
     ofParameterGroup        m_parametersBirds;
     ofParameterGroup        m_parametersTop;
-   
+    
+    float       m_width, m_height;
+    ofPoint     m_position;
     bool                    m_showGui;  //It defines the whether the gui should be shown or not
     
-    ofParameter<float>      m_guiFPS;
+    std::vector<std::string>    m_sceneNames;
 
+    ofParameter<int>        m_sceneMode;
     ofParameter<float>      m_sceneOpacity;
     ofParameter<float>      m_sceneOpacityFront;
     ofParameter<float>      m_sceneOpacityTop;
     ofParameter<float>      m_sceneTransitionTime;
-    ofParameter<bool>       m_sceneSmokyHands;
-    ofParameter<bool>       m_sceneBlank;
-    ofParameter<bool>       m_sceneBattleOfSelf;
-    ofParameter<bool>       m_sceneHandsWriting;
-    ofParameter<bool>       m_sceneFluidFloor;
-    ofParameter<bool>       m_sceneBeautifulMind;
-    ofParameter<bool>       m_sceneKathak;
-    ofParameter<bool>       m_birdsOpeningScene;
-    ofParameter<bool>       m_birdsAndPaperScene;
-    ofParameter<bool>       m_postShowScene;
-    ofParameter<bool>       m_sonicBoomScene;
     
     ofParameter<int>        m_cropLeft, m_cropRight, m_cropTop, m_cropBottom;
     ofParameter<bool>       m_fullscreen;

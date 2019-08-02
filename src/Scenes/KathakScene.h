@@ -9,8 +9,8 @@
 #pragma once
 
 #include "ofxScene.h"
-#include "ofxWater.h"
 #include "ImageVisual.h"
+#include "ofxWater.h"
 
 class KathakScene : public ofxScene {
 
@@ -60,10 +60,8 @@ private:
     bool            m_initialized;
     ofShader        m_maskShader;
     ofFbo           m_fboMask;
-
-    ofxWater        m_water;
-    
     ofRectangle     m_drawArea;
+    ofxWater        m_water;
 
 };
 

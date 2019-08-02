@@ -12,7 +12,6 @@
 #include "FluidVisual.h"
 #include "ofxScene.h"
 #include "SonicBoomVisual.h"
-#include "ofxWater.h"
 
 class BattleOfSelfScene : public ofxScene {
 

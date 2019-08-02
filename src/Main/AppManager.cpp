@@ -42,7 +42,7 @@ void AppManager::setup()
     
     this->setupOF();
 	this->setupManagers();
-    m_guiManager.setup();
+    
     
     setDebugMode(m_debugMode);
     
@@ -56,6 +56,8 @@ void AppManager::setupOF()
     
     ofSetVerticalSync(true);
     ofSetEscapeQuitsApp(false);
+    ofEnableAlphaBlending();
+    ofEnableSmoothing();
 }
 
 
@@ -81,6 +83,8 @@ void AppManager::setupManagers()
     m_previewManager.setup();
     m_maskManager.setup();
     
+    m_guiManager.setup();
+    
   
 }
 
@@ -90,6 +94,7 @@ void AppManager::update()
         return;
     }
     
+    m_guiManager.update();
     m_audioManager.update();
     m_oscManager.update();
     m_udpManager.update();
@@ -98,6 +103,7 @@ void AppManager::update()
     m_birdsManager.update();
     m_sceneManager.update();
     m_handsManager.update();
+    
 }
 
 
@@ -111,7 +117,7 @@ void AppManager::draw()
     ofClear ( 0 );
     ofBackground(17);
     
-    
+    ofEnableAlphaBlending();
     if (m_debugMode) {
         m_viewManager.draw();
         m_sceneManager.draw(WindowIndex(wIndex));
@@ -123,15 +129,16 @@ void AppManager::draw()
 
 void AppManager::draw2()
 {
+    ofClear(0);
     if(!m_initialized){
         return;
     }
     
-    
     int wIndex = 1;
     
+    ofEnableAlphaBlending();
     m_previewManager.begin(wIndex);
-    ofClear(0, 0, 0);
+    ofClear(0);
     ofBackground(0,0,0); // change background color on each window
     m_maskManager.begin(wIndex);
     
@@ -146,14 +153,16 @@ void AppManager::draw2()
 
 void AppManager::draw3()
 {
+    
+    ofClear(0);
     if(!m_initialized){
         return;
     }
     
     int wIndex = 2;
-    
+    ofEnableAlphaBlending();
     m_previewManager.begin(wIndex);
-    ofClear(0, 0, 0);
+    ofClear(0);
     ofBackground(0,0,0); // change background color on each window
     m_maskManager.begin(wIndex);
     m_sceneManager.draw(WindowIndex(wIndex));

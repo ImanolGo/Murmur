@@ -69,16 +69,17 @@ void OscManager::setupOscSender()
 void OscManager::setupText()
 {
     auto windowSettings = WindowSettingsManager::getInstance().getWindowsSettings(0);
+    auto guiManager = AppManager::getInstance().getGuiManager();
     
     ofVec3f position;
   
-    int width =  (windowSettings.getWidth() - 4*LayoutManager::MARGIN - GuiManager::GUI_WIDTH)*0.5 - LayoutManager::MARGIN;
+    int width =  (windowSettings.getWidth() - 4*LayoutManager::MARGIN - guiManager.getWidth())*0.5 - LayoutManager::MARGIN;
     int fontSize = 12;
     int height = fontSize*3;
     
     
     string text = "COMMUNICATIONS";
-    position.x = GuiManager::GUI_WIDTH + 2.5*LayoutManager::MARGIN;
+    position.x = guiManager.getWidth() + 2.5*LayoutManager::MARGIN;
     position.y = LayoutManager::MARGIN + windowSettings.getHeight()*0.5;
     
     ofPtr<TextVisual> textVisual = ofPtr<TextVisual>(new TextVisual(position, width, height));
@@ -103,10 +104,10 @@ void OscManager::setupText()
     text = ">> OSC sending -> Host: " + host + ", Port: " + ofToString(portSend);
     
     
-    width =  (windowSettings.getWidth() - 4*LayoutManager::MARGIN - GuiManager::GUI_WIDTH)*0.5 - LayoutManager::MARGIN;
+    width =  (windowSettings.getWidth() - 4*LayoutManager::MARGIN - guiManager.getWidth())*0.5 - LayoutManager::MARGIN;
     height = fontSize*3;
     
-    position.x = GuiManager::GUI_WIDTH + 2.5*LayoutManager::MARGIN ;
+    position.x = guiManager.getWidth() + 2.5*LayoutManager::MARGIN ;
     position.y = LayoutManager::MARGIN + rectangleVisual->getPosition().y + rectangleVisual->getHeight();
     
     m_sendingInformation =  ofPtr<TextVisual> (new TextVisual(position, width, height));

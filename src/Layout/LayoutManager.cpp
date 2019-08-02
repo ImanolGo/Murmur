@@ -91,6 +91,19 @@ void LayoutManager::addVisuals()
 }
 
 
+void LayoutManager::windowResized(int w, int h)
+{
+//    if(!m_initialized){
+//        return;
+//    }
+//    
+//    this->resetWindowRects();
+//    this->resetFbos();
+//    this->resetWindowFrames();
+//    this->resetWindowTitles();
+}
+
+
 
 void LayoutManager::onCropLeft( int & pixels)
 {

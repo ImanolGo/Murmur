@@ -36,7 +36,7 @@ void BirdsAndPaperScene::update() {
 }
 
 void BirdsAndPaperScene::draw() {
-    ofBackground(0,0,0);
+    ofBackground(0);
     AppManager::getInstance().getBirdsManager().draw();
 }
 

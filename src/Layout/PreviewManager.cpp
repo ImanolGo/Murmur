@@ -61,6 +61,7 @@ void PreviewManager::setupFbos()
 void PreviewManager::setupText()
 {
     ofVec3f position;
+    //auto guiManager = AppManager::getInstance().getGuiManager();
     
     position.x = GuiManager::GUI_WIDTH + 2.5*LayoutManager::MARGIN;
     position.y = 1.5*LayoutManager::MARGIN;
@@ -101,6 +102,8 @@ void PreviewManager::setupText()
 
 void PreviewManager::setupRectangles()
 {
+    //auto guiManager = AppManager::getInstance().getGuiManager();
+    
     string key = "FRONT";
     ofVec3f position = m_texts[key]->getPosition();
     position.x -= LayoutManager::MARGIN*0.5;
@@ -132,7 +135,7 @@ void PreviewManager::setupRectangles()
         auto windowSettings = WindowSettingsManager::getInstance().getWindowsSettings(0);
         
         position.y = 3*LayoutManager::MARGIN;
-        position.x = 2*LayoutManager::MARGIN + GuiManager::GUI_WIDTH;
+        position.x = 2*LayoutManager::MARGIN +  GuiManager::GUI_WIDTH;
         
         if(m_fbos[indexWindow]->getWidth()> m_fbos[indexWindow]->getHeight()){
             width = (windowSettings.getWidth() - 4*LayoutManager::MARGIN - GuiManager::GUI_WIDTH)*0.5;
@@ -252,7 +255,7 @@ void PreviewManager::begin(int windowIndex)
     }
     
     m_fbos[windowIndex]->begin();
-    ofClear(0, 0, 0, 0);
+    ofClear(0);
 }
 
 void PreviewManager::end(int windowIndex)

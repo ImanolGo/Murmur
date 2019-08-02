@@ -9,7 +9,6 @@
 #pragma once
 
 #include "Manager.h"
-#include "ofxMask.h"
 
 //========================== class MaskManager ==============================
 //============================================================================
@@ -39,23 +38,29 @@ public:
     
     void setMaskWindowFront();
     
-
 private:
 
+    void setupShader();
+    
     //! Set-up the masks
     void setupMasks();
     
     void setMaskWindowTop();
-    
+       
     ofRectangle getFrontMaskRectangle();
     
 
 private:
     
-    typedef  vector<ofPtr<ofxMask> >  MaskVector;        ///< defines a vector of ofxMaskAddons
+    typedef  map<int, shared_ptr<ofFbo> >  FboMap;        ///< defines a map of ofFbos
     
-    MaskVector      m_masks;
+    ofShader        m_maskShader;
     
+    FboMap          m_masks;
+    FboMap          m_masksees;
+    
+    bool            m_showMasks;
+   
 };
 
 //==========================================================================

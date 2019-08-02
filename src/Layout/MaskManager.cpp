@@ -14,7 +14,7 @@
 
 
 
-MaskManager::MaskManager(): Manager()
+MaskManager::MaskManager(): Manager(),  m_showMasks(false)
 {
 	//Intentionally left empty
 }
@@ -33,24 +33,43 @@ void MaskManager::setup()
 
 	Manager::setup();
     
+    this->setupShader();
     this->setupMasks();
     
     ofLogNotice() <<"MaskManager::initialized";
    
 }
 
+void MaskManager::setupShader()
+{
+    string path = "shaders/shadersGL2/BlackMask";
+    if(ofIsGLProgrammableRenderer()){
+        path = "shaders/shadersGL3/BlackMask";
+    }
+    
+    m_maskShader.load(path);
+    ofLogNotice() <<"MaskManager::setupShader -> " << path;
+}
+
+
 void MaskManager::setupMasks()
 {
     
     auto windowSettingsVector = WindowSettingsManager::getInstance().getWindowsSettings();
     
-    for(auto windowSettings : windowSettingsVector)
+    for(int i=0; i<windowSettingsVector.size(); i++)
     {
-        ofPtr<ofxMask> mask =  ofPtr<ofxMask>(new ofxMask());
-        mask->allocate(windowSettings.getWidth(), windowSettings.getHeight(), ofxMask::LUMINANCE);
-    
-        ofLogNotice() <<"MaskManager::setupMasks -> width =  " << windowSettings.getWidth() << ", height =  " << windowSettings.getHeight();
-        m_masks.push_back(mask);
+        auto mask =  make_shared<ofFbo>();
+        mask->allocate(windowSettingsVector[i].getWidth(), windowSettingsVector[i].getHeight(), GL_RGBA);
+        mask->begin();  ofClear(0); mask->end();
+        m_masks[i] = mask;
+        
+        auto maskee =  make_shared<ofFbo>();
+        maskee->allocate(windowSettingsVector[i].getWidth(), windowSettingsVector[i].getHeight(), GL_RGBA);
+        maskee->begin();  ofClear(0); maskee->end();
+        m_masksees[i] = maskee;
+        
+        ofLogNotice() <<"MaskManager::setupMasks -> id = " << i << ", width =  " << windowSettingsVector[i].getWidth() << ", height =  " << windowSettingsVector[i].getHeight();
     }
     
 
@@ -62,7 +81,7 @@ void MaskManager::setMaskWindowFront()
 {
     int windowIndex = 1;
     
-    if(windowIndex<0 ||  windowIndex > (m_masks.size()-1)){
+    if(m_masks.find(windowIndex) == m_masks.end()){
         return;
     }
     
@@ -78,10 +97,10 @@ void MaskManager::setMaskWindowFront()
     gradientMask.setPosition(ofPoint(rect.getX(),rect.getY()));
     
     
-    m_masks[windowIndex]->beginMask();
+    m_masks[windowIndex]->begin();
         ofClear(0, 0, 0);
         gradientMask.draw();
-    m_masks[windowIndex]->endMask();
+    m_masks[windowIndex]->end();
 
 }
 
@@ -89,7 +108,7 @@ void MaskManager::setMaskWindowTop()
 {
     int windowIndex = 2;
     
-    if(windowIndex<0 ||  windowIndex > (m_masks.size()-1)){
+    if(m_masks.find(windowIndex) == m_masks.end()){
         return;
     }
     
@@ -99,39 +118,43 @@ void MaskManager::setMaskWindowTop()
     gradientMask.setHeight(m_masks[windowIndex]->getHeight(), true);
 
   
-    m_masks[windowIndex]->beginMask();
+    m_masks[windowIndex]->begin();
         ofClear(0, 0, 0);
         gradientMask.draw();
-    m_masks[windowIndex]->endMask();
-
-    
+    m_masks[windowIndex]->end();
+   
 }
 
 void MaskManager::begin(int windowIndex)
 {
-    if(windowIndex<0 ||  windowIndex > (m_masks.size()-1)){
+    if(m_masks.find(windowIndex) == m_masks.end()){
         return;
     }
     
+    if(m_masksees.find(windowIndex) == m_masksees.end()){
+        return;
+    }
+    
+    
+    m_masksees[windowIndex]->begin();
     ofEnableAlphaBlending();
-    m_masks[windowIndex]->begin(true);
+    m_maskShader.begin();
+    m_maskShader.setUniformTexture("imageMask", m_masks[windowIndex]->getTexture(), 1);
+    
+    ofClear(0);
 }
 
 void MaskManager::end(int windowIndex)
 {
-    if(windowIndex<0 ||  windowIndex > (m_masks.size()-1)){
+    if(m_masksees.find(windowIndex) == m_masksees.end()){
         return;
     }
     
+    m_maskShader.end();
+    m_masksees[windowIndex]->end();
     
-    //m_maskShader.end();
-   m_masks[windowIndex]->end();
-    
-   //m_masks[windowIndex]->drawMasker();
-   m_masks[windowIndex]->draw();
-    
-   ofDisableAlphaBlending();
-   
+    m_masksees[windowIndex]->draw(0,0);
+    //m_masks[windowIndex]->draw(0,0);
 }
 
 

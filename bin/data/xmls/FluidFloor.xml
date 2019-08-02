@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <FluidGUI>
 	<optical_flow>
 		<strength>1</strength>
@@ -83,5 +84,5 @@
 			<reset>0</reset>
 		</draw_flow_res_2>
 	</mouse_left_button>
-<FluidGUI/>
+	<FluidGUI />
 </FluidGUI>

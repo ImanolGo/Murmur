@@ -10,7 +10,6 @@
 #include "AppManager.h"
 #include "ContourManager.h"
 #include "SettingsManager.h"
-#include "ofxWater.h"
 
 #include "KathakScene.h"
 
@@ -43,7 +42,7 @@ void KathakScene::setup()
 
 void KathakScene::setupFbos()
 {
-    auto windowsSettings = AppManager::getInstance().getSceneManager().getWindowSettings(this);
+    auto windowsSettings = AppManager::getInstance().getSceneManager().getWindowSettings( (ofxScene *)this);
     m_fboMask.allocate(windowsSettings.getWidth(), windowsSettings.getHeight());
     
     ImageVisual gradientMask = ImageVisual(ofPoint(windowsSettings.getWidth()*0.5, windowsSettings.getHeight()*0.5), "floor_mask", true );
@@ -74,7 +73,7 @@ void KathakScene::setupShaders()
 void KathakScene::setupWaterRipples()
 {
     ofSetCircleResolution(100);
-    auto windowsSettings = AppManager::getInstance().getSceneManager().getWindowSettings(this);
+    auto windowsSettings = AppManager::getInstance().getSceneManager().getWindowSettings((ofxScene *)this);
     
     ofImage waterBackground;
     waterBackground.allocate(windowsSettings.getWidth(), windowsSettings.getHeight(), OF_IMAGE_GRAYSCALE);
@@ -90,7 +89,7 @@ void KathakScene::update()
 
 
 void KathakScene::draw() {
-    ofBackground(0,0,0);
+     ofBackground(0);
     
     //m_maskShader.begin();
     //m_maskShader.setUniformTexture("imageMask", m_fboMask.getTextureReference(), 1);
@@ -105,7 +104,7 @@ void KathakScene::updateWaterRipples()
 {
     float volume = AppManager::getInstance().getAudioManager().getAudioMax();
     auto position = AppManager::getInstance().getFloorManager().getPosition();
-    auto windowsSettings = AppManager::getInstance().getSceneManager().getWindowSettings(this);
+    auto windowsSettings = AppManager::getInstance().getSceneManager().getWindowSettings( (ofxScene *) this);
     
     position.x *= windowsSettings.getWidth();
     position.y *= windowsSettings.getHeight();

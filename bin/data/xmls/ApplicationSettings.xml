@@ -16,10 +16,9 @@
 
     <texture name="hands_brush" path="images/hands/brush.png"/>
     <texture name="sonic_brush" path="images/hands/sonicBoomBrush.png"/>
-    <texture name="sonic_ring" path="images/hands/ring3.png"/>
+    <texture name="sonic_ring" path="images/hands/ring4.png"/>
     <texture name="floor_mask" path="images/floor/FloorGradientMask.png"/>
     <texture name="floor_mask_transp" path="images/floor/FloorGradientMaskTransparent.png"/>
-  	<texture name="starling" path="images/birds/starling_top_01.png"/>
     <texture name="calibration_image" path="images/calibration/CalibrationImage.png"/>
     <texture name="frame_mask" path="images/general/FrameMask.png"/>
     <texture name="frame_beautifulmind" path="images/general/FrameMaskWithObject.png"/>

@@ -1,89 +1,27 @@
 <?xml version="1.0"?>
-<MurmurRenderer>
-	<FPS>59.4071</FPS>
-	<Scenes>
-		<TransitionTime>1.59184</TransitionTime>
-		<BlankScene>0</BlankScene>
-		<SmokyHandsScene>0</SmokyHandsScene>
-		<BattleOfSelfScene>0</BattleOfSelfScene>
-		<HandsWritingScene>0</HandsWritingScene>
-		<FluidFloorScene>0</FluidFloorScene>
-		<BeautifulMindScene>1</BeautifulMindScene>
-		<Transparency>0</Transparency>
-		<KathakScene>0</KathakScene>
-		<BirdsScene>0</BirdsScene>
-		<BirdsOpeningScene>0</BirdsOpeningScene>
-		<BirdsAndPaperScene>0</BirdsAndPaperScene>
-		<TransparencyFront>0</TransparencyFront>
-		<TransparencyTop>0</TransparencyTop>
-		<Opacity>0</Opacity>
-		<OpacityFront>0</OpacityFront>
-		<OpacityTop>0</OpacityTop>
-		<PostShowScene>0</PostShowScene>
-		<SonicBoomScene>0</SonicBoomScene>
-	</Scenes>
-	<Contour>
-		<Thickness>0.408163</Thickness>
-		<Offset>0.0119534, 0.274344</Offset>
-		<Scale>1.03374, 0.967097</Scale>
-	</Contour>
-	<MurmurRenderer />
-	<Hands>
-		<Offset>-0.0289463, 0.0543523</Offset>
-		<Scale>-0.507705, -0.80758</Scale>
-		<On>0</On>
-		<FadeTime>7.40816</FadeTime>
-		<Size>0.714286</Size>
-	</Hands>
-	<Floor>
-		<Offset>0.00853813, -0.141399</Offset>
-		<Scale>1.13369, -1.85235</Scale>
-	</Floor>
-	<BeautifulMind>
-		<Offset>0.000416517, 0.000416517</Offset>
-		<Scale>1, 1</Scale>
-		<FloorOn>1</FloorOn>
-		<Speed>1</Speed>
-		<CalibrationOn>0</CalibrationOn>
-	</BeautifulMind>
-	<Crop>
-		<CropLeft>0</CropLeft>
-		<CropRight>0</CropRight>
-		<CropTop>0</CropTop>
-		<CropBottom>0</CropBottom>
-	</Crop>
-	<Audio>
-		<Volume>0.82449</Volume>
-		<AudioOn>1</AudioOn>
-	</Audio>
-	<Layout>
-		<Fullscreen>1</Fullscreen>
-		<CropLeft>83</CropLeft>
-		<CropRight>126</CropRight>
-		<CropTop>193</CropTop>
-		<CropBottom>214</CropBottom>
-	</Layout>
-	<Birds>
-		<Offset>0, 0</Offset>
-		<Transparency>0.285714</Transparency>
-		<SwarmSize>3, 3, 3</SwarmSize>
-		<Position>0, 0, 0</Position>
-		<Size>1.55102</Size>
-		<MaxForce>2.85714</MaxForce>
-		<WanderDistance>15.5102</WanderDistance>
-		<WanderRadius>22.8571</WanderRadius>
-		<WanderRange>93.8776</WanderRange>
-		<InSightDist>644.898</InSightDist>
-		<TooCloseDist>22.8571</TooCloseDist>
-		<BirdsNumber>0</BirdsNumber>
-		<Speed>7</Speed>
-		<Randomness>0</Randomness>
-	</Birds>
-	<Top>
-		<Volume>1</Volume>
-		<PaperThrowerSpeed>0.5</PaperThrowerSpeed>
-	</Top>
-	<FloorTracking>
-		<PaperThrowerSpeed>0</PaperThrowerSpeed>
-	</FloorTracking>
-</MurmurRenderer>
+<group>
+	<TransitionTime>2.647</TransitionTime>
+	<Opacity>0</Opacity>
+	<OpacityFront>0</OpacityFront>
+	<OpacityTop>0</OpacityTop>
+	<Position>0, 0, 0</Position>
+	<Size>1</Size>
+	<SwarmSize>4, 4, 4</SwarmSize>
+	<BirdsNumber>250</BirdsNumber>
+	<Speed>1</Speed>
+	<Randomness>0</Randomness>
+	<Thickness>1</Thickness>
+	<Offset>0, 0</Offset>
+	<Scale>1, 1</Scale>
+	<On>0</On>
+	<FadeTime>2</FadeTime>
+	<CropLeft>0</CropLeft>
+	<CropRight>0</CropRight>
+	<CropTop>0</CropTop>
+	<CropBottom>0</CropBottom>
+	<FloorOn>0</FloorOn>
+	<CalibrationOn>0</CalibrationOn>
+	<AudioOn>0</AudioOn>
+	<Volume>0.5</Volume>
+	<PaperThrowerSpeed>0</PaperThrowerSpeed>
+</group>

@@ -1,7 +1,7 @@
 /*
  *  ViewManager.cpp
  *
- *  Created by Imanol G—mez on 16/02/15.
+ *  Created by Imanol GÑmez on 16/02/15.
  *
  */
 
@@ -18,7 +18,7 @@
 
 ViewManager::ViewManager(): Manager(), m_showDebugInfo(true)
 {
-	// intentionally left empty
+    // intentionally left empty
 }
 
 ViewManager::~ViewManager()
@@ -31,13 +31,13 @@ void ViewManager::setup()
 {
     if(m_initialized)
         return;
-
+    
     Manager::setup();
-
+    
     //this->setupGL();
     //this->setup3D();
     this->setupTextVisuals();
-
+    
     ofLogNotice() << "ViewManager::initialized ";
 }
 
@@ -77,7 +77,7 @@ void ViewManager::setupTextVisuals()
     string text = "";
     string fontName ="fonts/helvetica-neue-medium.ttf";
     ofColor textColor = ofColor::white;
-
+    
     //m_frameRateText = ofPtr<TextVisual> (new TextVisual(position,width,height));
     //m_frameRateText->setText(text,fontName,fontSize,textColor);
 }
@@ -87,7 +87,7 @@ void ViewManager::update()
     if(m_showDebugInfo){
         //string text = "fps: " + ofToString(ofGetFrameRate(), 2);
         //m_frameRateText->setText(text);
-	}
+    }
 }
 
 
@@ -97,13 +97,13 @@ void ViewManager::draw()
     
     //his->drawBackround();
     this->drawOverlays();
-    this->drawVisuals();
+    //this->drawVisuals();
     
-//    ofPushStyle();
-//    ofSetColor(ofColor::white);
-//    string text = "fps: " + ofToString(ofGetFrameRate(), 2);
-//    ofDrawBitmapString(text, 20, 20);
-//    ofPopStyle();
+    //    ofPushStyle();
+    //    ofSetColor(ofColor::white);
+    //    string text = "fps: " + ofToString(ofGetFrameRate(), 2);
+    //    ofDrawBitmapString(text, 20, 20);
+    //    ofPopStyle();
 }
 
 void ViewManager::drawBackround()
@@ -124,7 +124,7 @@ void ViewManager::drawVisuals()
     m_light.enable();
     ofEnableLighting();
     glEnable(GL_DEPTH_TEST);
-  
+    
     
     for(VisualList::iterator it = m_visuals.begin(); it != m_visuals.end(); it++) {
         ofPushMatrix();
@@ -144,12 +144,12 @@ void ViewManager::drawOverlays()
     ofEnableAlphaBlending();
     for(OverlayList::reverse_iterator it = m_overlays.rbegin(); it != m_overlays.rend(); it++)
     {
-		ofPushMatrix();
-		it->second->draw();
-		ofPopMatrix();
-	}
-    ofDisableAlphaBlending();
-
+        ofPushMatrix();
+        it->second->draw();
+        ofPopMatrix();
+    }
+   // ofDisableAlphaBlending();
+    
 }
 
 void ViewManager::addOverlay(ofPtr<BasicVisual> visual,int zOrder)
@@ -157,13 +157,13 @@ void ViewManager::addOverlay(ofPtr<BasicVisual> visual,int zOrder)
     if(!visual){
         return;
     }
-
+    
     if(isOverlayAlreadyAdded(visual)){
         return;
     }
     
-	m_overlays.push_back(Overlay(zOrder,visual));
-	m_overlays.sort();
+    m_overlays.push_back(Overlay(zOrder,visual));
+    m_overlays.sort();
 }
 
 
@@ -172,16 +172,16 @@ void ViewManager::removeOverlay(ofPtr<BasicVisual> visual)
     if(!visual){
         return;
     }
-
-	for(OverlayList::iterator it = m_overlays.begin(); it != m_overlays.end();) {
-		if(it->second == visual) {
+    
+    for(OverlayList::iterator it = m_overlays.begin(); it != m_overlays.end();) {
+        if(it->second == visual) {
             AppManager::getInstance().getVisualEffectsManager().removeAllVisualEffects(it->second);
-			it = m_overlays.erase(it);
-		}
-		else {
-			++it;
-		}
-	}
+            it = m_overlays.erase(it);
+        }
+        else {
+            ++it;
+        }
+    }
 }
 
 void ViewManager::addVisual(ofPtr<BasicVisual> visual)
@@ -193,7 +193,7 @@ void ViewManager::addVisual(ofPtr<BasicVisual> visual)
     if(isVisualAlreadyAdded(visual)){
         return;
     }
-
+    
     
     m_visuals.push_back(visual);
 }
@@ -215,14 +215,14 @@ bool ViewManager::isOverlayAlreadyAdded(ofPtr<BasicVisual> visual)
 {
     if(!visual)
         return true;
-
-	for(OverlayList::iterator it = m_overlays.begin(); it != m_overlays.end(); ++it) {
-		if(it->second == visual) {
-           return true;
-		}
-	}
-
-	return false;
+    
+    for(OverlayList::iterator it = m_overlays.begin(); it != m_overlays.end(); ++it) {
+        if(it->second == visual) {
+            return true;
+        }
+    }
+    
+    return false;
 }
 
 bool ViewManager::isVisualAlreadyAdded(ofPtr<BasicVisual> visual)
@@ -238,7 +238,6 @@ bool ViewManager::isVisualAlreadyAdded(ofPtr<BasicVisual> visual)
     
     return false;
 }
-
 
 
 

@@ -35,7 +35,7 @@ public:
     //! Draw Layer
     void draw();
     
-    
+    void windowResized(int w, int h);
     
     int getCropLeft() const {return m_cropLeft;}
     
@@ -44,7 +44,6 @@ public:
     int getCropTop() const {return m_cropTop;}
     
     int getCropBottom() const {return m_cropBottom;}
-    
     
     void onCropLeft( int & pixels);
     

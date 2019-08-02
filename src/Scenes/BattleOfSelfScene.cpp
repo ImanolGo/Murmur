@@ -92,7 +92,7 @@ void BattleOfSelfScene::draw() {
     
     //ofLogNotice("BattleOfSelfScene::draw");
 
-    ofClear(0, 0, 0);
+    ofBackground(0);
     ofPushStyle();
         ofEnableBlendMode(OF_BLENDMODE_DISABLED);
     
@@ -148,7 +148,7 @@ void BattleOfSelfScene::drawFluid()
     m_fluid.draw(m_drawArea);
     
     m_fbo.end();
-    ofDisableAlphaBlending();
+    //ofDisableAlphaBlending();
     ofPopStyle();
     
     m_fbo.draw(0,0);

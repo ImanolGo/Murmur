@@ -55,6 +55,7 @@ void UdpManager::setupUdpReceiver()
 void UdpManager::setupText()
 {
     auto windowSettings = WindowSettingsManager::getInstance().getWindowsSettings(0);
+   // auto guiManager = AppManager::getInstance().getGuiManager();
     
     int width =  (windowSettings.getWidth() - 4*LayoutManager::MARGIN - GuiManager::GUI_WIDTH)*0.5 - LayoutManager::MARGIN;
     int fontSize = 12;

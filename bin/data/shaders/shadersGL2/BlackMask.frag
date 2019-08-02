@@ -1,19 +1,13 @@
 #version 120
-#extension GL_ARB_texture_rectangle : enable
-#extension GL_EXT_gpu_shader4 : enable
 
-uniform sampler2DRect texture0;
-uniform sampler2DRect imageMask;	//Second texture
+uniform sampler2DRect tex0;
+uniform sampler2DRect imageMask;
 
-void main(){
-	vec2 pos = gl_TexCoord[0].xy;
-	vec4 color0 = texture2DRect(texture0, pos);
-	vec4 color1 = texture2DRect(imageMask, pos);
-	//Compute resulted color
-	vec4 color;
-	color.rgb = color0.rgb;
-	color.a = color1.r;
+varying vec2 texCoordVarying;
 
-	//Output of the shader
-	gl_FragColor = color;
+void main()
+{
+    vec4 texel0 = texture2DRect(tex0, texCoordVarying);
+    vec4 texel1 = texture2DRect(imageMask, texCoordVarying);
+    gl_FragColor = vec4(texel0.rgb, texel0.a * texel1.r);
 }

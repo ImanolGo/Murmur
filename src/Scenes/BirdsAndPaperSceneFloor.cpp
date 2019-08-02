@@ -87,7 +87,7 @@ void BirdsAndPaperSceneFloor::update()
 
 
 void BirdsAndPaperSceneFloor::draw() {
-    ofBackground(0,0,0);
+    ofBackground(0);
 
     m_maskShader.begin();
     m_maskShader.setUniformTexture("imageMask", m_fboMask.getTextureReference(), 1);

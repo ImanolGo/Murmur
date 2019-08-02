@@ -47,29 +47,32 @@ void SonicBoomParticle::update()
     
     m_width = ofMap(m_time, 0, m_lifeTime, m_initSize, m_size);
     float brightness = ofMap(m_time, 0, m_lifeTime, 200, 0, true);
-    m_color.setBrightness(brightness);
+    //m_color.setBrightness(brightness);
+    //m_color.a = brightness;
+   
     //m_color.a = brightness;
     
-    //m_color.a = 50;
+   // m_color.a = 50;
     
     m_image.setColor(m_color);
     m_image.setWidth(m_width,true);
     m_image.setPosition(m_position);
     if(m_time>=m_lifeTime){
         m_live = false;
+         //ofLogNotice()<< "brightness = " << m_color;
     }
     
 }
 
 void SonicBoomParticle::draw()
 {
-    //ofPushStyle();
+    ofPushStyle();
     //ofEnableAlphaBlending();
     //ofSetColor(m_color);
-    //ofCircle(m_position, m_width);
+    //ofDrawCircle(m_image.getPosition(), m_image.getWidth());
     m_image.draw();
     //ofDisableAlphaBlending();
-    //ofPopStyle();
+    ofPopStyle();
 }
 
 
@@ -140,11 +143,12 @@ void SonicBoomVisual::drawParticles()
 {
     
     //ofPushStyle();
+    ofEnableAlphaBlending();
     
     m_fbo.begin();
     
-    //ofEnableAlphaBlending();
-    ofClear(0,0,0);
+    ofPushStyle();
+    ofClear(0);
     //ofRect(0,0,m_fbo.getWidth(),m_fbo.getHeight());
     //ofSetColor(255,255,255);
     ofEnableBlendMode(OF_BLENDMODE_ADD);
@@ -153,11 +157,13 @@ void SonicBoomVisual::drawParticles()
     }
     
     //ofDisableAlphaBlending();
-    // ofDisableBlendMode();
+    ofDisableBlendMode();
+    ofPopStyle();
+    
     m_fbo.end();
     
-    // ofPopStyle();
     
+    ofEnableAlphaBlending();
     m_fbo.draw(0, 0);
 }
 
