@@ -42,7 +42,6 @@
 		08A93D6422F4C143002AC20A /* ProjectorCalibrationScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08A93D6022F4C142002AC20A /* ProjectorCalibrationScene.cpp */; };
 		08A93D6522F4C143002AC20A /* ProjectorCalibrationSceneFloor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08A93D6222F4C143002AC20A /* ProjectorCalibrationSceneFloor.cpp */; };
 		092A30A4355A2025EEEDFCBA /* SyphonVisual.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E9CB81F874C1F45572A2A0 /* SyphonVisual.cpp */; };
-		0AF1F1EF104F9E8C043B93AC /* PreviewManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5F8E4584C425FC821D5E7742 /* PreviewManager.cpp */; };
 		0C8E6109528865C738BFD818 /* SyphonNameboundClient.m in Sources */ = {isa = PBXBuildFile; fileRef = A78388489306C3277E37BA4F /* SyphonNameboundClient.m */; };
 		12451834526FB5CD4EA0D0DF /* ofxSceneManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3B778D8F951EC700B066390 /* ofxSceneManager.cpp */; };
 		1664381974ED361FF08F8F15 /* BeautifulMindScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD72A17544140D91E4F32D7A /* BeautifulMindScene.cpp */; };
@@ -274,6 +273,7 @@
 		08A93D6122F4C142002AC20A /* ProjectorCalibrationScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProjectorCalibrationScene.h; path = ../../../../../MoritzWaldemeyer/Bentley/software/OpenFrameworks/BentleyApp/src/Scenes/ProjectorCalibrationScene.h; sourceTree = "<group>"; };
 		08A93D6222F4C143002AC20A /* ProjectorCalibrationSceneFloor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ProjectorCalibrationSceneFloor.cpp; path = ../../../../../MoritzWaldemeyer/Bentley/software/OpenFrameworks/BentleyApp/src/Scenes/ProjectorCalibrationSceneFloor.cpp; sourceTree = "<group>"; };
 		08A93D6322F4C143002AC20A /* ProjectorCalibrationSceneFloor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProjectorCalibrationSceneFloor.h; path = ../../../../../MoritzWaldemeyer/Bentley/software/OpenFrameworks/BentleyApp/src/Scenes/ProjectorCalibrationSceneFloor.h; sourceTree = "<group>"; };
+		08A93D6A22F57DF1002AC20A /* managers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = managers.h; path = Main/managers.h; sourceTree = "<group>"; };
 		09F8F2DF1D53E65319F30B96 /* LightManager.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = LightManager.cpp; path = src/Engine/3D/LightManager.cpp; sourceTree = SOURCE_ROOT; };
 		0AA88815461607B32F84A7A9 /* ofxNetworkUtils.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = ofxNetworkUtils.cpp; path = ../../../../../../../Applications/of_v0.10.1_osx_release/addons/ofxNetwork/src/ofxNetworkUtils.cpp; sourceTree = SOURCE_ROOT; };
 		0AC6C1985F2FAA22F80B84D1 /* ofxGuiGroup.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxGuiGroup.h; path = ../../../../../../../Applications/of_v0.10.1_osx_release/addons/ofxGui/src/ofxGuiGroup.h; sourceTree = SOURCE_ROOT; };
@@ -337,7 +337,6 @@
 		563C5AE132034158D0FE76FE /* README */ = {isa = PBXFileReference; explicitFileType = file; fileEncoding = 4; name = README; path = src/Addons/ofxFft/README; sourceTree = SOURCE_ROOT; };
 		5885517F7CA4141C11CFC4F7 /* ofxEasing.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxEasing.h; path = src/Addons/ofxEasing/src/ofxEasing.h; sourceTree = SOURCE_ROOT; };
 		5C21DB27177E0FF6B8D21A9B /* SonicBoomVisual.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = SonicBoomVisual.h; path = src/Visuals/SonicBoomVisual.h; sourceTree = SOURCE_ROOT; };
-		5F8E4584C425FC821D5E7742 /* PreviewManager.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = PreviewManager.cpp; path = src/Layout/PreviewManager.cpp; sourceTree = SOURCE_ROOT; };
 		5FA64D51DA6D1619944A259C /* ResourceManager.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = ResourceManager.cpp; path = src/Engine/Resources/ResourceManager.cpp; sourceTree = SOURCE_ROOT; };
 		66743F5B834177F198AAB074 /* ofxNetwork.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxNetwork.h; path = ../../../../../../../Applications/of_v0.10.1_osx_release/addons/ofxNetwork/src/ofxNetwork.h; sourceTree = SOURCE_ROOT; };
 		670CE8E5FACF3883E2F120DE /* FluidVisual.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = FluidVisual.h; path = src/Visuals/FluidVisual.h; sourceTree = SOURCE_ROOT; };
@@ -634,7 +633,6 @@
 		F7D513F7C92E3C60F81B1A61 /* ResourceManager.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ResourceManager.h; path = src/Engine/Resources/ResourceManager.h; sourceTree = SOURCE_ROOT; };
 		F94F04C2A3BFBCB8D6F36DEB /* Manager.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = Manager.h; path = src/Main/Manager.h; sourceTree = SOURCE_ROOT; };
 		F9AE1E55002ABE2186F4787F /* BirdsAndPaperScene.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = BirdsAndPaperScene.h; path = src/Scenes/BirdsAndPaperScene.h; sourceTree = SOURCE_ROOT; };
-		FCC0B9B20E4AEC44154D044D /* PreviewManager.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = PreviewManager.h; path = src/Layout/PreviewManager.h; sourceTree = SOURCE_ROOT; };
 		FD4DF2284F5D80C655A0D429 /* CameraAnimations.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = CameraAnimations.h; path = src/Engine/3D/CameraAnimations.h; sourceTree = SOURCE_ROOT; };
 		FD72A17544140D91E4F32D7A /* BeautifulMindScene.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = BeautifulMindScene.cpp; path = src/Scenes/BeautifulMindScene.cpp; sourceTree = SOURCE_ROOT; };
 		FF6C15732C9CD03D3DDC6711 /* BirdsAndPaperSceneFloor.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = BirdsAndPaperSceneFloor.cpp; path = src/Scenes/BirdsAndPaperSceneFloor.cpp; sourceTree = SOURCE_ROOT; };
@@ -1029,8 +1027,6 @@
 				78E61E440A21EE9FC6156AAD /* LayoutManager.h */,
 				A2EA41BEA7E5A43E6C47D692 /* MaskManager.cpp */,
 				C1CCAA8796D39D9B1DEEEF93 /* MaskManager.h */,
-				5F8E4584C425FC821D5E7742 /* PreviewManager.cpp */,
-				FCC0B9B20E4AEC44154D044D /* PreviewManager.h */,
 			);
 			name = Layout;
 			sourceTree = "<group>";
@@ -1292,6 +1288,7 @@
 				D26C09D837E4FD6CBDBE2B8C /* AppManager.h */,
 				6E3F47F486843AA062205007 /* main.cpp */,
 				F94F04C2A3BFBCB8D6F36DEB /* Manager.h */,
+				08A93D6A22F57DF1002AC20A /* managers.h */,
 				A3D461D566E10D3FBB1F3A9F /* MurmurRendererApp.cpp */,
 				42A021134BF6B3DBD8FC527E /* MurmurRendererApp.h */,
 				73D7AA4CF4895FC3DEEC2978 /* SettingsManager.cpp */,
@@ -1937,7 +1934,6 @@
 				5D33A9513B2A4C6DBD3188C7 /* GuiManager.cpp in Sources */,
 				93510377552D47B6620A7586 /* LayoutManager.cpp in Sources */,
 				E79CB8C17D289FDF08DFD821 /* MaskManager.cpp in Sources */,
-				0AF1F1EF104F9E8C043B93AC /* PreviewManager.cpp in Sources */,
 				0874590C22EF2CAA002B50FC /* ftDrawForce.cpp in Sources */,
 				1AF15FCF93D2DDD6D4285C8E /* AppManager.cpp in Sources */,
 				DA22DA3A4F2E611DF50078F2 /* main.cpp in Sources */,

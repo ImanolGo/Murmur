@@ -100,6 +100,8 @@ private:
      
      void updateParticles();
      
+     void updateFbo();
+     
      void drawParticles();
      
 private:

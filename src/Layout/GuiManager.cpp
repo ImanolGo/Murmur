@@ -308,7 +308,7 @@ void GuiManager::draw()
     if(!m_showGui)
         return;
     
-    this->drawRectangle();
+    //this->drawRectangle();
     this->drawGui();
 }
 

@@ -9,26 +9,8 @@
 #pragma once
 
 #include "ofMain.h"
+#include "managers.h"
 
-#include "Manager.h"
-#include "SettingsManager.h"
-#include "LayoutManager.h"
-#include "GuiManager.h"
-#include "ResourceManager.h"
-#include "VisualEffectsManager.h"
-#include "ViewManager.h"
-#include "KeyboardManager.h"
-#include "OscManager.h"
-#include "SceneManager.h"
-#include "ContourManager.h"
-#include "HandsManager.h"
-#include "UdpManager.h"
-#include "FloorManager.h"
-#include "BeautifulMindManager.h"
-#include "AudioManager.h"
-#include "BirdsManager.h"
-#include "PreviewManager.h"
-#include "MaskManager.h"
 
 //========================== class AppManager ==============================
 //============================================================================
@@ -112,10 +94,7 @@ public:
     
     //! Returns the Birds Manager
     BirdsManager&  getBirdsManager() { return m_birdsManager; }
-    
-    //! Returns the Preview Manager
-    PreviewManager&  getPreviewManager() { return m_previewManager; }
-    
+     
     //! Returns the Mask Manager
     MaskManager&  getMaskManager() { return m_maskManager; }
     
@@ -174,7 +153,6 @@ private:
     BeautifulMindManager            m_beautifulMindManager;     ///< Manages the Beautiful Mind Scene
     AudioManager                    m_audioManager;             ///< Manages the audio input
     BirdsManager                    m_birdsManager;             ///< Manages the birds
-    PreviewManager                  m_previewManager;           ///< Manages the preview
     MaskManager                     m_maskManager;              ///< Manages the masking
     
     bool                            m_debugMode;

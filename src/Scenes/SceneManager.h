@@ -99,16 +99,22 @@ private:
     //! setups the text layout
     void setupText();
     
+    void setupFbos();
+    
+    void updateFbos();
+    
     //! updates the text layout
     void updateText(const string& text);
 
 private:
 
     typedef  map<WindowIndex, ofPtr < ofxSceneManager> >    SceneManagerMap;       ///< defines a map of scene manager attached to a window index
+    typedef  map<WindowIndex, ofPtr < ofFbo> >    FboMap;       ///< defines a map of scene manager attached to a window index
     typedef  vector< ofPtr <Scene > >               SceneVector;           ///< defines a vector of Scenes
     
     
     SceneManagerMap     m_sceneManagers;
+    FboMap              m_fbos;
     SceneVector         m_scenes;
     vector< string >    m_sceneNames;
     

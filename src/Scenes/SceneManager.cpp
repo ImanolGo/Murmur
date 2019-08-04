@@ -36,12 +36,32 @@ void SceneManager::setup()
 
     this->createSceneManagers();
     this->createScenes();
+    this->setupFbos();
     //this->setupText();
 
     ofLogNotice() <<"SceneManager::initialized";
 
 }
 
+void SceneManager::setupFbos()
+{
+    int key = FRONT;
+    auto windowSettings =  WindowSettingsManager::getInstance().getWindowsSettings(key);
+    auto fbo = ofPtr<ofFbo> (new ofFbo());
+    fbo->allocate(windowSettings.getWidth(), windowSettings.getHeight());
+    fbo->begin(); ofClear(0); fbo->end();
+    m_fbos[WindowIndex(key)] = fbo;
+    
+    
+    key = TOP;
+    windowSettings =  WindowSettingsManager::getInstance().getWindowsSettings(key);
+    fbo = ofPtr<ofFbo> (new ofFbo());
+    fbo->allocate(windowSettings.getWidth(), windowSettings.getHeight());
+    fbo->begin(); ofClear(0); fbo->end();
+    m_fbos[WindowIndex(key)] = fbo;
+    
+    
+}
 void SceneManager::createSceneManagers()
 {
     m_sceneManagers[WindowIndex(FRONT)] = ofPtr<ofxSceneManager> (new ofxSceneManager());
@@ -66,7 +86,7 @@ void SceneManager::createScenes()
 
 void SceneManager::createSceneNames()
 {
-    vector<string> names = {"BlankScene", "SmokyHandsScene", "BattleOfSelfScene", "HandsWritingScene","BeautifulMindScene","BirdsAndPaperScene", "BirdsOpeningScene", "SonicBoomScene", "ProjectorCalibrationScene"};
+    vector<string> names = {"BlankScene", "SmokyHandsScene", "BattleOfSelfScene", "HandsWritingScene","FluidFloorScene","KathakScene", "BeautifulMindScene","BirdsAndPaperScene", "BirdsOpeningScene", "SonicBoomScene", "ProjectorCalibrationScene"};
     m_sceneNames = names;
 }
 
@@ -80,41 +100,41 @@ void SceneManager::createFrontScenes()
     this->createScene("BlankScene", SceneIndex(i), scene, WindowIndex(FRONT));
     i++;
     
-    //Create Smoky Hands Scene
-    scene = ofPtr<ofxScene> (new SmokyHandsScene());
-    this->createScene("SmokyHandsScene", SceneIndex(i), scene, WindowIndex(FRONT));
-    i++;
-    
-    //Create Battle of Self Scene
-    scene = ofPtr<ofxScene> (new BattleOfSelfScene());
-    this->createScene("BattleOfSelfScene", SceneIndex(i), scene, WindowIndex(FRONT));
-    i++;
-    
-    //Create Hands Writing Scene
-    scene = ofPtr<ofxScene> (new HandsWritingScene());
-    this->createScene("HandsWritingScene", SceneIndex(i), scene, WindowIndex(FRONT));
-    i++;
+//    //Create Smoky Hands Scene
+//    scene = ofPtr<ofxScene> (new SmokyHandsScene());
+//    this->createScene("SmokyHandsScene", SceneIndex(i), scene, WindowIndex(FRONT));
+//    i++;
+//    
+//    //Create Battle of Self Scene
+//    scene = ofPtr<ofxScene> (new BattleOfSelfScene());
+//    this->createScene("BattleOfSelfScene", SceneIndex(i), scene, WindowIndex(FRONT));
+//    i++;
+//    
+//    //Create Hands Writing Scene
+//    scene = ofPtr<ofxScene> (new HandsWritingScene());
+//    this->createScene("HandsWritingScene", SceneIndex(i), scene, WindowIndex(FRONT));
+//    i++;
     
     //Create Beautiful Mind Scene
     scene = ofPtr<ofxScene> (new BeautifulMindScene());
     this->createScene("BeautifulMindScene", SceneIndex(i), scene, WindowIndex(FRONT));
     i++;
-    
-    //Create Birds And Paper Scene
-    scene = ofPtr<ofxScene> (new BirdsAndPaperScene());
-    this->createScene("BirdsAndPaperScene", SceneIndex(i), scene, WindowIndex(FRONT));
-    i++;
-    
-    //Create Birds Opening Scene
-    scene = ofPtr<ofxScene> (new BirdsOpeningScene());
-    this->createScene("BirdsOpeningScene", SceneIndex(i), scene, WindowIndex(FRONT));
-    i++;
-   
-    //Create Sonic Boom Scene
-    scene = ofPtr<ofxScene> (new SonicBoomScene());
-    this->createScene("SonicBoomScene", SceneIndex(i), scene, WindowIndex(FRONT));
-    i++;
-    
+//
+//    //Create Birds And Paper Scene
+//    scene = ofPtr<ofxScene> (new BirdsAndPaperScene());
+//    this->createScene("BirdsAndPaperScene", SceneIndex(i), scene, WindowIndex(FRONT));
+//    i++;
+//
+//    //Create Birds Opening Scene
+//    scene = ofPtr<ofxScene> (new BirdsOpeningScene());
+//    this->createScene("BirdsOpeningScene", SceneIndex(i), scene, WindowIndex(FRONT));
+//    i++;
+//
+//    //Create Sonic Boom Scene
+//    scene = ofPtr<ofxScene> (new SonicBoomScene());
+//    this->createScene("SonicBoomScene", SceneIndex(i), scene, WindowIndex(FRONT));
+//    i++;
+//
     //Create ProjectorCalibrationScene Scene
     scene = ofPtr<ofxScene> (new ProjectorCalibrationScene());
     this->createScene("ProjectorCalibrationScene", SceneIndex(i), scene, WindowIndex(FRONT));
@@ -132,27 +152,27 @@ void SceneManager::createTopScenes()
     scene = ofPtr<ofxScene> (new BlankScene());
     this->createScene("BlankScene", SceneIndex(i), scene, WindowIndex(TOP));
     i++;
-    
-    scene = ofPtr<ofxScene> (new FluidFloorScene());
-    this->createScene("FluidFloorScene", SceneIndex(i), scene, WindowIndex(TOP));
-    i++;
-    
-    scene = ofPtr<ofxScene> (new KathakScene());
-    this->createScene("KathakScene", SceneIndex(i), scene, WindowIndex(TOP));
-    i++;
+//
+//    scene = ofPtr<ofxScene> (new FluidFloorScene());
+//    this->createScene("FluidFloorScene", SceneIndex(i), scene, WindowIndex(TOP));
+//    i++;
+//
+//    scene = ofPtr<ofxScene> (new KathakScene());
+//    this->createScene("KathakScene", SceneIndex(i), scene, WindowIndex(TOP));
+//    i++;
     
     scene = ofPtr<ofxScene> (new BeautifulMindSceneFloor());
     this->createScene("BeautifulMindScene", SceneIndex(i), scene, WindowIndex(TOP));
     i++;
     
-    scene = ofPtr<ofxScene> (new BirdsAndPaperSceneFloor());
-    this->createScene("BirdsAndPaperScene", SceneIndex(i), scene, WindowIndex(TOP));
-    i++;
-    
-    
-    scene = ofPtr<ofxScene> (new ProjectorCalibrationSceneFloor());
-    this->createScene("ProjectorCalibrationScene", SceneIndex(i), scene, WindowIndex(TOP));
-    i++;
+//    scene = ofPtr<ofxScene> (new BirdsAndPaperSceneFloor());
+//    this->createScene("BirdsAndPaperScene", SceneIndex(i), scene, WindowIndex(TOP));
+//    i++;
+//
+//
+//    scene = ofPtr<ofxScene> (new ProjectorCalibrationSceneFloor());
+//    this->createScene("ProjectorCalibrationScene", SceneIndex(i), scene, WindowIndex(TOP));
+//    i++;
     
     
 }
@@ -280,15 +300,28 @@ void SceneManager::update()
      for(auto sceneManager : m_sceneManagers) {
          sceneManager.second->update();
      }
+    
+    this->updateFbos();
+}
+
+void SceneManager::updateFbos()
+{
+    for(auto sceneManager : m_sceneManagers)
+    {
+        m_fbos[sceneManager.first]->begin();
+            ofClear(0,255);
+            sceneManager.second->draw();
+        m_fbos[sceneManager.first]->end();
+    }
 }
 
 void SceneManager::draw(WindowIndex w)
 {
     ofEnableAlphaBlending();
-    if(m_sceneManagers.find(w)!= m_sceneManagers.end()){
+    if(m_fbos.find(w)!= m_fbos.end()){
         //ofPushStyle();
     
-            m_sceneManagers[w]->draw();
+            m_fbos[w]->draw(0,0);
         //ofDisableAlphaBlending();
         //ofPopStyle();
         return;

@@ -85,14 +85,16 @@ void SonicBoomScene::draw() {
     //ofLogNotice("SonicBoomScene::draw");
 
     ofBackground(0);
-    ofPushStyle();
-        //ofEnableBlendMode(OF_BLENDMODE_DISABLED);
-
-        this->drawSonicBoom();
-
-       // ofEnableBlendMode(OF_BLENDMODE_ADD);
-
-    ofPopStyle();
+//    ofPushStyle();
+//        ofEnableBlendMode(OF_BLENDMODE_DISABLED);
+//
+//        this->drawSonicBoom();
+//
+//       ofEnableBlendMode(OF_BLENDMODE_ADD);
+//
+//    ofPopStyle();
+    
+   this->drawSonicBoom();
 
 }
 
@@ -103,13 +105,15 @@ void SonicBoomScene::drawSonicBoom()
         return;
     }
     
-    m_shader.begin();
-    m_shader.setUniform1f("time", ofGetElapsedTimef());
-    m_shader.setUniform1f("frequency", 0.5);
-    m_shader.setUniform1f("amplitude", 22.0);
-    m_shader.setUniform1f("speed", 0.5);
-        m_sonicBoomVisual.draw();
-    m_shader.end();
+//    m_shader.begin();
+//    m_shader.setUniform1f("time", ofGetElapsedTimef());
+//    m_shader.setUniform1f("frequency", 0.5);
+//    m_shader.setUniform1f("amplitude", 22.0);
+//    m_shader.setUniform1f("speed", 0.5);
+//        m_sonicBoomVisual.draw();
+//    m_shader.end();
+    
+    m_sonicBoomVisual.draw();
     
 }
 

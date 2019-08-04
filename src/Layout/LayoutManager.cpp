@@ -16,7 +16,7 @@
 
 #include "LayoutManager.h"
 
-const int LayoutManager::MARGIN = 2;
+const int LayoutManager::MARGIN = 10;
 const int LayoutManager::FRAME_MARGIN = 2;
 
 const string LayoutManager::LAYOUT_FONT =  "fonts/roboto/Roboto-Medium.ttf";
@@ -85,59 +85,71 @@ void LayoutManager::setupWindowFrames()
         m_windowFrames[fbo.first]->setColor(color);
     }
     
-    this->resetWindowFrames();
     this->resetWindowRects();
+    this->resetWindowFrames();
+    
 }
 
 void LayoutManager::resetWindowRects()
 {
-    for (auto& frame : m_windowFrames)
-    {
-        float x_offset = frame.second->getPosition().x + FRAME_MARGIN;
-        float y_offset = frame.second->getPosition().y + FRAME_MARGIN;
-        float max_width = frame.second->getWidth() - 2*FRAME_MARGIN;
-        float max_height = frame.second->getHeight() - 2*FRAME_MARGIN;
-        
-        float ratio = m_fbos[frame.first]->getWidth()/  m_fbos[frame.first]->getHeight();
-        
-        float height = max_height;
-        float width = height*ratio;
-        
-        if( width > max_width ){
-            width = max_width;
-            height = width/ratio;
-        }
-        
-        float x = x_offset + max_width*0.5 - width*0.5;
-        float y = y_offset + max_height*0.5 - height*0.5;
-        
-        m_windowRects[frame.first]->width = width;
-        m_windowRects[frame.first]->height = height;
-        m_windowRects[frame.first]->x = x;
-        m_windowRects[frame.first]->y = y;
+    float gui_offset = AppManager::getInstance().getGuiManager().getWidth() +  AppManager::getInstance().getGuiManager().getPosition().x;
+    float frame_width = ofGetWindowWidth() - gui_offset;
+    float frame_height= ofGetWindowHeight()*0.5;
+    
+    
+    float max_width = frame_width - 2*MARGIN;
+    float max_height = frame_height - 2*MARGIN;
+    float x_offset = gui_offset  + MARGIN;
+    float y_offset = MARGIN;
+    string key = "FRONT";
+    
+    float ratio = m_fbos[key]->getWidth()/  m_fbos[key]->getHeight();
+    float height = max_height;
+    float width = height*ratio;
+    if( width > max_width ){
+        width = max_width;
+        height = width/ratio;
     }
+    
+    float x = x_offset + max_width*0.5 - width*0.5;
+    float y = y_offset + max_height*0.5 - height*0.5;
+    
+    m_windowRects[key]->width = width;
+    m_windowRects[key]->height = height;
+    m_windowRects[key]->x = x;
+    m_windowRects[key]->y = y;
+    
+    
+    y_offset +=  m_windowFrames[key]->getHeight() + MARGIN;
+    key = "TOP";
+    
+    ratio = m_fbos[key]->getWidth()/  m_fbos[key]->getHeight();
+    height = max_height;
+    width = height*ratio;
+    if( width > max_width ){
+        width = max_width;
+        height = width/ratio;
+    }
+    
+    x = x_offset + max_width*0.5 - width*0.5;
+    y = y_offset + max_height*0.5 - height*0.5;
+    
+    m_windowRects[key]->width = width;
+    m_windowRects[key]->height = height;
+    m_windowRects[key]->x = x;
+    m_windowRects[key]->y = y;
     
 }
 
 
 void LayoutManager::resetWindowFrames()
 {
-    float gui_offset = AppManager::getInstance().getGuiManager().getWidth() +  2*AppManager::getInstance().getGuiManager().getPosition().x;
-    float frame_width = ofGetWindowWidth() - gui_offset;
-    float frame_height= ofGetWindowHeight();
-    
-    m_windowFrames["FRONT"]->setWidth(frame_width - 2*MARGIN + 2*FRAME_MARGIN);
-    m_windowFrames["FRONT"]->setHeight(frame_height/2 - 2*MARGIN + 2*FRAME_MARGIN);
-    float x = gui_offset  + 2*MARGIN - FRAME_MARGIN;
-    float y =  MARGIN- FRAME_MARGIN;
-    m_windowFrames["FRONT"]->setPosition(ofPoint(x,y));
-    
-    
-    m_windowFrames["TOP"]->setWidth( m_windowFrames["FRONT"]->getWidth());
-    m_windowFrames["TOP"]->setHeight(m_windowFrames["FRONT"]->getHeight());
-    y =  y + m_windowFrames["FRONT"]->getHeight() + MARGIN;
-    m_windowFrames["TOP"]->setPosition(ofPoint(x,y));
-    
+    for (auto& rect : m_windowRects)
+    {
+        m_windowFrames[rect.first]->setPosition(ofPoint(rect.second->x - FRAME_MARGIN, rect.second->y - FRAME_MARGIN));
+        m_windowFrames[rect.first]->setWidth(rect.second->width + 2*FRAME_MARGIN);
+        m_windowFrames[rect.first]->setHeight(rect.second->height+ 2*FRAME_MARGIN);
+    }
 }
 
 void LayoutManager::update()
@@ -157,25 +169,35 @@ void LayoutManager::updateFbos()
 
 void LayoutManager::updateFrontFbo()
 {
+    int index = 1;
     string name = "FRONT";
     this->begin(name);
-        ofClear(0, 0, 0, 255);
-        ofSetColor(50, 50, 50);
-        ofDrawRectangle(0, 0,m_fbos[name]->getWidth(), m_fbos[name]->getHeight());
-        ofSetColor(255);
-        AppManager::getInstance().getSceneManager().draw(WindowIndex(1));
+    if(m_isMasked){
+        AppManager::getInstance().getMaskManager().begin(WindowIndex(index));
+    }
+        ofClear(0,255);
+        //ofSetColor(255);
+        AppManager::getInstance().getSceneManager().draw(WindowIndex(index));
+    if(m_isMasked){
+        AppManager::getInstance().getMaskManager().end(WindowIndex(index));
+    }
     this->end(name);
 }
 
 void LayoutManager::updateTopFbo()
 {
+    int index = 2;
     string name = "TOP";
     this->begin(name);
-        ofClear(0, 0, 0, 255);
-        ofSetColor(50, 50, 50);
-        ofDrawRectangle(0, 0,m_fbos[name]->getWidth(), m_fbos[name]->getHeight());
-        ofSetColor(255);
-        AppManager::getInstance().getSceneManager().draw(WindowIndex(2));
+    if(m_isMasked){
+        AppManager::getInstance().getMaskManager().begin(WindowIndex(index));
+    }
+        ofClear(0,255);
+        //ofSetColor(255);
+        AppManager::getInstance().getSceneManager().draw(WindowIndex(index));
+    if(m_isMasked){
+        AppManager::getInstance().getMaskManager().end(WindowIndex(index));
+    }
     this->end(name);
 }
 
@@ -235,9 +257,10 @@ void LayoutManager::drawFbos()
 {
     for (auto fbo : m_fbos)
     {
-        //m_windowFrames[fbo.first]->draw();
-        //fbo.second->draw(m_windowRects[fbo.first]->x, m_windowRects[fbo.first]->y, m_windowRects[fbo.first]->width, m_windowRects[fbo.first]->height);
-        //fbo.second->draw(0,0);
+        m_windowFrames[fbo.first]->draw();
+        ofSetColor(0);
+        ofDrawRectangle(m_windowRects[fbo.first]->x, m_windowRects[fbo.first]->y, m_windowRects[fbo.first]->width, m_windowRects[fbo.first]->height);
+        ofSetColor(255);
         m_fbos[fbo.first]->draw(m_windowRects[fbo.first]->x, m_windowRects[fbo.first]->y, m_windowRects[fbo.first]->width, m_windowRects[fbo.first]->height);
     }
 }
@@ -293,8 +316,8 @@ void LayoutManager::windowResized(int w, int h)
         return;
     }
     
-    this->resetWindowFrames();
     this->resetWindowRects();
+    this->resetWindowFrames();
     this->resetWindowTitles();
 }
 

@@ -137,11 +137,12 @@ void MaskManager::begin(int windowIndex)
     
     
     m_masksees[windowIndex]->begin();
+    ofClear(0,255);
     ofEnableAlphaBlending();
     m_maskShader.begin();
     m_maskShader.setUniformTexture("imageMask", m_masks[windowIndex]->getTexture(), 1);
     
-    ofClear(0);
+  
 }
 
 void MaskManager::end(int windowIndex)

@@ -48,13 +48,15 @@ void AppManager::setup()
     
     ofLogNotice() << "AppManager::initialized";
     m_initialized = true;
+    
+    //ofSetVerticalSync(false);
 }
 
 void AppManager::setupOF()
 {
     ofLogNotice() << "AppManager::setupOF";
     
-    ofSetVerticalSync(true);
+    ofSetVerticalSync(false);
     ofSetEscapeQuitsApp(false);
     ofEnableAlphaBlending();
     ofEnableSmoothing();
@@ -65,7 +67,7 @@ void AppManager::setupManagers()
 {
     ofLogNotice() << "AppManager::setupManagers";
     
-    m_viewManager.setup();
+    //m_viewManager.setup();
     m_visualEffectsManager.setup();
     m_settingsManager.setup();
     m_resourceManager.setup();
@@ -80,7 +82,7 @@ void AppManager::setupManagers()
     m_audioManager.setup();
     m_keyboardManager.setup();
     m_birdsManager.setup();
-    m_previewManager.setup();
+    //m_previewManager.setup();
     m_maskManager.setup();
     
     m_guiManager.setup();
@@ -92,16 +94,18 @@ void AppManager::update()
         return;
     }
     
-    m_guiManager.update();
-    m_audioManager.update();
-    m_oscManager.update();
-    m_udpManager.update();
-    m_visualEffectsManager.update();
+    ofEnableAlphaBlending();
+    
+    //m_audioManager.update();
+//    m_oscManager.update();
+//    m_udpManager.update();
+   // m_visualEffectsManager.update();
     m_contourManager.update();
     m_birdsManager.update();
     m_sceneManager.update();
     m_handsManager.update();
     m_layoutManager.update();
+    m_guiManager.update();
 }
 
 
@@ -111,8 +115,9 @@ void AppManager::draw()
         return;
     }
     
+    ofEnableAlphaBlending();
     ofClear(0);
-    ofBackground(0);
+    ofBackground(40);
     m_layoutManager.draw();
     m_guiManager.draw();
 }
