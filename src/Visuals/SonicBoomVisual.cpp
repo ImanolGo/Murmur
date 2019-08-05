@@ -151,7 +151,7 @@ void SonicBoomVisual::setupParticles()
 void SonicBoomVisual::update()
 {
     this->updateParticles();
-   // this->updateFbo();
+    this->updateFbo();
 }
 
 
@@ -193,58 +193,23 @@ void SonicBoomVisual::updateParticles()
 
 void SonicBoomVisual::updateFbo()
 {
-   // ofEnableBlendMode(OF_BLENDMODE_ADD);
-    m_fbo.begin();
-    
-
-    ofClear(0, 255);
-    //ofRect(0,0,m_fbo.getWidth(),m_fbo.getHeight());
-    //ofSetColor(255,255,255);
-    ofEnableBlendMode(OF_BLENDMODE_ADD);
-    for (auto particle: m_particles) {
-        particle->draw();
-    }
-
-    //ofDisableAlphaBlending();
-    ofDisableBlendMode();
-    
-//    m_img1.draw(0,0);
-//    ofEnableBlendMode(OF_BLENDMODE_ADD);
-//    m_img2.draw(100,100);
-//    ofDisableBlendMode();
-//
-    m_fbo.end();
-    
-}
-
-void SonicBoomVisual::draw()
-{
-    this->drawParticles();
-    //this->drawWaterRipples();
-}
-
-
-void SonicBoomVisual::drawParticles()
-{
-
-    //ofDisableSmoothing();
     ofEnableAlphaBlending();
     m_fbo.begin();
     ofClear(0,255);
     
-//    ofBackground(0);
-////        ofDisableSmoothing();
-//    ofEnableBlendMode(OF_BLENDMODE_ADD);
-//        for (auto particle: m_particles) {
-//            particle->draw();
-//        }
-//    ofDisableBlendMode();
-//    ofEnableSmoothing();
-
-//    m_img1.draw(0,0);
-//    ofEnableBlendMode(OF_BLENDMODE_ADD);
-//    m_img2.draw(100,100);
-//    ofDisableBlendMode();
+    //    ofBackground(0);
+    ////        ofDisableSmoothing();
+    //    ofEnableBlendMode(OF_BLENDMODE_ADD);
+    //        for (auto particle: m_particles) {
+    //            particle->draw();
+    //        }
+    //    ofDisableBlendMode();
+    //    ofEnableSmoothing();
+    
+    //    m_img1.draw(0,0);
+    //    ofEnableBlendMode(OF_BLENDMODE_ADD);
+    //    m_img2.draw(100,100);
+    //    ofDisableBlendMode();
     
     
     ofEnableBlendMode(OF_BLENDMODE_ADD);
@@ -257,13 +222,23 @@ void SonicBoomVisual::drawParticles()
     ofDisablePointSprites();
     ofDisableBlendMode();
     m_fbo.end();
-    
-    ofSetColor(255,255,255);
-    ofEnableAlphaBlending();
+}
+
+void SonicBoomVisual::draw()
+{
+    this->drawParticles();
+}
+
+void SonicBoomVisual::draw(int width, int height)
+{
+     m_fbo.draw(0,0, width, height);
+}
+
+
+
+void SonicBoomVisual::drawParticles()
+{
     m_fbo.draw(0, 0);
-    
-    
-   
 }
 
 

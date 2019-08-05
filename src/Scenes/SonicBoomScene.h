@@ -45,11 +45,13 @@ public:
 
 private:
 
-    void setupFbos();
+    void setupFbo();
 
     void setupSonicBoom();
 
     void updateSonicBoom();
+    
+    void updateFbo();
     
     void setupShaders();
 

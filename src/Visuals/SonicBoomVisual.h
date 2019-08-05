@@ -90,6 +90,9 @@ public:
     //! Draw the Sonic boom visual
     void draw();
      
+    //! Draw the scene
+    void draw(int width, int height);
+     
      //! Clear the Sonic boom visual
     void clear();
      
