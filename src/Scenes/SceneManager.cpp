@@ -110,10 +110,10 @@ void SceneManager::createFrontScenes()
 //    this->createScene("BattleOfSelfScene", SceneIndex(i), scene, WindowIndex(FRONT));
 //    i++;
 //    
-//    //Create Hands Writing Scene
-//    scene = ofPtr<ofxScene> (new HandsWritingScene());
-//    this->createScene("HandsWritingScene", SceneIndex(i), scene, WindowIndex(FRONT));
-//    i++;
+    //Create Hands Writing Scene
+    scene = ofPtr<ofxScene> (new HandsWritingScene());
+    this->createScene("HandsWritingScene", SceneIndex(i), scene, WindowIndex(FRONT));
+    i++;
     
     //Create Beautiful Mind Scene
     scene = ofPtr<ofxScene> (new BeautifulMindScene());
@@ -170,9 +170,9 @@ void SceneManager::createTopScenes()
 //    i++;
 //
 //
-//    scene = ofPtr<ofxScene> (new ProjectorCalibrationSceneFloor());
-//    this->createScene("ProjectorCalibrationScene", SceneIndex(i), scene, WindowIndex(TOP));
-//    i++;
+    scene = ofPtr<ofxScene> (new ProjectorCalibrationSceneFloor());
+    this->createScene("ProjectorCalibrationScene", SceneIndex(i), scene, WindowIndex(TOP));
+    i++;
     
     
 }

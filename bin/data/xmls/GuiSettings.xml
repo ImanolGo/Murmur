@@ -5,7 +5,7 @@
 	<OpacityFront>0</OpacityFront>
 	<OpacityTop>0</OpacityTop>
 	<Position>0, 0, 0</Position>
-	<Size>1</Size>
+	<Size>1.723</Size>
 	<SwarmSize>4, 4, 4</SwarmSize>
 	<BirdsNumber>250</BirdsNumber>
 	<Speed>1</Speed>
@@ -13,8 +13,8 @@
 	<Thickness>1</Thickness>
 	<Offset>0, 0</Offset>
 	<Scale>1, 1</Scale>
-	<On>0</On>
-	<FadeTime>2</FadeTime>
+	<On>1</On>
+	<FadeTime>6.681</FadeTime>
 	<CropLeft>0</CropLeft>
 	<CropRight>0</CropRight>
 	<CropTop>0</CropTop>
