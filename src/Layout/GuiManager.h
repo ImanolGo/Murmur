@@ -220,6 +220,10 @@ private:
     ofParameter<float>      m_contourThickness;
     ofParameter<ofVec2f>    m_contourOffset;
     ofParameter<ofVec2f>    m_contourScale;
+    ofParameter<int>        m_contourFarClipping;
+    ofParameter<int>        m_contourCropBottom;
+    ofParameter<float>      m_contourSmokeBrightness;
+    
     
     ofParameter<float>      m_audioVolume;
     ofParameter<float>      m_audioExternalVolume;
@@ -233,6 +237,10 @@ private:
     
     ofParameter<ofVec2f>    m_floorOffset;
     ofParameter<ofVec2f>    m_floorScale;
+    ofParameter<bool>       m_floorInvertedCoordinates;
+    ofParameter<float>      m_floorMinSize;
+    ofParameter<float>      m_floorMaxSize;
+    ofParameter<float>      m_floorLineWidth;
     
     ofParameter<ofVec2f>    m_beautifulMindOffset;
     ofParameter<ofVec2f>    m_beautifulMindScale;

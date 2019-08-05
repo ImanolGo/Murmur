@@ -27,5 +27,9 @@ class MurmurRendererApp : public ofBaseApp{
         //void keyPressed2(ofKeyEventArgs &e);
         void drawScreen3(ofEventArgs & args);
         //void keyPressed3(ofKeyEventArgs &e);
+    
+    private:
+    
+    bool isExit;
 };
 

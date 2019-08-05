@@ -116,6 +116,8 @@ void FluidFloorScene::updateFluid()
 {
     auto floorPosition = AppManager::getInstance().getFloorManager().getPosition();
     
+    //ofLogNotice()<<"FluidFloorScene::mupdateFluid = "  << floorPosition ;
+    
     m_fluid.addForce(floorPosition);
     m_fluid.update();
     

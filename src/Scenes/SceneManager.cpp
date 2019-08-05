@@ -100,16 +100,16 @@ void SceneManager::createFrontScenes()
     this->createScene("BlankScene", SceneIndex(i), scene, WindowIndex(FRONT));
     i++;
     
-//    //Create Smoky Hands Scene
-//    scene = ofPtr<ofxScene> (new SmokyHandsScene());
-//    this->createScene("SmokyHandsScene", SceneIndex(i), scene, WindowIndex(FRONT));
-//    i++;
-//    
-//    //Create Battle of Self Scene
-//    scene = ofPtr<ofxScene> (new BattleOfSelfScene());
-//    this->createScene("BattleOfSelfScene", SceneIndex(i), scene, WindowIndex(FRONT));
-//    i++;
-//    
+    //Create Smoky Hands Scene
+    scene = ofPtr<ofxScene> (new SmokyHandsScene());
+    this->createScene("SmokyHandsScene", SceneIndex(i), scene, WindowIndex(FRONT));
+    i++;
+    
+    //Create Battle of Self Scene
+    scene = ofPtr<ofxScene> (new BattleOfSelfScene());
+    this->createScene("BattleOfSelfScene", SceneIndex(i), scene, WindowIndex(FRONT));
+    i++;
+    
     //Create Hands Writing Scene
     scene = ofPtr<ofxScene> (new HandsWritingScene());
     this->createScene("HandsWritingScene", SceneIndex(i), scene, WindowIndex(FRONT));
@@ -119,17 +119,17 @@ void SceneManager::createFrontScenes()
     scene = ofPtr<ofxScene> (new BeautifulMindScene());
     this->createScene("BeautifulMindScene", SceneIndex(i), scene, WindowIndex(FRONT));
     i++;
-//
-//    //Create Birds And Paper Scene
-//    scene = ofPtr<ofxScene> (new BirdsAndPaperScene());
-//    this->createScene("BirdsAndPaperScene", SceneIndex(i), scene, WindowIndex(FRONT));
-//    i++;
-//
-//    //Create Birds Opening Scene
-//    scene = ofPtr<ofxScene> (new BirdsOpeningScene());
-//    this->createScene("BirdsOpeningScene", SceneIndex(i), scene, WindowIndex(FRONT));
-//    i++;
-//
+
+    //Create Birds And Paper Scene
+    scene = ofPtr<ofxScene> (new BirdsAndPaperScene());
+    this->createScene("BirdsAndPaperScene", SceneIndex(i), scene, WindowIndex(FRONT));
+    i++;
+
+    //Create Birds Opening Scene
+    scene = ofPtr<ofxScene> (new BirdsOpeningScene());
+    this->createScene("BirdsOpeningScene", SceneIndex(i), scene, WindowIndex(FRONT));
+    i++;
+
     //Create Sonic Boom Scene
     scene = ofPtr<ofxScene> (new SonicBoomScene());
     this->createScene("SonicBoomScene", SceneIndex(i), scene, WindowIndex(FRONT));
@@ -152,24 +152,24 @@ void SceneManager::createTopScenes()
     scene = ofPtr<ofxScene> (new BlankScene());
     this->createScene("BlankScene", SceneIndex(i), scene, WindowIndex(TOP));
     i++;
-//
-//    scene = ofPtr<ofxScene> (new FluidFloorScene());
-//    this->createScene("FluidFloorScene", SceneIndex(i), scene, WindowIndex(TOP));
-//    i++;
-//
-//    scene = ofPtr<ofxScene> (new KathakScene());
-//    this->createScene("KathakScene", SceneIndex(i), scene, WindowIndex(TOP));
-//    i++;
+
+    scene = ofPtr<ofxScene> (new FluidFloorScene());
+    this->createScene("FluidFloorScene", SceneIndex(i), scene, WindowIndex(TOP));
+    i++;
+
+    scene = ofPtr<ofxScene> (new KathakScene());
+    this->createScene("KathakScene", SceneIndex(i), scene, WindowIndex(TOP));
+    i++;
     
     scene = ofPtr<ofxScene> (new BeautifulMindSceneFloor());
     this->createScene("BeautifulMindScene", SceneIndex(i), scene, WindowIndex(TOP));
     i++;
     
-//    scene = ofPtr<ofxScene> (new BirdsAndPaperSceneFloor());
-//    this->createScene("BirdsAndPaperScene", SceneIndex(i), scene, WindowIndex(TOP));
-//    i++;
-//
-//
+    scene = ofPtr<ofxScene> (new BirdsAndPaperSceneFloor());
+    this->createScene("BirdsAndPaperScene", SceneIndex(i), scene, WindowIndex(TOP));
+    i++;
+
+
     scene = ofPtr<ofxScene> (new ProjectorCalibrationSceneFloor());
     this->createScene("ProjectorCalibrationScene", SceneIndex(i), scene, WindowIndex(TOP));
     i++;

@@ -48,14 +48,9 @@ void AppManager::setup()
     
     ofLogNotice() << "AppManager::initialized";
     m_initialized = true;
-    
-//    img1.load("img1.png");
-//    img2.load("img2.png");
-    
+
     
     ofSetBackgroundColor(0);
-    img1.load("images/general/postit0.png");
-    img2.load("images/general/postit4.png");
     
     //ofSetVerticalSync(false);
 }

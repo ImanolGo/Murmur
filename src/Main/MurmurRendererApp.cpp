@@ -12,6 +12,7 @@
 
 //--------------------------------------------------------------
 void MurmurRendererApp::setup(){
+    isExit = false;
     AppManager::getInstance().setup();
 }
 
@@ -36,8 +37,12 @@ void MurmurRendererApp::drawScreen3(ofEventArgs & args){
 void MurmurRendererApp::exit()
 {
     ofLogNotice() <<"MurmurRenderer::Exit";
+    if(!isExit){
+         AppManager::getInstance().getGuiManager().saveGuiValues();
+    }
+   
+    isExit = true;
     ofExit();
-
 }
 
 void MurmurRendererApp::windowResized(int w, int h){

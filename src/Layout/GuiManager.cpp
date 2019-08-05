@@ -27,7 +27,6 @@ GuiManager::GuiManager(): Manager(), m_showGui(true), m_width(0.0), m_height(0.0
 
 GuiManager::~GuiManager()
 {
-    this->saveGuiValues();
     ofLogNotice() <<"GuiManager::Destructor";
 }
 
@@ -38,8 +37,6 @@ void GuiManager::setup()
         return;
     
     ofLogNotice() <<"GuiManager::initialized";
-    
-    Manager::setup();
     
     this->setupGuiParameters();
     this->setupScenesGui();
@@ -52,6 +49,8 @@ void GuiManager::setup()
     this->setupAudioGui();
     this->setupTopGui();
     this->loadGuiValues();
+    
+    Manager::setup();
     
 }
 
@@ -118,11 +117,11 @@ void GuiManager::setupBirdsGui()
     
     m_parametersBirds.setName("Birds");
     
-    m_birdsPosition.set("Position", ofVec3f(0,0,0) , ofVec3f(-1.0,-1.0,-1.0) , ofVec3f(1.0,1.0,1.0));
+    m_birdsPosition.set("PositionBirds", ofVec3f(0,0,0) , ofVec3f(-1.0,-1.0,-1.0) , ofVec3f(1.0,1.0,1.0));
     m_birdsPosition.addListener(birdsManager, &BirdsManager::onChangePosition);
     m_parameters.add(m_birdsPosition);
 
-    m_birdsSize.set("Size", 1.0, 0.0, 5.0);
+    m_birdsSize.set("SizeBirds", 1.0, 0.0, 5.0);
     m_birdsSize.addListener(birdsManager, &BirdsManager::onChangeSize);
     m_parameters.add(m_birdsSize);
     
@@ -138,11 +137,11 @@ void GuiManager::setupBirdsGui()
     m_birdsNumber.addListener(birdsManager, &BirdsManager::onChangeSwarmNumber);
     m_parameters.add(m_birdsNumber);
     
-    m_birdsSpeed.set("Speed", 10, 0, 20);
+    m_birdsSpeed.set("SpeedBirds", 10, 0, 20);
     m_birdsSpeed.addListener(birdsManager, &BirdsManager::onChangeSpeed);
     m_parameters.add(m_birdsSpeed);
     
-    m_birdsRandomness.set("Randomness", 0, 0, 50);
+    m_birdsRandomness.set("RandomnessBirds", 0, 0, 50);
     m_birdsRandomness.addListener(birdsManager, &BirdsManager::onChangeSwarmRandomness);
     m_parameters.add(m_birdsRandomness);
     
@@ -189,13 +188,25 @@ void GuiManager::setupContourGui()
     m_parameters.add(m_contourThickness);
     
     
-    m_contourOffset.set("Offset", ofVec2f(0.0,0.0) , ofVec2f(-0.7,-0.7) , ofVec2f(0.7,0.7));
+    m_contourOffset.set("OffsetContour", ofVec2f(0.0,0.0) , ofVec2f(-0.7,-0.7) , ofVec2f(0.7,0.7));
     m_contourOffset.addListener(contourManager, &ContourManager::setOffset);
     m_parameters.add(m_contourOffset);
     
-    m_contourScale.set("Scale", ofVec2f(1.0,1.0) , ofVec2f(-2.0,-2.0) , ofVec2f(2.0,2.0) );
+    m_contourScale.set("ScaleContour", ofVec2f(1.0,1.0) , ofVec2f(-2.0,-2.0) , ofVec2f(2.0,2.0) );
     m_contourScale.addListener(contourManager, &ContourManager::setScale);
     m_parameters.add(m_contourScale);
+    
+    m_contourSmokeBrightness.set("SmokeBrightness", 0.5, 0.0, 1.0);
+    m_contourSmokeBrightness.addListener(contourManager, &ContourManager::setSmokeBrightness);
+    m_parameters.add(m_contourSmokeBrightness);
+    
+    m_contourFarClipping.set("FarClipping", 5000, 0, 12000);
+    m_contourFarClipping.addListener(contourManager, &ContourManager::onSendFarClipping);
+    //m_parametersContour.add(m_contourFarClipping);
+    
+    m_contourCropBottom.set("CropBottom", 0, 0, 250);
+    m_contourCropBottom.addListener(contourManager, &ContourManager::onSendCropBottom);
+    // m_parametersContour.add(m_contourCropBottom);
     
 }
 
@@ -209,19 +220,19 @@ void GuiManager::setupHandsGui()
     m_handsOn.addListener(handsManager, &HandsManager::setHandsOn);
     m_parameters.add(m_handsOn);
     
-    m_handsOffset.set("Offset", ofVec2f(0.0,0.0) , ofVec2f(-0.5,-0.5) , ofVec2f(0.5,0.5) );
+    m_handsOffset.set("OffsetHands", ofVec2f(0.0,0.0) , ofVec2f(-0.5,-0.5) , ofVec2f(0.5,0.5) );
     m_handsOffset.addListener(handsManager, &HandsManager::setOffset);
     m_parameters.add(m_handsOffset);
     
-    m_handsScale.set("Scale", ofVec2f(1.0,1.0) , ofVec2f(-1.5,-1.5) , ofVec2f(1.5,1.5) );
+    m_handsScale.set("ScaleHands", ofVec2f(1.0,1.0) , ofVec2f(-1.5,-1.5) , ofVec2f(1.5,1.5) );
     m_handsScale.addListener(handsManager, &HandsManager::setScale);
     m_parameters.add(m_handsScale);
     
-    m_handsSize.set("Size", 1.0, 0.0, 5.0);
+    m_handsSize.set("SizeHands", 1.0, 0.0, 5.0);
     m_handsSize.addListener(handsManager, &HandsManager::setSize);
     m_parameters.add(m_handsSize);
 
-    m_handsFadeTime.set("FadeTime", 2.0, 0.0, 15.0);
+    m_handsFadeTime.set("FadeTimeHands", 2.0, 0.0, 15.0);
     m_handsFadeTime.addListener(handsManager, &HandsManager::setFadeTime);
     m_parameters.add(m_handsFadeTime);
     
@@ -233,13 +244,29 @@ void GuiManager::setupFloorGui()
     auto floorManager = &AppManager::getInstance().getFloorManager();
     m_parametersFloor.setName("Floor");
     
-    m_floorOffset.set("Offset", ofVec2f(0.0,0.0) , ofVec2f(-0.5,-0.5) , ofVec2f(0.5,0.5) );
+    m_floorOffset.set("OffsetFloor", ofVec2f(0.0,0.0) , ofVec2f(-0.5,-0.5) , ofVec2f(0.5,0.5) );
     m_floorOffset.addListener(floorManager, &FloorManager::setOffset);
     m_parameters.add(m_floorOffset);
     
-    m_floorScale.set("Scale", ofVec2f(1.0,1.0) , ofVec2f(-2.5,-2.5) , ofVec2f(2.5,2.5) );
+    m_floorScale.set("ScaleFloor", ofVec2f(1.0,1.0) , ofVec2f(-2.5,-2.5) , ofVec2f(2.5,2.5) );
     m_floorScale.addListener(floorManager, &FloorManager::setScale);
     m_parameters.add(m_floorScale);
+    
+    m_floorInvertedCoordinates.set("Inverted Coordinates", false);
+    m_floorInvertedCoordinates.addListener(floorManager, &FloorManager::onInvertedCoordinates);
+    m_parameters.add(m_floorInvertedCoordinates);
+    
+    m_floorMinSize.set("MinSizeFloor", 0.1 , 0.0 , 1.0);
+    m_floorMinSize.addListener(floorManager, &FloorManager::onSetKathakMinSize);
+    m_parameters.add(m_floorMinSize);
+    
+    m_floorMaxSize.set("MaxSizeFloor", 0.5 , 0.0 , 1.0);
+    m_floorMaxSize.addListener(floorManager, &FloorManager::onSetKathakMaxSize);
+    m_parameters.add(m_floorMaxSize);
+    
+    m_floorLineWidth.set("LineWidthFloor", 0.0 , 0 , 10);
+    m_floorLineWidth.addListener(floorManager, &FloorManager::onSetKathakLineWidth);
+    m_parameters.add(m_floorLineWidth);
     
 }
 
@@ -249,11 +276,11 @@ void GuiManager::setupBeautifulMindGui()
     auto beautifulMindManager = &AppManager::getInstance().getBeautifulMindManager();
     m_parametersBeautifulMind.setName("BeautifulMind");
     
-    m_beautifulMindOffset.set("Offset", ofVec2f(0.0,0.0) , ofVec2f(-1.0,-1.0) , ofVec2f(1.0,1.0) );
+    m_beautifulMindOffset.set("OffsetBeautiful", ofVec2f(0.0,0.0) , ofVec2f(-1.0,-1.0) , ofVec2f(1.0,1.0) );
     m_beautifulMindOffset.addListener(beautifulMindManager, &BeautifulMindManager::setOffset);
     m_parameters.add(m_beautifulMindOffset);
     
-    m_beautifulMindScale.set("Scale", ofVec2f(1.0,1.0) , ofVec2f(0.0,0.0) , ofVec2f(1.0,1.0) );
+    m_beautifulMindScale.set("ScaleBeautiful", ofVec2f(1.0,1.0) , ofVec2f(0.0,0.0) , ofVec2f(1.0,1.0) );
     m_beautifulMindScale.addListener(beautifulMindManager, &BeautifulMindManager::setScale);
     m_parameters.add(m_beautifulMindScale);
     
@@ -261,7 +288,7 @@ void GuiManager::setupBeautifulMindGui()
     m_beautifulMindFloorOn.addListener(beautifulMindManager, &BeautifulMindManager::setFloorOn);
     m_parameters.add(m_beautifulMindFloorOn);
     
-    m_beautifulMindFloorSpeed.set("Speed", 1.0, 0.0, 5.0);
+    m_beautifulMindFloorSpeed.set("SpeedBeutiful", 1.0, 0.0, 5.0);
     m_beautifulMindFloorSpeed.addListener(beautifulMindManager, &BeautifulMindManager::setFloorSpeed);
     m_parameters.add(m_beautifulMindFloorSpeed);
     
@@ -406,6 +433,9 @@ void GuiManager::drawGui()
             ofxImGui::AddParameter(m_contourThickness);
             ofxImGui::AddParameter(m_contourOffset);
             ofxImGui::AddParameter(m_contourScale);
+            ofxImGui::AddParameter(m_contourSmokeBrightness);
+            ofxImGui::AddParameter(m_contourFarClipping);
+            ofxImGui::AddParameter(m_contourCropBottom);
             ofxImGui::EndTree(mainSettings);
         }
     
@@ -421,8 +451,12 @@ void GuiManager::drawGui()
     
         if (ofxImGui::BeginTree(m_parametersFloor, mainSettings))
         {
-            ofxImGui::AddParameter(m_floorOffset);
-            ofxImGui::AddParameter(m_floorScale);
+             ofxImGui::AddParameter(m_floorOffset);
+             ofxImGui::AddParameter(m_floorScale);
+             ofxImGui::AddParameter(m_floorInvertedCoordinates);
+             ofxImGui::AddParameter(m_floorMinSize);
+             ofxImGui::AddParameter(m_floorMaxSize);
+             ofxImGui::AddParameter(m_floorLineWidth);
             ofxImGui::EndTree(mainSettings);
         }
     
@@ -466,6 +500,10 @@ void GuiManager::updateSize(const ofxImGui::Settings& settings)
 
 void GuiManager::saveGuiValues(string path)
 {
+    if(!m_parameters.isSerializable()){
+        return;
+    }
+    
     ofLogNotice() <<"GuiManager::saveGuiValues-> saving values from: " << GUI_SETTINGS_FILE_NAME;
     
     ofXml xml;
