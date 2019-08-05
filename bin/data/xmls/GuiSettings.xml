@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <group>
-	<TransitionTime>4.286</TransitionTime>
+	<TransitionTime>0.5</TransitionTime>
 	<Opacity>0</Opacity>
 	<OpacityFront>0</OpacityFront>
 	<OpacityTop>0</OpacityTop>

@@ -11,8 +11,8 @@
 
 void ofxSceneManager::run() {
     
-    _fbo.allocate(ofGetWidth(), ofGetHeight(), GL_RGBA);
-    _nextFbo.allocate(ofGetWidth(), ofGetHeight(), GL_RGBA);
+    _fbo.allocate(ofGetWidth(), ofGetHeight(), GL_RGBA, 4);
+    _nextFbo.allocate(ofGetWidth(), ofGetHeight(), GL_RGBA, 4);
     
     _fbo.begin();
     ofClear(255, 255, 255, 0);
@@ -41,8 +41,8 @@ void ofxSceneManager::run() {
 
 void ofxSceneManager::run(int width, int height) {
     
-    _fbo.allocate(width, height, GL_RGBA);
-    _nextFbo.allocate(width, height, GL_RGBA);
+    _fbo.allocate(width, height, GL_RGBA, 4);
+    _nextFbo.allocate(width, height, GL_RGBA, 4);
     
     _fbo.begin();
     ofClear(255, 255, 255, 0);

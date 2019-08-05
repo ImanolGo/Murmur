@@ -40,14 +40,22 @@ void AppManager::setup()
     
 	Manager::setup();
     
-    this->setupOF();
-	this->setupManagers();
-    
-    
-    setDebugMode(m_debugMode);
+     this->setupOF();
+     this->setupManagers();
+//
+//
+//    setDebugMode(m_debugMode);
     
     ofLogNotice() << "AppManager::initialized";
     m_initialized = true;
+    
+//    img1.load("img1.png");
+//    img2.load("img2.png");
+    
+    
+    ofSetBackgroundColor(0);
+    img1.load("images/general/postit0.png");
+    img2.load("images/general/postit4.png");
     
     //ofSetVerticalSync(false);
 }
@@ -59,7 +67,7 @@ void AppManager::setupOF()
     ofSetVerticalSync(false);
     ofSetEscapeQuitsApp(false);
     ofEnableAlphaBlending();
-    ofEnableSmoothing();
+    //ofEnableSmoothing();
 }
 
 
@@ -85,9 +93,9 @@ void AppManager::setupManagers()
     //m_previewManager.setup();
     m_maskManager.setup();
     
-    m_guiManager.setup();
-}
+    m_guiManager.setup();    
 
+}
 void AppManager::update()
 {
     if(!m_initialized){
@@ -96,10 +104,10 @@ void AppManager::update()
     
     ofEnableAlphaBlending();
     
-    //m_audioManager.update();
-//    m_oscManager.update();
-//    m_udpManager.update();
-   // m_visualEffectsManager.update();
+    m_audioManager.update();
+    m_oscManager.update();
+    m_udpManager.update();
+    m_visualEffectsManager.update();
     m_contourManager.update();
     m_birdsManager.update();
     m_sceneManager.update();
@@ -111,6 +119,9 @@ void AppManager::update()
 
 void AppManager::draw()
 {
+    
+   
+    
     if(!m_initialized){
         return;
     }
@@ -120,6 +131,12 @@ void AppManager::draw()
     ofBackground(40);
     m_layoutManager.draw();
     m_guiManager.draw();
+    
+//    ofEnableBlendMode(OF_BLENDMODE_ADD);
+//    img1.draw(0,0);
+//    img2.draw(100,100);
+//    ofDisableBlendMode();
+
 }
 
 void AppManager::draw2()

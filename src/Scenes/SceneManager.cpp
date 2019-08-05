@@ -48,7 +48,7 @@ void SceneManager::setupFbos()
     int key = FRONT;
     auto windowSettings =  WindowSettingsManager::getInstance().getWindowsSettings(key);
     auto fbo = ofPtr<ofFbo> (new ofFbo());
-    fbo->allocate(windowSettings.getWidth(), windowSettings.getHeight());
+    fbo->allocate(windowSettings.getWidth(), windowSettings.getHeight(), GL_RGBA, 4);
     fbo->begin(); ofClear(0); fbo->end();
     m_fbos[WindowIndex(key)] = fbo;
     
@@ -56,7 +56,7 @@ void SceneManager::setupFbos()
     key = TOP;
     windowSettings =  WindowSettingsManager::getInstance().getWindowsSettings(key);
     fbo = ofPtr<ofFbo> (new ofFbo());
-    fbo->allocate(windowSettings.getWidth(), windowSettings.getHeight());
+    fbo->allocate(windowSettings.getWidth(), windowSettings.getHeight(), GL_RGBA, 4);
     fbo->begin(); ofClear(0); fbo->end();
     m_fbos[WindowIndex(key)] = fbo;
     
@@ -130,11 +130,11 @@ void SceneManager::createFrontScenes()
 //    this->createScene("BirdsOpeningScene", SceneIndex(i), scene, WindowIndex(FRONT));
 //    i++;
 //
-//    //Create Sonic Boom Scene
-//    scene = ofPtr<ofxScene> (new SonicBoomScene());
-//    this->createScene("SonicBoomScene", SceneIndex(i), scene, WindowIndex(FRONT));
-//    i++;
-//
+    //Create Sonic Boom Scene
+    scene = ofPtr<ofxScene> (new SonicBoomScene());
+    this->createScene("SonicBoomScene", SceneIndex(i), scene, WindowIndex(FRONT));
+    i++;
+
     //Create ProjectorCalibrationScene Scene
     scene = ofPtr<ofxScene> (new ProjectorCalibrationScene());
     this->createScene("ProjectorCalibrationScene", SceneIndex(i), scene, WindowIndex(FRONT));

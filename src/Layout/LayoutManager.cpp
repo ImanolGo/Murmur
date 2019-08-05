@@ -61,12 +61,12 @@ void LayoutManager::setupFbos()
     auto windowSettings = WindowSettingsManager::getInstance().getWindowsSettings(1);
   
     ofPtr<ofFbo> fbo = ofPtr<ofFbo>(new ofFbo());
-    fbo->allocate(windowSettings.getWidth(), windowSettings.getHeight(), GL_RGBA);
+    fbo->allocate(windowSettings.getWidth(), windowSettings.getHeight(), GL_RGBA, 4);
     fbo->begin(); ofClear(0);  fbo->end();
     m_fbos["FRONT"] = fbo;
     
     fbo = ofPtr<ofFbo>(new ofFbo());
-    fbo->allocate(windowSettings.getWidth(), windowSettings.getHeight(), GL_RGBA);
+    fbo->allocate(windowSettings.getWidth(), windowSettings.getHeight(), GL_RGBA, 4);
     fbo->begin(); ofClear(0);  fbo->end();
     m_fbos["TOP"] = fbo;
 }

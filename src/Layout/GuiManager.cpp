@@ -67,7 +67,7 @@ void GuiManager::setupGuiParameters()
     //ImGui::GetIO().FontGlobalScale = 1.0 / 2.0;
     
     //finally setup the addon ofxImGui::Gui setup;
-    m_gui.setup(new GuiTheme());
+    m_gui.setup(new GuiTheme(), false);
     ofxImGui::Settings().windowPos  = ofVec2f(0,0);
     ofxImGui::Settings().windowSize = ofVec2f(GUI_WIDTH,ofGetHeight());
     
@@ -447,6 +447,8 @@ void GuiManager::drawGui()
     
     this->updateSize(mainSettings);
     
+    
+    m_gui.draw();
     
 }
 

@@ -30,7 +30,7 @@ public:
     
     
     //! Constructor
-    SonicBoomParticle(const ofPoint& pos);
+    SonicBoomParticle(const ofPoint& pos, int index);
     
     //! Destructor
     ~SonicBoomParticle();
@@ -45,6 +45,8 @@ public:
     void draw();
     
     bool isAlive() {return m_live;}
+    
+    int getIndex() const {return m_index;}
 
     
 private:
@@ -56,6 +58,7 @@ private:
     bool  m_live;                //Is particle live
     
     ImageVisual  m_image;
+    int          m_index;
 };
 
 
@@ -98,6 +101,12 @@ public:
      
 private:
      
+     void setupFbo();
+     
+     void setupShader();
+     
+     void setupParticles();
+     
      void updateParticles();
      
      void updateFbo();
@@ -109,10 +118,22 @@ private:
      typedef vector< ofPtr<SonicBoomParticle> > ParticlesVector;
      ParticlesVector  m_particles;
      
-     ofFbo                  m_fbo;
+     vector <ofVec3f>       m_points;
+     vector <ofVec3f>       m_sizes;
+     vector <ofFloatColor>  m_colors;
      
+     ofFbo                  m_fbo;
+     int                    m_index;
      double                 m_elapsedTime;
      double                 m_newParticleTime;
+     ofImage                m_img1, m_img2;
+     ofTexture              m_texture;
+     
+     ofVbo                  m_vbo;
+     ofShader               m_shader;
+    
+     
+     
 
 };
 

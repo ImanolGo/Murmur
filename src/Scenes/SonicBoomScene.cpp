@@ -58,7 +58,7 @@ void SonicBoomScene::setupFbos()
 
     m_drawArea = ofRectangle(0, 0, windowsSettings.getWidth(), windowsSettings.getHeight());
 
-    m_fbo.allocate(windowsSettings.getWidth(), windowsSettings.getHeight());
+    m_fbo.allocate(windowsSettings.getWidth(), windowsSettings.getHeight(), GL_RGBA, 4);
     m_fbo.begin(); ofClear(0); m_fbo.end();
 
 }
@@ -83,17 +83,7 @@ void SonicBoomScene::updateSonicBoom()
 void SonicBoomScene::draw() {
 
     //ofLogNotice("SonicBoomScene::draw");
-
-    ofBackground(0);
-//    ofPushStyle();
-//        ofEnableBlendMode(OF_BLENDMODE_DISABLED);
-//
-//        this->drawSonicBoom();
-//
-//       ofEnableBlendMode(OF_BLENDMODE_ADD);
-//
-//    ofPopStyle();
-    
+   ofBackground(0);
    this->drawSonicBoom();
 
 }
@@ -105,15 +95,15 @@ void SonicBoomScene::drawSonicBoom()
         return;
     }
     
-//    m_shader.begin();
-//    m_shader.setUniform1f("time", ofGetElapsedTimef());
-//    m_shader.setUniform1f("frequency", 0.5);
-//    m_shader.setUniform1f("amplitude", 22.0);
-//    m_shader.setUniform1f("speed", 0.5);
-//        m_sonicBoomVisual.draw();
-//    m_shader.end();
-    
-    m_sonicBoomVisual.draw();
+    m_shader.begin();
+    m_shader.setUniform1f("time", ofGetElapsedTimef());
+    m_shader.setUniform1f("frequency", 0.5);
+    m_shader.setUniform1f("amplitude", 22.0);
+    m_shader.setUniform1f("speed", 0.5);
+        m_sonicBoomVisual.draw();
+    m_shader.end();
+
+  // m_sonicBoomVisual.draw();
     
 }
 

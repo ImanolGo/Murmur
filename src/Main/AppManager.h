@@ -157,6 +157,10 @@ private:
     
     bool                            m_debugMode;
     bool                            m_initialized;
+    
+    
+    ofImage img1;
+    ofImage img2;
 };
 
 //==========================================================================

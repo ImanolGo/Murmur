@@ -60,12 +60,12 @@ void MaskManager::setupMasks()
     for(int i=0; i<windowSettingsVector.size(); i++)
     {
         auto mask =  make_shared<ofFbo>();
-        mask->allocate(windowSettingsVector[i].getWidth(), windowSettingsVector[i].getHeight(), GL_RGBA);
+        mask->allocate(windowSettingsVector[i].getWidth(), windowSettingsVector[i].getHeight(), GL_RGBA, 4);
         mask->begin();  ofClear(0); mask->end();
         m_masks[i] = mask;
         
         auto maskee =  make_shared<ofFbo>();
-        maskee->allocate(windowSettingsVector[i].getWidth(), windowSettingsVector[i].getHeight(), GL_RGBA);
+        maskee->allocate(windowSettingsVector[i].getWidth(), windowSettingsVector[i].getHeight(), GL_RGBA, 4);
         maskee->begin();  ofClear(0); maskee->end();
         m_masksees[i] = maskee;
         
