@@ -122,7 +122,7 @@ void HandsWritingScene::updateHands()
 
 
 void HandsWritingScene::draw() {
-    ofBackground(0);
+    ofClear(0);
     this->drawHands();
 }
 

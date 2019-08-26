@@ -77,7 +77,7 @@ void BeautifulMindSceneFloor::updateVideo()
 
 void BeautifulMindSceneFloor::draw() {
    
-    ofBackground(0);
+    ofClear(0);
     
     bool isFloorOn = AppManager::getInstance().getBeautifulMindManager().isFloorOn();
     if(isFloorOn)

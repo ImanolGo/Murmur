@@ -52,6 +52,8 @@ void SceneManager::setupFbos()
     fbo->begin(); ofClear(0); fbo->end();
     m_fbos[WindowIndex(key)] = fbo;
     
+    ofLogNotice() <<"SceneManager::initialized";
+    
     
     key = TOP;
     windowSettings =  WindowSettingsManager::getInstance().getWindowsSettings(key);
@@ -80,8 +82,14 @@ void SceneManager::createScenes()
     this->createTopScenes();
     this->createSceneNames();
     
-    m_sceneManagers[WindowIndex(FRONT)]->run();
-    m_sceneManagers[WindowIndex(TOP)]->run();
+    int key = FRONT;
+    auto windowSettings =  WindowSettingsManager::getInstance().getWindowsSettings(key);
+    m_sceneManagers[WindowIndex(key)]->run(windowSettings.getWidth(), windowSettings.getHeight());
+    
+    key = TOP;
+    windowSettings =  WindowSettingsManager::getInstance().getWindowsSettings(key);
+    m_sceneManagers[WindowIndex(key)]->run(windowSettings.getWidth(), windowSettings.getHeight());
+    
 }
 
 void SceneManager::createSceneNames()
@@ -391,6 +399,24 @@ ofGLFWWindowSettings SceneManager::getWindowSettings(ofxScene* scene)
     }
     
     return WindowSettingsManager::getInstance().getWindowsSettings(0);
+    
+}
+
+bool SceneManager::clearBackground(ofxScene* scene)
+{
+    for(auto scene_ : m_scenes) {
+        if(scene_->scene.get() == scene){
+            auto windowsSettigs = WindowSettingsManager::getInstance().getWindowsSettings((int) scene_->window_index);;
+            
+            ofPushStyle();
+            ofSetColor(0, 0, 0);
+            ofDrawRectangle(0, 0, windowsSettigs.getWidth(), windowsSettigs.getHeight());
+            ofPopStyle();
+            return true;
+        }
+    }
+    
+    return false;
     
 }
 

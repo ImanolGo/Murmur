@@ -137,7 +137,7 @@ void BeautifulMindScene::updateMask()
 
 void BeautifulMindScene::draw() {
    
-   ofBackground(0);
+   ofClear(0);
     
     bool calibration = AppManager::getInstance().getBeautifulMindManager().isCalibrationOn();
     

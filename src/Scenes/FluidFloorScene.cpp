@@ -87,7 +87,7 @@ void FluidFloorScene::update()
 
 
 void FluidFloorScene::draw() {
-     ofBackground(0);
+     ofClear(0);
 
     //m_maskShader.begin();
     //m_maskShader.setUniformTexture("imageMask", m_fboMask.getTextureReference(), 1);
@@ -122,7 +122,7 @@ void FluidFloorScene::updateFluid()
     m_fluid.update();
     
     m_fboFluid.begin();
-        ofBackground(0, 0, 0);
+        ofClear(0, 0, 0);
         m_fluid.draw(m_drawArea);
     m_fboFluid.end();
 }

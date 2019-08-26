@@ -93,7 +93,7 @@ void SonicBoomScene::draw()
     auto windowsSettings = AppManager::getInstance().getSceneManager().getWindowSettings((ofxScene *)this);
     
     //ofLogNotice("SonicBoomScene::draw");
-    ofBackground(0);
+    ofClear(0);
     m_fbo.draw(0,0, windowsSettings.getWidth(), windowsSettings.getHeight());
 }
 

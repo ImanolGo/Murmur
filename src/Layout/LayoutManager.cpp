@@ -65,10 +65,20 @@ void LayoutManager::setupFbos()
     fbo->begin(); ofClear(0);  fbo->end();
     m_fbos["FRONT"] = fbo;
     
+    ofLogNotice() << "LayoutManager::setupFbos -> Front : x = " << windowSettings.getPosition().x
+    << ", y = " << windowSettings.getPosition().y << ", width = " << windowSettings.getWidth() << ", height = " << windowSettings.getHeight();
+
+    
+    windowSettings = WindowSettingsManager::getInstance().getWindowsSettings(2);
+    
     fbo = ofPtr<ofFbo>(new ofFbo());
     fbo->allocate(windowSettings.getWidth(), windowSettings.getHeight(), GL_RGBA, 4);
     fbo->begin(); ofClear(0);  fbo->end();
     m_fbos["TOP"] = fbo;
+    
+    ofLogNotice() << "LayoutManager::setupFbos -> Top : x = " << windowSettings.getPosition().x
+    << ", y = " << windowSettings.getPosition().y << ", width = " << windowSettings.getWidth() << ", height = " << windowSettings.getHeight();
+
 }
 
 void LayoutManager::setupWindowFrames()
@@ -169,6 +179,7 @@ void LayoutManager::updateFbos()
 
 void LayoutManager::updateFrontFbo()
 {
+    ofEnableAlphaBlending();
     int index = 1;
     string name = "FRONT";
     this->begin(name);
@@ -176,8 +187,11 @@ void LayoutManager::updateFrontFbo()
         AppManager::getInstance().getMaskManager().begin(WindowIndex(index));
     }
         ofClear(0,255);
-        //ofSetColor(255);
+        ofSetColor(255);
         AppManager::getInstance().getSceneManager().draw(WindowIndex(index));
+        //ofSetColor(255,0,0, 255);
+        //ofDrawRectangle(0, 0, m_fbos[name]->getWidth(), m_fbos[name]->getHeight());
+    
     if(m_isMasked){
         AppManager::getInstance().getMaskManager().end(WindowIndex(index));
     }

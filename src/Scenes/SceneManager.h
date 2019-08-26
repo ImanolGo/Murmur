@@ -43,6 +43,9 @@ public:
     //! Get the windows settings of a specific scene
     ofGLFWWindowSettings getWindowSettings(ofxScene* scene);
     
+    //! Clears the background using a black rectangle
+    bool clearBackground(ofxScene* scene);
+    
     //! Draw a specific Scene Manager
     void draw(WindowIndex w);
     

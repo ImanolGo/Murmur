@@ -71,6 +71,10 @@ void WindowSettingsManager::readSettings()
         settings.setPosition(ofVec2f(displayBounds.origin.x, displayBounds.origin.y));
         //settings.setGLVersion(3,3);
         settings.setGLVersion(2,1);
+        
+        //settings.windowMode = OF_GAME_MODE;
+        //settings.multiMonitorFullScreen = true;
+        
         m_windows.push_back(settings);
         
     }
@@ -91,6 +95,8 @@ void WindowSettingsManager::readSettings()
         i++;
     }
     
+    
+    
 }
 
 ofGLFWWindowSettings WindowSettingsManager::getWindowsSettings(int index)
@@ -98,8 +104,8 @@ ofGLFWWindowSettings WindowSettingsManager::getWindowsSettings(int index)
     ofGLFWWindowSettings settings;
     if(index < 0 || index>=m_windows.size())
     {
-        return settings;
+        return m_windows[0];
     }
     
-    return m_windows[0];
+    return m_windows[index];
 }

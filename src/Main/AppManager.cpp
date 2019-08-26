@@ -59,7 +59,7 @@ void AppManager::setupOF()
 {
     ofLogNotice() << "AppManager::setupOF";
     
-    ofSetVerticalSync(false);
+    ofSetVerticalSync(true);
     ofSetEscapeQuitsApp(false);
     ofEnableAlphaBlending();
     //ofEnableSmoothing();
@@ -137,7 +137,7 @@ void AppManager::draw()
 void AppManager::draw2()
 {
     ofClear(0);
-    ofBackground(0);
+    //ofBackground(0);
     if(!m_initialized){
         return;
     }
@@ -149,7 +149,7 @@ void AppManager::draw3()
 {
     
     ofClear(0);
-    ofBackground(0);
+    //ofBackground(0);
     if(!m_initialized){
         return;
     }

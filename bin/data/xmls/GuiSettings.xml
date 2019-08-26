@@ -1,18 +1,19 @@
 <?xml version="1.0"?>
 <group>
-	<TransitionTime>0.5</TransitionTime>
+	<TransitionTime>3.025</TransitionTime>
 	<Opacity>0</Opacity>
 	<OpacityFront>0</OpacityFront>
 	<OpacityTop>0</OpacityTop>
-	<PositionBirds>0, 0, 0</PositionBirds>
+	<PositionBirds>0, 0.291055, 0</PositionBirds>
 	<SizeBirds>1</SizeBirds>
-	<SwarmSize>4, 4, 4</SwarmSize>
-	<BirdsNumber>250</BirdsNumber>
-	<SpeedBirds>10</SpeedBirds>
-	<RandomnessBirds>0</RandomnessBirds>
+	<SwarmSize>1, 1, 1</SwarmSize>
+	<BirdsNumber>0</BirdsNumber>
+	<SpeedBirds>8.5</SpeedBirds>
+	<RandomnessBirds>5</RandomnessBirds>
 	<Thickness>0.336</Thickness>
 	<OffsetContour>0, 0</OffsetContour>
 	<ScaleContour>1, 1</ScaleContour>
+	<SmokeBrightness>0.5</SmokeBrightness>
 	<On>0</On>
 	<OffsetHands>0, 0</OffsetHands>
 	<ScaleHands>1.142, 0.757</ScaleHands>
@@ -20,6 +21,10 @@
 	<FadeTimeHands>2</FadeTimeHands>
 	<OffsetFloor>0, 0</OffsetFloor>
 	<ScaleFloor>1, 1</ScaleFloor>
+	<Inverted_Coordinates>0</Inverted_Coordinates>
+	<MinSizeFloor>0.1</MinSizeFloor>
+	<MaxSizeFloor>0.5</MaxSizeFloor>
+	<LineWidthFloor>0</LineWidthFloor>
 	<CropLeft>0</CropLeft>
 	<CropRight>0</CropRight>
 	<CropTop>0</CropTop>

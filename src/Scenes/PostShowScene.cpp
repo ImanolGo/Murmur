@@ -39,7 +39,7 @@ void PostShowScene::update() {
 }
 
 void PostShowScene::draw() {
-     ofBackground(0);
+     ofClear(0);
     this->drawImages();
 }
 

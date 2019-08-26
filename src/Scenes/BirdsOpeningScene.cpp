@@ -34,7 +34,7 @@ void BirdsOpeningScene::update() {
 }
 
 void BirdsOpeningScene::draw() {
-    ofBackground(0);
+    ofClear(0);
     AppManager::getInstance().getBirdsManager().draw();
 }
 

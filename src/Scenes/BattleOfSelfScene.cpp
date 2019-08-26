@@ -92,7 +92,7 @@ void BattleOfSelfScene::draw() {
     
     //ofLogNotice("BattleOfSelfScene::draw");
 
-    ofBackground(0);
+    ofClear(0);
     ofPushStyle();
         ofEnableBlendMode(OF_BLENDMODE_DISABLED);
     

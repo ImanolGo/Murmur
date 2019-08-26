@@ -45,7 +45,7 @@ void SmokyHandsScene::update()
 
 
 void SmokyHandsScene::draw() {
-     ofBackground(0);
+     ofClear(0);
     this->drawFluid();
 }
 
