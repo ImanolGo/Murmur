@@ -116,9 +116,9 @@ void BattleOfSelfScene::drawSonicBoom()
     
     m_shader.begin();
     m_shader.setUniform1f("time", ofGetElapsedTimef());
-    m_shader.setUniform1f("frequency", 5);
-    m_shader.setUniform1f("amplitude", 0.01);
-    m_shader.setUniform1f("speed", 0.3);
+    m_shader.setUniform1f("frequency", 0.004);
+    m_shader.setUniform1f("amplitude", 22.0);
+    m_shader.setUniform1f("speed", 0.4);
         m_sonicBoomVisual.draw();
     m_shader.end();
 
