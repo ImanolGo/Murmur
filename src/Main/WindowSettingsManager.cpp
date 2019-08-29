@@ -69,8 +69,8 @@ void WindowSettingsManager::readSettings()
         
         CGRect displayBounds= CGDisplayBounds (displays[displayID]);
         settings.setPosition(ofVec2f(displayBounds.origin.x, displayBounds.origin.y));
-        //settings.setGLVersion(3,3);
-        settings.setGLVersion(2,1);
+        settings.setGLVersion(3,3);
+        //settings.setGLVersion(2,1);
         
         //settings.windowMode = OF_GAME_MODE;
         //settings.multiMonitorFullScreen = true;

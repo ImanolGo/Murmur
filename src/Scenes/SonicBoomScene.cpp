@@ -106,9 +106,9 @@ void SonicBoomScene::drawSonicBoom()
 
     m_shader.begin();
     m_shader.setUniform1f("time", ofGetElapsedTimef());
-    m_shader.setUniform1f("frequency", 0.7);
+    m_shader.setUniform1f("frequency", 0.004);
     m_shader.setUniform1f("amplitude", 22.0);
-    m_shader.setUniform1f("speed", 0.5);
+    m_shader.setUniform1f("speed", 0.4);
         m_sonicBoomVisual.draw(m_fbo.getWidth(), m_fbo.getHeight());
     m_shader.end();
 

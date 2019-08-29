@@ -259,4 +259,11 @@ void SonicBoomVisual::addParticle(const ofPoint &pos)
 void SonicBoomVisual::clear()
 {
     m_particles.clear();
+    
+    for(auto & size: m_sizes)
+    {
+        size = ofVec3f(0);
+    }
+    
+    m_vbo.setNormalData(&m_sizes[0], m_sizes.size(), GL_STATIC_DRAW);
 }

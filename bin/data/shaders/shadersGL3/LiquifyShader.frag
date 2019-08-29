@@ -116,8 +116,8 @@ float snoise(vec3 v)
 void main()
 {
     vec2 texCoords = texCoordVarying + vec2(
-        amplitude * (snoise(vec3(frequency * gl_TexCoord[0].s, frequency * gl_TexCoord[0].t, speed * time))),
-        amplitude * (snoise(vec3(frequency * gl_TexCoord[0].s + 17.0, frequency * gl_TexCoord[0].t, speed * time)))
+        amplitude * (snoise(vec3(frequency * texCoordVarying.s, frequency * texCoordVarying.t, speed * time))),
+        amplitude * (snoise(vec3(frequency * texCoordVarying.s + 17.0, frequency * texCoordVarying.t, speed * time)))
     );
     outputColor = texture(tex, texCoords);
 }

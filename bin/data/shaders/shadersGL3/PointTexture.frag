@@ -8,6 +8,6 @@ out vec4 outputColor;
 
 void main (void) {
 
-	outputColor = texture(tex, texCoordVarying) * vColor;
+	outputColor = texture(tex, gl_PointCoord) * vColor;
 }
 
