@@ -53,9 +53,10 @@ void AppManager::setup()
 
 void AppManager::setupOF()
 {
-   ofSetVerticalSync(true);
-   ofSetFrameRate(60);
-   ofShowCursor();
+    ofSetVerticalSync(true);
+    ofSetFrameRate(60);
+    ofShowCursor();
+    ofSetDataPathRoot("../Resources/data/");
 }
 
 
