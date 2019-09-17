@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<group>
+	<TransitionTime>0.5</TransitionTime>
+	<Opacity>0</Opacity>
+	<OpacityFront>0</OpacityFront>
+	<OpacityTop>0</OpacityTop>
+	<PositionBirds>0, 0, 0</PositionBirds>
+	<SizeBirds>1</SizeBirds>
+	<SwarmSize>4, 4, 4</SwarmSize>
+	<BirdsNumber>250</BirdsNumber>
+	<SpeedBirds>10</SpeedBirds>
+	<RandomnessBirds>0</RandomnessBirds>
+	<Thickness>1</Thickness>
+	<OffsetContour>0, 0</OffsetContour>
+	<ScaleContour>1, 1</ScaleContour>
+	<On>0</On>
+	<OffsetHands>0, 0</OffsetHands>
+	<ScaleHands>1, 1</ScaleHands>
+	<SizeHands>1</SizeHands>
+	<FadeTimeHands>2</FadeTimeHands>
+	<OffsetFloor>0, 0</OffsetFloor>
+	<ScaleFloor>1, 1</ScaleFloor>
+	<CropLeft>0</CropLeft>
+	<CropRight>0</CropRight>
+	<CropTop>0</CropTop>
+	<CropBottom>0</CropBottom>
+	<OffsetBeautiful>0, 0</OffsetBeautiful>
+	<ScaleBeautiful>1, 1</ScaleBeautiful>
+	<FloorOn>0</FloorOn>
+	<SpeedBeutiful>1</SpeedBeutiful>
+	<CalibrationOn>0</CalibrationOn>
+	<InternalAudioOn>0</InternalAudioOn>
+	<InternalVolume>0.5</InternalVolume>
+	<ExternalVolume>0.5</ExternalVolume>
+	<PaperThrowerSpeed>0</PaperThrowerSpeed>
+</group>
