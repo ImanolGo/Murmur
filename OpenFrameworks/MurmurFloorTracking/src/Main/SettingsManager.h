@@ -78,9 +78,6 @@ class SettingsManager: public Manager
 
         //! Loads all the textures settings
         void loadTextureSettings();
-
-        //! Loads all the svg images settings
-        void loadSvgSettings();
     
 
     private:
@@ -88,7 +85,7 @@ class SettingsManager: public Manager
         typedef             map< string, ofColor>    ColorMap;               ///< Defines a map of colors attached to a name
 
 
-        ofXml		            m_xmlSettings;          ///< instance of the xml parser
+        ofXml		            m_xml;                  ///< instance of the xml parser
         ResourcesPathMap        m_texturesPath;         ///< stores the texture paths
         ResourcesPathMap        m_svgResourcesPath;     ///< stores the resources paths
         ColorMap                m_colors;               ///< stores all the application's colors

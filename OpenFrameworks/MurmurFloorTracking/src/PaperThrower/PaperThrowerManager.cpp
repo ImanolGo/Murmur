@@ -85,8 +85,9 @@ void PaperThrowerManager::onSliderScroll(int & value)
 void PaperThrowerManager::onExit()
 {
     m_slider = 0;
+    char c = 0;
     onSliderScroll(m_slider);
-    m_serial.writeByte(0);
+    m_serial.writeByte(c);
 }
 
 

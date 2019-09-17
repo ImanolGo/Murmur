@@ -1,4 +1,21 @@
 example-pulse/
+example-color-transfer/
+example-svm-smile/
+example-svm/
+example-tree/
+example-tsp/
+
+# don't push project files
+*.cbp
+*.sln
+*.vcx*
+*.workspace*
+config.make
+Makefile
+*.xcodeproj
+*.plist
+*.xcconfig
+*.suo
 
 *.depend
 *.layout

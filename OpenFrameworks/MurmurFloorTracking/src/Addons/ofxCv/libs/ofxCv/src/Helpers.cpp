@@ -1,9 +1,11 @@
 #include "ofxCv/Helpers.h"
 #include "ofxCv/Utilities.h"
+#include "ofGraphics.h"
 
 namespace ofxCv {
 	
 	using namespace cv;
+	using namespace std;
 	
 	ofMatrix4x4 makeMatrix(Mat rotation, Mat translation) {
 		Mat rot3x3;
@@ -20,35 +22,21 @@ namespace ofxCv {
 											 tm[0], tm[1], tm[2], 1.0f);
 	}
 	
-	void drawMat(Mat& mat, float x, float y) {
+	void drawMat(const Mat& mat, float x, float y) {
 		drawMat(mat, x, y, mat.cols, mat.rows);
 	}
 	
-    // experimental special case of copying into ofTexture, which acts different
-    // might be able to rewrite this in terms of getDepth() but right now this
-    // function loses precision with CV_32F -> CV_8U
+    // special case for copying into ofTexture
     template <class S>
-    void copy(S& src, ofTexture& tex) {
+    void copy(const S& src, ofTexture& tex) {
+        imitate(tex, src);
+        int w = tex.getWidth(), h = tex.getHeight();
+        int glType = tex.getTextureData().glInternalFormat;
         Mat mat = toCv(src);
-		int glType;
-		Mat buffer;
-		if(mat.depth() != CV_8U) {
-			copy(mat, buffer, CV_8U);
-		} else {
-			buffer = mat;
-		}
-		if(mat.channels() == 1) {
-			glType = GL_LUMINANCE;
-		} else {
-			glType = GL_RGB;
-		}
-		int w = buffer.cols;
-		int h = buffer.rows;
-		tex.allocate(w, h, glType);
-		tex.loadData(buffer.ptr(), w, h, glType);
+		tex.loadData(mat.ptr(), w, h, glType);
     }
     
-	void drawMat(Mat& mat, float x, float y, float width, float height) {
+	void drawMat(const Mat& mat, float x, float y, float width, float height) {
         if(mat.empty()) {
             return;
         }
@@ -83,15 +71,15 @@ namespace ofxCv {
 		return 0;
 	}
 	
-	float weightedAverageAngle(const vector<Vec4i>& lines) {
+	float weightedAverageAngle(const std::vector<Vec4i>& lines) {
 		float angleSum = 0;
-		ofVec2f start, end;
+		glm::vec2 start, end;
 		float weights = 0;
 		for(int i = 0; i < lines.size(); i++) {
-			start.set(lines[i][0], lines[i][1]);
-			end.set(lines[i][2], lines[i][3]);
-			ofVec2f diff = end - start;
-			float length = diff.length();
+            start = glm::vec2(lines[i][0], lines[i][1]);
+			end = glm::vec2(lines[i][2], lines[i][3]);
+			glm::vec2 diff = end - start;
+            float length = glm::length(diff);
 			float weight = length * length;
 			float angle = atan2f(diff.y, diff.x);
 			angleSum += angle * weight;
@@ -99,12 +87,12 @@ namespace ofxCv {
 		}
 		return angleSum / weights;
 	}
-	
-	vector<cv::Point2f> getConvexPolygon(const vector<cv::Point2f>& convexHull, int targetPoints) {
-		vector<cv::Point2f> result = convexHull;
+    
+    std::vector<cv::Point2f> getConvexPolygon(const std::vector<cv::Point2f>& convexHull, int targetPoints) {
+		std::vector<cv::Point2f> result = convexHull;
 		
 		static const unsigned int maxIterations = 16;
-		static const double infinity = numeric_limits<double>::infinity();
+		static const double infinity = std::numeric_limits<double>::infinity();
 		double minEpsilon = 0;
 		double maxEpsilon = infinity;
 		double curEpsilon = 16; // good initial guess
@@ -133,52 +121,98 @@ namespace ofxCv {
 		
 		return result;
 	}
-	
-	void drawHighlightString(string text, ofPoint position, ofColor background, ofColor foreground) {
-		drawHighlightString(text, position.x, position.y, background, foreground);
-	}
-	
-	void drawHighlightString(string text, int x, int y, ofColor background, ofColor foreground) {
-		vector<string> lines = ofSplitString(text, "\n");
-		int textLength = 0;
-		for(int i = 0; i < lines.size(); i++) {
-			// tabs are not rendered
-			int tabs = count(lines[i].begin(), lines[i].end(), '\t');
-			int curLength = lines[i].length() - tabs;
-			// after the first line, everything is indented with one space
-			if(i > 0) {
-				curLength++;
-			}
-			if(curLength > textLength) {
-				textLength = curLength;
-			}
-		}
-		
-		int padding = 4;
-		int fontSize = 8;
-		float leading = 1.7;
-		int height = lines.size() * fontSize * leading - 1;
-		int width = textLength * fontSize;
-		
-#ifdef TARGET_OPENGLES
-		// This needs to be refactored to support OpenGLES
-		// Else it will work correctly
-#else
-		glPushAttrib(GL_DEPTH_BUFFER_BIT);
-		glDisable(GL_DEPTH_TEST);
-		ofPushStyle();
-		ofSetColor(background);
-		ofFill();
-		ofRect(x, y, width + 2 * padding, height + 2 * padding);
-		ofSetColor(foreground);
-		ofNoFill();
-		ofPushMatrix();
-		ofTranslate(padding, padding);
-		ofDrawBitmapString(text, x + 1, y + fontSize + 2);
-		ofPopMatrix();
-		ofPopStyle();
-		glPopAttrib();
-#endif         
-         
-	}
+    
+    // Code for thinning a binary image using Zhang-Suen algorithm.
+    // Normally you wouldn't call this function directly from your code.
+    //
+    // im    Binary image with range = [0,1]
+    // iter  0=even, 1=odd
+    //
+    // Author:  Nash (nash [at] opencv-code [dot] com)
+    // https://github.com/bsdnoobz/zhang-suen-thinning
+    void thinningIteration( cv::Mat & img, int iter, cv::Mat & marker )
+    {
+        CV_Assert(img.channels() == 1);
+        CV_Assert(img.depth() != sizeof(uchar));
+        CV_Assert(img.rows > 3 && img.cols > 3);
+        
+        int nRows = img.rows;
+        int nCols = img.cols;
+        
+        if (img.isContinuous()) {
+            nCols *= nRows;
+            nRows = 1;
+        }
+        
+        int x, y;
+        uchar *pAbove;
+        uchar *pCurr;
+        uchar *pBelow;
+        uchar *nw, *no, *ne;    // north (pAbove)
+        uchar *we, *me, *ea;
+        uchar *sw, *so, *se;    // south (pBelow)
+        
+        uchar *pDst;
+        
+        // initialize row pointers
+        pAbove = NULL;
+        pCurr  = img.ptr<uchar>(0);
+        pBelow = img.ptr<uchar>(1);
+        
+        for (y = 1; y < img.rows-1; ++y) {
+            // shift the rows up by one
+            pAbove = pCurr;
+            pCurr  = pBelow;
+            pBelow = img.ptr<uchar>(y+1);
+            
+            pDst = marker.ptr<uchar>(y);
+            
+            // initialize col pointers
+            no = &(pAbove[0]);
+            ne = &(pAbove[1]);
+            me = &(pCurr[0]);
+            ea = &(pCurr[1]);
+            so = &(pBelow[0]);
+            se = &(pBelow[1]);
+            
+            for (x = 1; x < img.cols-1; ++x) {
+                // shift col pointers left by one (scan left to right)
+                nw = no;
+                no = ne;
+                ne = &(pAbove[x+1]);
+                we = me;
+                me = ea;
+                ea = &(pCurr[x+1]);
+                sw = so;
+                so = se;
+                se = &(pBelow[x+1]);
+                
+                // @valillon
+                // Beyond this point the original Nash's code used an unified conditional at the end
+                // Intermediate conditionals speeds the process up (depending on the image to be thinned).
+                if (*me == 0) continue; // do not thin already zeroed pixels
+                
+                int A  = (*no == 0 && *ne == 1) + (*ne == 0 && *ea == 1) +
+                (*ea == 0 && *se == 1) + (*se == 0 && *so == 1) +
+                (*so == 0 && *sw == 1) + (*sw == 0 && *we == 1) +
+                (*we == 0 && *nw == 1) + (*nw == 0 && *no == 1);
+                if (A != 1) continue;
+                
+                int B  = *no + *ne + *ea + *se + *so + *sw + *we + *nw;
+                if (B < 2 || B > 6) continue;
+                
+                int m1 = iter == 0 ? (*no * *ea * *so) : (*no * *ea * *we);
+                if (m1) continue;
+                
+                int m2 = iter == 0 ? (*ea * *so * *we) : (*no * *so * *we);
+                if (m2) continue;
+                
+                // if (A == 1 && (B >= 2 && B <= 6) && m1 == 0 && m2 == 0)
+                pDst[x] = 1;
+            }
+        }
+        
+        img &= ~marker;
+    }
+        
 }

@@ -1,13 +1,11 @@
-#include "ofMain.h"
-#include "ofAppGlutWindow.h"
+#include "ofMain.h"	
 #include "MurmurFloorTrackingApp.h"
 
 
 //========================================================================
 int main( ){
 
-    ofAppGlutWindow window;
-    ofSetupOpenGL(&window,1280, 1024, OF_WINDOW);
+    ofSetupOpenGL(1024,768, OF_WINDOW);            // <-------- setup the GL context
     ofRunApp( new MurmurFloorTrackingApp());
 
 }

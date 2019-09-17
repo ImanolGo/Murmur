@@ -50,9 +50,6 @@
 #include "ofMath.h"
 
 namespace ofxCv {
-	
-	using namespace cv;
-	
 	float trackingDistance(const cv::Rect& a, const cv::Rect& b);
 	float trackingDistance(const cv::Point2f& a, const cv::Point2f& b);
 	
@@ -82,7 +79,7 @@ namespace ofxCv {
 		:lastSeen(old.lastSeen)
 		,label(old.label)
 		,age(old.age)
-		,index(-1)
+		,index(old.index)
 		,object(old.object){
 		}
 		void timeStep(bool visible) {
@@ -115,14 +112,16 @@ namespace ofxCv {
 	template <class T>
 	class Tracker {
 	protected:		
-		vector<TrackedObject<T> > previous, current;
-		vector<unsigned int> currentLabels, previousLabels, newLabels, deadLabels;
+		std::vector<TrackedObject<T> > previous, current;
+		std::vector<unsigned int> currentLabels, previousLabels, newLabels, deadLabels;
 		std::map<unsigned int, TrackedObject<T>*> previousLabelMap, currentLabelMap;
 		
-		unsigned int persistence, curLabel;
+		unsigned int persistence;
+		unsigned long long curLabel;
 		float maximumDistance;
-		unsigned int getNewLabel() {
-			return curLabel++;
+		unsigned long long getNewLabel() {
+			curLabel++;
+			return curLabel;
 		}
 		
 	public:
@@ -134,13 +133,13 @@ namespace ofxCv {
 		virtual ~Tracker(){};
 		void setPersistence(unsigned int persistence);
 		void setMaximumDistance(float maximumDistance);
-		virtual const vector<unsigned int>& track(const vector<T>& objects);
+		virtual const std::vector<unsigned int>& track(const std::vector<T>& objects);
 		
 		// organized in the order received by track()
-		const vector<unsigned int>& getCurrentLabels() const;
-		const vector<unsigned int>& getPreviousLabels() const;
-		const vector<unsigned int>& getNewLabels() const;
-		const vector<unsigned int>& getDeadLabels() const;
+		const std::vector<unsigned int>& getCurrentLabels() const;
+		const std::vector<unsigned int>& getPreviousLabels() const;
+		const std::vector<unsigned int>& getNewLabels() const;
+		const std::vector<unsigned int>& getDeadLabels() const;
 		unsigned int getLabelFromIndex(unsigned int i) const;
 		
 		// organized by label
@@ -164,7 +163,7 @@ namespace ofxCv {
 	}
 	
 	template <class T>
-	const vector<unsigned int>& Tracker<T>::track(const vector<T>& objects) {
+	const std::vector<unsigned int>& Tracker<T>::track(const std::vector<T>& objects) {
 		previous = current;
 		int n = objects.size();
 		int m = previous.size();
@@ -172,7 +171,7 @@ namespace ofxCv {
 		// build NxM distance matrix
 		typedef std::pair<int, int> MatchPair;
 		typedef std::pair<MatchPair, float> MatchDistancePair;
-		vector<MatchDistancePair> all;
+		std::vector<MatchDistancePair> all;
 		for(int i = 0; i < n; i++) {
 			for(int j = 0; j < m; j++) {
 				float curDistance = trackingDistance(objects[i], previous[j].object);
@@ -189,8 +188,8 @@ namespace ofxCv {
 		currentLabels.clear();
 		currentLabels.resize(n);
 		current.clear();
-		vector<bool> matchedObjects(n, false);
-		vector<bool> matchedPrevious(m, false);
+		std::vector<bool> matchedObjects(n, false);
+		std::vector<bool> matchedPrevious(m, false);
 		// walk through matches in order
 		for(int k = 0; k < (int)all.size(); k++) {
 			MatchPair& match = all[k].first;
@@ -234,36 +233,36 @@ namespace ofxCv {
 		
 		// build label maps
 		currentLabelMap.clear();
-		for(int i = 0; i < (int)current.size(); i++) {
+		for(std::size_t i = 0; i < current.size(); i++) {
 			unsigned int label = current[i].getLabel();
 			currentLabelMap[label] = &(current[i]);
 		}
 		previousLabelMap.clear();
-		for(int i = 0; i < (int)previous.size(); i++) {
+		for(std::size_t i = 0; i < previous.size(); i++) {
 			unsigned int label = previous[i].getLabel();
 			previousLabelMap[label] = &(previous[i]);
 		}
 		
 		return currentLabels;
 	}
-	
+
 	template <class T>
-	const vector<unsigned int>& Tracker<T>::getCurrentLabels() const {
+	const std::vector<unsigned int>& Tracker<T>::getCurrentLabels() const {
 		return currentLabels;
 	}
 	
 	template <class T>
-	const vector<unsigned int>& Tracker<T>::getPreviousLabels() const {
+	const std::vector<unsigned int>& Tracker<T>::getPreviousLabels() const {
 		return previousLabels;
 	}
 	
 	template <class T>
-	const vector<unsigned int>& Tracker<T>::getNewLabels() const {
+	const std::vector<unsigned int>& Tracker<T>::getNewLabels() const {
 		return newLabels;
 	}
-	
+
 	template <class T>
-	const vector<unsigned int>& Tracker<T>::getDeadLabels() const {
+	const std::vector<unsigned int>& Tracker<T>::getDeadLabels() const {
 		return deadLabels;
 	}
 
@@ -274,7 +273,7 @@ namespace ofxCv {
 	
 	template <class T>
 	int Tracker<T>::getIndexFromLabel(unsigned int label) const {
-		return getCurrent(label).getIndex();
+		return currentLabelMap.find(label)->second->getIndex();
 	}
 	
 	template <class T>
@@ -301,7 +300,7 @@ namespace ofxCv {
 	int Tracker<T>::getAge(unsigned int label) const{
 		return currentLabelMap.find(label)->second->getAge();
 	}
-    
+
 	template <class T>
 	int Tracker<T>::getLastSeen(unsigned int label) const{
 		return currentLabelMap.find(label)->second->getLastSeen();
@@ -321,8 +320,8 @@ namespace ofxCv {
 		float getSmoothingRate() const {
 			return smoothingRate;
 		}
-		const vector<unsigned int>& track(const vector<cv::Rect>& objects) {
-			const vector<unsigned int>& labels = Tracker<cv::Rect>::track(objects);
+		const std::vector<unsigned int>& track(const std::vector<cv::Rect>& objects) {
+			const std::vector<unsigned int>& labels = Tracker<cv::Rect>::track(objects);
 			// add new objects, update old objects
 			for(int i = 0; i < labels.size(); i++) {
 				unsigned int label = labels[i];
@@ -401,10 +400,10 @@ namespace ofxCv {
 	template <class T, class F>
 	class TrackerFollower : public Tracker<T> {
 	protected:
-		vector<unsigned int> labels;
-		vector<F> followers;
+		std::vector<unsigned int> labels;
+		std::vector<F> followers;
 	public:
-		const vector<unsigned int>& track(const vector<T>& objects) {
+		const std::vector<unsigned int>& track(const std::vector<T>& objects) {
 			Tracker<T>::track(objects);
 			// kill missing, update old
 			for(int i = 0; i < labels.size(); i++) {
@@ -433,7 +432,7 @@ namespace ofxCv {
 			}
 			return labels;
 		}
-		vector<F>& getFollowers() {
+		std::vector<F>& getFollowers() {
 			return followers;
 		}
 	};

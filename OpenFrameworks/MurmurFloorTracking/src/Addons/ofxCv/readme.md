@@ -1,8 +1,13 @@
 # Introduction
 
-ofxCv represents an alternative approach to wrapping OpenCV for openFrameworks. It is designed for openFrameworks 007+ compatibility only. My first goal is to have a complete substitute for ofxOpenCv, at which point I will start versioning releases. Until then, I don't recommend that anyone use it as it will be undergoing irregular massive rehauling.
+ofxCv represents an alternative approach to wrapping OpenCV for openFrameworks.
 
 # Installation
+
+First, pick the branch that matches your version of openFrameworks:
+
+* OF [stable](https://github.com/openframeworks/openFrameworks/tree/stable) (0.9.8): use [ofxCv/stable](https://github.com/kylemcdonald/ofxCv/tree/stable)
+* OF [master](https://github.com/openframeworks/openFrameworks) (0.10.0): use [ofxCv/master](https://github.com/kylemcdonald/ofxCv/)
 
 Either clone out the source code using git:
 
@@ -11,7 +16,7 @@ Either clone out the source code using git:
 
 Or download the source from GitHub [here](https://github.com/kylemcdonald/ofxCv/archive/master.zip), unzip the folder, rename it from `ofxCv-master` to `ofxCv` and place it in your `openFrameworks/addons` folder.
 
-You don't need to move any of the examples anywhere, you can run them in place.
+To run the examples, import them into the project generator, create a new project, and open the project file in your IDE.
 
 # Goals
 
@@ -51,6 +56,8 @@ Your linker will also need to know where the OpenCv headers are. In XCode this m
 
 	HEADER_SEARCH_PATHS = $(OF_CORE_HEADERS) "../../../addons/ofxOpenCv/libs/opencv/include/" "../../../addons/ofxCv/libs/ofxCv/include/"
 
+Alternatively, I recommend using [OFXCodeMenu](https://github.com/openframeworks/OFXcodeMenu) to add ofxCv to your project.
+
 ## Including ofxCv
 
 Inside your ofApp.h you will need one include:
@@ -77,7 +84,7 @@ The rest of ofxCv is mostly helper functions (for example, `threshold()`) and wr
 `toCv()` is used to convert openFrameworks data to OpenCv data. For example:
 
 	ofImage img;
-	img.loadImage("image.png");
+	img.load("image.png");
 	Mat imgMat = toCv(img);
 
 This creates a wrapper for `img` called `imgMat`. To create a deep copy, use `clone()`:
@@ -109,9 +116,13 @@ Because there are cases where in place usage will cause a compile error. More sp
 
 If you are writing a function that returns data, the ofxCv style is to call `imitate()` on the data to be returned from inside the function, allocating it as necessary.
 
-### drawMat()
+### drawMat() vs. toOf()
 
-Sometimes you want to draw a `Mat` to the screen directly, as quickly and easily as possible, and `drawMat()` will do this for you. `drawMat()` is not the most optimal way of drawing images to the screen, because it creates a texture every time it draws. If you want to draw things for efficiently, you should allocate an `ofImage img;`, use `Mat mat = toCv(img);` to treat it as a `Mat`, and then call `img.update()` to upload the modified pixels to the graphics card so you can see the results in `img.draw()`.
+Sometimes you want to draw a `Mat` to the screen directly, as quickly and easily as possible, and `drawMat()` will do this for you. `drawMat()` is not the most optimal way of drawing images to the screen, because it creates a texture every time it draws. If you want to draw things efficiently, you should allocate a texture using `ofImage img;` *once* and draw it using `img.draw()`.
+
+1. Either use `Mat mat = toCv(img);` to treat the `ofImage` as a `Mat`, modify the `mat`, then `img.update()` to upload the modified pixels to the GPU.
+2. Alternatively; call `toOf(mat, img)` each time after modifying the `Mat`. This will only reallocate the texture if necessary, e.g. when the size has changed.
+
 
 # Working with OpenCv 2
 

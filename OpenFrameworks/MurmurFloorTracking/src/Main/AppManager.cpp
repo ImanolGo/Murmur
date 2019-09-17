@@ -21,7 +21,7 @@ AppManager& AppManager::getInstance()
 
 }
 
-AppManager::AppManager(): Manager(), m_debugMode(true)
+AppManager::AppManager(): Manager(), m_debugMode(true), m_initialized(false)
 {
     //Intentioanlly left empty
 }
@@ -46,6 +46,9 @@ void AppManager::setup()
 	this->setupManagers();
     
     setDebugMode(m_debugMode);
+    
+    ofLogNotice() << "AppManager::initialized";
+    m_initialized = true;
 }
 
 void AppManager::setupOF()
@@ -71,6 +74,10 @@ void AppManager::setupManagers()
 
 void AppManager::update()
 {
+    if(!m_initialized){
+        return;
+    }
+    
     m_trackingManager.update();
     m_visualEffectsManager.update();
     m_oscManager.update();
@@ -79,6 +86,13 @@ void AppManager::update()
 
 void AppManager::draw()
 {
+    ofClear(0);
+    ofBackground(40);
+    
+    if(!m_initialized){
+        return;
+    }
+    
     m_viewManager.draw();
     
     if (!m_debugMode) {

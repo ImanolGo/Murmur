@@ -123,6 +123,7 @@ private:
     PaperThrowerManager             m_paperThrowerManager;      ///< Manages the paper thrower
 
     bool                            m_debugMode;
+    bool                            m_initialized;
 };
 
 //==========================================================================

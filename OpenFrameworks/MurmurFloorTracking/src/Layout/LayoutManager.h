@@ -10,7 +10,6 @@
 
 #include "Manager.h"
 #include "TextVisual.h"
-#include "SvgVisual.h"
 #include "ImageVisual.h"
 
 //========================== class LayoutManager ==============================
@@ -39,9 +38,6 @@ private:
     //! Create the text visuals
     void createTextVisuals();
 
-    //! Create the svg visuals
-    void createSvgVisuals();
-
     //! Create the image visuals
     void createImageVisuals();
 
@@ -61,11 +57,9 @@ private:
 
 
     typedef  map<string, ofPtr<TextVisual> >      TextMap;            ///< defines a map of Text attached to an identifier
-    typedef  map<string, ofPtr<SvgVisual>  >      SvgMap;             ///< defines a map of SvgVisual Map attached to an identifier
     typedef  map<string, ofPtr<ImageVisual>  >    ImageMap;           ///< defines a map of ImageVisual Map attached to an identifier
   
     TextMap             m_textVisuals;             ///< map storing the text visuals attached to a name
-    SvgMap              m_svgVisuals;              ///< map storing the svg visuals attached to a name
     ImageMap            m_imageVisuals;            ///< map storing the image visuals attached to a name
 
 };
