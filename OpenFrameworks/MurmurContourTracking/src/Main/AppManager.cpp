@@ -65,6 +65,7 @@ void AppManager::setupManagers()
     m_settingsManager.setup();
     m_layoutManager.setup();
     m_oscManager.setup();
+    m_udpManager.setup();
     m_trackingManager.setup();
     m_keyboardManager.setup();
     m_audioManager.setup();

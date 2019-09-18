@@ -50,7 +50,8 @@ void AudioManager::update()
 {
     m_fft.update();
     
-    AppManager::getInstance().getOscManager().sendAudioMax(getMaxSound());
+    //AppManager::getInstance().getOscManager().sendAudioMax(getMaxSound());
+    AppManager::getInstance().getUdpManager().sendAudioMax(getMaxSound());
     //ofLogNotice() <<"AudioManager::update: " << m_fft.getUnScaledLoudestValue();
     //ofLogNotice() <<"AudioManager::update2: " << m_fft.getLoudBand();
 }

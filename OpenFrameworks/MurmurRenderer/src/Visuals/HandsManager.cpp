@@ -75,7 +75,7 @@ void HandsManager::setupHandsRectangleSpace()
     m_handsRectangleSpace = ofRectangle(0.0,0.0,1.0,1.0);
 }
 
-void HandsManager::readHands(char const* data)
+void HandsManager::readHands(char const* data, int num_bytes)
 {
     
     if(!m_handsOn){
@@ -86,6 +86,10 @@ void HandsManager::readHands(char const* data)
     
     
     //ofLogNotice() <<"HandsManager::readHands << headbyte -> " << data[0];
+    
+    if(num_bytes<2){
+        return;
+    }
     
     char const* p = data;
     
@@ -102,6 +106,11 @@ void HandsManager::readHands(char const* data)
         p = extract(p, charNumberOfHands); // p contains next position to read
         
         int numberOfHands = charNumberOfHands;
+        int size = 2 + numberOfHands*4*2 +  1;
+        if(num_bytes < size){
+            return;
+        }
+    
         char tail = p[numberOfHands*4*2];
         if(tail!='x'){
             return;

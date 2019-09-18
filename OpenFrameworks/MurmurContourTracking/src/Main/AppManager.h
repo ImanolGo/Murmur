@@ -22,6 +22,7 @@
 #include "KeyboardManager.h"
 #include "OscManager.h"
 #include "AudioManager.h"
+#include "UdpManager.h"
 
 //========================== class AppManager ==============================
 //============================================================================
@@ -77,6 +78,11 @@ public:
     
     //! Returns the  audio manager
     AudioManager&  getAudioManager() { return m_audioManager;}
+    
+    //! Returns the  UDP manager
+    UdpManager&  getUdpManager() { return m_udpManager;}
+    
+    
 
     
     //==========================================================================
@@ -119,6 +125,7 @@ private:
     ViewManager                     m_viewManager;              ///< Manages the visuals
     VisualEffectsManager            m_visualEffectsManager;     ///< Manages the visual effects
     OscManager                      m_oscManager;               ///< Manages the OSC messages
+    UdpManager                      m_udpManager;               ///< Manages the UDP messages
     KeyboardManager                 m_keyboardManager;          ///< Manages the keboard input
     AudioManager                    m_audioManager;             ///< Manages the audio input
 

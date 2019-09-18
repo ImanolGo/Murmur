@@ -51,6 +51,9 @@ public:
     //! send contours
     void sendContour(const vector<ofPolyline>& contours);
     
+    //! send audio maximum
+    void sendAudioMax(float value);
+    
     
 private:
     
@@ -63,6 +66,10 @@ private:
     string getContourHeader(const vector<ofPolyline>& contours);
     
     string getContourData(const vector<ofPolyline>& contours);
+    
+    string getAudioHeader();
+    
+    string getAudioData(float value);
     
 private:
     

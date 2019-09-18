@@ -27,6 +27,14 @@ class UdpManager: public Manager
 
     static const int UDP_MESSAGE_LENGHT; ///Defines the Udp"s message length
     
+    struct udp_header {
+        unsigned char f1;
+        unsigned char f2;
+        unsigned char f3;
+        unsigned char command;
+        short size;
+    };
+    
 public:
     //! Constructor
     UdpManager();
@@ -46,11 +54,28 @@ private:
     //! sets up the udp receiver
     void setupUdpReceiver();
     
+    void setupHeaders();
+    
     //! setups the text visuals
     void setupText();
     
     //! updates receiving information text visuals
     void updateReceiveText(const string& message);
+    
+    bool isKinectMessage(char * buffer, int size);
+    
+    bool isHandsMessage(char * buffer, int size);
+    
+    void parseMessage(char * buffer, int size);
+    
+    void parseKinect(char * buffer, int size);
+    
+    void parseContour(char * buffer, int size);
+    
+    void parseAudio(char * buffer, int size);
+    
+    void printHex(char * buffer, int size);
+    
     
  private:
     
@@ -58,6 +83,9 @@ private:
      ofxUDPManager          m_udpConnection;        ///< ofxUdpManager  class
      ofPtr<TextVisual>      m_udpReceiveTextFont;
      ofPtr<TextVisual>       m_udpReceiveMessageFont;
+    
+    udp_header    m_contourHeader;
+    udp_header    m_audioHeader;
     
 };
 

@@ -53,7 +53,7 @@ void UdpManager::setupHeaders()
     m_audioHeader.f2 = 0x41;
     m_audioHeader.f3 = 0x37;
     m_audioHeader.size = 4;
-    m_contourHeader.command = 'a';
+    m_audioHeader.command = 'a';
 }
 
 void UdpManager::setupUdpConnection()
@@ -69,7 +69,7 @@ void UdpManager::setupUdpConnection()
     
     m_udpConnection.Setup(settings);
     
-    ofLogNotice() <<"UdpManager::setupUdpReceiver -> sending to IP " << ip <<" to port " << portSend;
+    ofLogNotice() <<"UdpManager::setupUdpSender -> sending to IP " << ip <<" to port " << portSend;
     
 }
 
@@ -85,6 +85,14 @@ void UdpManager::sendContour(const vector<ofPolyline>& contours)
     string message="";
     message+= this->getContourHeader(contours);
     message+= this->getContourData(contours);
+    m_udpConnection.Send(message.c_str(),message.length());
+}
+
+void UdpManager::sendAudioMax(float value)
+{
+    string message="";
+    message+= this->getAudioHeader();
+    message+= this->getAudioData(value);
     m_udpConnection.Send(message.c_str(),message.length());
 }
 
@@ -129,6 +137,33 @@ string UdpManager::getContourData(const vector<ofPolyline>& contours)
             
         }
     }
+    
+    return message;
+}
+
+
+string UdpManager::getAudioHeader()
+{
+    string message="";
+   
+    message+= m_audioHeader.f1;
+    message+= m_audioHeader.f2;
+    message+= m_audioHeader.f3;
+    message+= m_audioHeader.command;
+    
+    unsigned char * s = (unsigned char*)& m_audioHeader.size;
+    message+= s[0];  message+= s[1];
+    
+    return message;
+}
+
+string UdpManager::getAudioData(float value)
+{
+    string message="";
+    Float32 v = value;
+    
+    unsigned char * s = (unsigned char*)& v;
+    message+= s[0];  message+= s[1]; message+= s[2];  message+= s[3];
     
     return message;
 }

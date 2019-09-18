@@ -14,7 +14,7 @@
 #include "AppManager.h"
 
 
-const int UdpManager::UDP_MESSAGE_LENGHT = 1000;
+const int UdpManager::UDP_MESSAGE_LENGHT = 10000;
 
 UdpManager::UdpManager(): Manager()
 {
@@ -37,6 +37,8 @@ void UdpManager::setup()
     Manager::setup();
     
     this->setupUdpReceiver();
+    this->setupHeaders();
+    
     this->setupText();
     
     ofLogNotice() <<"UdpManager::initialized" ;
@@ -45,11 +47,27 @@ void UdpManager::setup()
 void UdpManager::setupUdpReceiver()
 {
     int portReceive = AppManager::getInstance().getSettingsManager().getUdpPortReceive();
-    ofLogNotice() <<"UdpManager::setupUdpReceiver -> listening for udp messages on port  " << portReceive;
     
     m_udpConnection.Create(); //create the socket
     m_udpConnection.Bind(portReceive); //and bind to port
     m_udpConnection.SetNonBlocking(true);
+    
+     ofLogNotice() <<"UdpManager::setupUdpReceiver -> unable to connect to port  " << portReceive;
+}
+
+void UdpManager::setupHeaders()
+{
+    m_contourHeader.f1 = 0x10;
+    m_contourHeader.f2 = 0x41;
+    m_contourHeader.f3 = 0x37;
+    m_contourHeader.size = 0;
+    m_contourHeader.command = 'c';
+    
+    m_audioHeader.f1 = 0x10;
+    m_audioHeader.f2 = 0x41;
+    m_audioHeader.f3 = 0x37;
+    m_audioHeader.size = 4;
+    m_contourHeader.command = 'a';
 }
 
 void UdpManager::setupText()
@@ -100,6 +118,7 @@ void UdpManager::setupText()
 
 void UdpManager::update()
 {
+    //return;
     char udpMessage[UDP_MESSAGE_LENGHT];
     string message;
     string tempMessage;
@@ -107,23 +126,28 @@ void UdpManager::update()
     
     string text = ">>UdpManager::update -> " ;
     
+    //ofLogNotice() <<"UdpManager::setupUdpReceiver -> update ";
+    
     while (getNext) {
-        m_udpConnection.Receive(udpMessage,UDP_MESSAGE_LENGHT);
-        tempMessage=udpMessage;
         
-        if (tempMessage==""){
+        int bytes = m_udpConnection.Receive(udpMessage,UDP_MESSAGE_LENGHT);
+        //ofLogNotice() <<"UdpManager::setupUdpReceiver -> update : bytes = " << bytes;
+        message=udpMessage;
+        
+        if (bytes==0){
             getNext = false;
         }
         else{
-            message = tempMessage;
+            this->parseMessage(udpMessage, bytes);
+             // this->updateReceiveText(message);
         }
         
     }
     
     //ofLogNotice() <<">>UdpManager::update -> message: " << message;
-    this->updateReceiveText(message);
+  
     
-    AppManager::getInstance().getHandsManager().readHands(message.c_str());
+    //AppManager::getInstance().getHandsManager().readHands(message.c_str());
     //AppManager::getInstance().getHandsManager().readHands2(message.c_str());
 }
 
@@ -139,8 +163,108 @@ void UdpManager::updateReceiveText(const string& message)
 
 }
 
+void UdpManager::parseMessage(char * buffer, int size)
+{
+    if(this->isKinectMessage(buffer, size)){
+        this->parseKinect(buffer, size);
+    }
+    else if(this->isHandsMessage(buffer, size)){
+       AppManager::getInstance().getHandsManager().readHands(buffer, size);
+    }
+}
+
+void UdpManager::parseKinect(char * buffer, int size)
+{
+    if(size< 4){
+        return;
+    }
+    
+    char command = buffer[3];
+    //ofLogNotice() <<"UdpManager::parseKinect -> command  " << buffer[3];
+    this->printHex( buffer, size);
+    if(command == 'c'){
+        this->parseContour( buffer, size);
+    }
+    else if(command == 'a'){
+        this->parseAudio( buffer, size);
+    }
+}
+
+void UdpManager::parseAudio(char * buffer, int size)
+{
+    if(size< 10){
+        return;
+    }
+    
+    float f;
+    char b[] = {buffer[6], buffer[7], buffer[8], buffer[9]};
+    
+    memcpy(&f, &b, sizeof(f));
+    AppManager::getInstance().getAudioManager().setAudioMax(f);
+   // ofLogNotice() <<"UdpManager::parseAudio -> audio max  " << f;
+    
+}
+
+void UdpManager::parseContour(char * buffer, int size)
+{
+    if(size< 10){
+        return;
+    }
+    
+    float f;
+    char b[] = {buffer[6], buffer[7], buffer[8], buffer[9]};
+    
+    memcpy(&f, &b, sizeof(f));
+    AppManager::getInstance().getAudioManager().setAudioMax(f);
+    
+
+}
 
 
+
+
+bool UdpManager::isKinectMessage(char * buffer, int size)
+{
+    if(size< 3){
+        return false;
+    }
+
+    if(buffer[0] != m_contourHeader.f1  && buffer[1] != m_contourHeader.f2  && buffer[2] != m_contourHeader.f3 ){
+       // ofLogNotice() <<"UdpManager::isMessage -> FALSE ";
+        return false;
+    }
+    
+   // ofLogNotice() <<"UdpManager::isMessage -> TRUE ";
+    return true;
+}
+
+bool UdpManager::isHandsMessage(char * buffer, int size)
+{
+    if(size< 2){
+        return false;
+    }
+    
+    if(buffer[0] !='X' ){ //Beginning of message
+        // ofLogNotice() <<"UdpManager::isMessage -> FALSE ";
+        return false;
+    }
+    
+    
+   // ofLogNotice() <<"UdpManager::isMessage -> TRUE ";
+    return true;
+}
+
+
+void UdpManager::printHex(char * buffer, int size)
+{
+    std::stringstream ss;
+    for(int i=0; i<size; ++i){
+        ss << std::hex << (int)buffer[i] << " ";
+    }
+    std::string mystr = ss.str();
+    
+    ofLogNotice() <<"UdpManager::printHex ->  hex: " << mystr;
+}
 
 
 

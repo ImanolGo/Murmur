@@ -43,7 +43,7 @@ public:
     void draw();
      
     //! parses the hands information coming from the laser ranger
-    void readHands(char const* udpMessage);
+    void readHands(char const* udpMessage, int num_bytes);
      
      //! parses the hands information coming from the laser ranger
      void readHands2(char const* udpMessage);
