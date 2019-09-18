@@ -180,6 +180,7 @@ private:
     bool                        m_sendAllContours;          ///< defines whether to send one or all contours
     
     int                         m_cropLeft, m_cropRight, m_cropTop, m_cropBottom;
+    vector<ofPolyline>          m_contours;
     
 };
 

@@ -181,7 +181,7 @@ void UdpManager::parseKinect(char * buffer, int size)
     
     char command = buffer[3];
     //ofLogNotice() <<"UdpManager::parseKinect -> command  " << buffer[3];
-    this->printHex( buffer, size);
+    //this->printHex( buffer, size);
     if(command == 'c'){
         this->parseContour( buffer, size);
     }
@@ -207,17 +207,71 @@ void UdpManager::parseAudio(char * buffer, int size)
 
 void UdpManager::parseContour(char * buffer, int size)
 {
-    if(size< 10){
+    unsigned int header_size = 6;
+    if(size< header_size){
         return;
     }
     
-    float f;
-    char b[] = {buffer[6], buffer[7], buffer[8], buffer[9]};
+    unsigned short s;
+    char b[] = {buffer[4], buffer[5]};
     
-    memcpy(&f, &b, sizeof(f));
-    AppManager::getInstance().getAudioManager().setAudioMax(f);
+    memcpy(&s, &b, sizeof(s));
+    // ofLogNotice() <<"UdpManager::parseContour -> num bytes total " << size;
+    //ofLogNotice() <<"UdpManager::parseContour -> num bytes data " << s;
     
-
+    int h_s = size - s;
+    
+    if(h_s != header_size){
+        return;
+    }
+    
+    
+    unsigned int index = header_size;
+    
+    b[0] = buffer[index++]; b[1] = buffer[index++];
+    memcpy(&s, &b, sizeof(s));
+    
+    
+    int num_blobs = s;
+    ofLogNotice() <<"UdpManager::parseContour -> num blobs  " << num_blobs;
+    
+    AppManager::getInstance().getContourManager().resetContours();
+    
+    for(unsigned int i = 0; i< num_blobs; i++){
+        
+        if(index+1>=size){
+            return;
+        }
+        
+        b[0] = buffer[index++]; b[1] = buffer[index++];
+        memcpy(&s, &b, sizeof(s));
+        unsigned int size_blob = s;
+        ofLogNotice() <<"UdpManager::parseContour -> size blobs  " << size_blob;
+        
+        
+        vector<float> contourPoints;
+        
+         for(unsigned int j = 0; j< size_blob; j++)
+         {
+             if(index+7>=size){
+                 return;
+             }
+             
+             char bytes[4] ;
+             float f;
+             bytes[0] = buffer[index++]; bytes[1] = buffer[index++]; bytes[2] = buffer[index++]; bytes[3] = buffer[index++];
+             memcpy(&f, &bytes, sizeof(f));
+             contourPoints.push_back(f); //x
+             
+             bytes[0] = buffer[index++]; bytes[1] = buffer[index++]; bytes[2] = buffer[index++]; bytes[3] = buffer[index++];
+             memcpy(&f, &bytes, sizeof(f));
+             contourPoints.push_back(f);//y
+             
+         }
+        
+        AppManager::getInstance().getContourManager().setContour(contourPoints);
+        
+    }
 }
 
 

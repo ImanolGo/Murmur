@@ -246,26 +246,52 @@ void TrackingManager::updateContourTracking()
         
         this->updateTrackedContour();
         
-        if(m_sendAllContours){
-            this->sendAllContours();
-        }
-        else{
-            this->sendTrackedContour();
-        }
+        AppManager::getInstance().getUdpManager().sendContour(m_contours);
+        
+//        if(m_sendAllContours){
+//            this->sendAllContours();
+//        }
+//        else{
+//            this->sendTrackedContour();
+//        }
     }
 }
 
 void TrackingManager::updateTrackedContour()
 {
     double contourArea = 0;
+    m_contours.clear();
     m_trackedContour.clear();
-    for(int i = 0; i < m_contourFinder.size(); i++) {
-        
-        if(contourArea < m_contourFinder.getContourArea(i)){
-            contourArea =  m_contourFinder.getContourArea(i);
-            m_trackedContour =  m_contourFinder.getPolyline(i);
+    
+    if(m_sendAllContours)
+    {
+        for(int i = 0; i < m_contourFinder.size(); i++) {
+            ofPolyline p = m_contourFinder.getPolyline(i).getSmoothed(m_smoothingSize, m_smoothingShape);
+            p.simplify(m_simplifyTolerance);
+            m_contours.push_back(p);
         }
     }
+    else
+    {
+        for(int i = 0; i < m_contourFinder.size(); i++)
+        {
+            if(contourArea < m_contourFinder.getContourArea(i)){
+                contourArea =  m_contourFinder.getContourArea(i);
+            }
+        }
+        
+        for(int i = 0; i < m_contourFinder.size(); i++)
+        {
+            if(contourArea == m_contourFinder.getContourArea(i)){
+                ofPolyline p = m_contourFinder.getPolyline(i).getSmoothed(m_smoothingSize, m_smoothingShape);
+                p.simplify(m_simplifyTolerance);
+                m_contours.push_back(p);
+                break;
+            }
+        }
+    }
+
+    
 }
 
 void TrackingManager::sendTrackedContour()
@@ -279,7 +305,14 @@ void TrackingManager::sendTrackedContour()
 
 void TrackingManager::sendAllContours()
 {
-    AppManager::getInstance().getOscManager().sendNumberContours(m_contourFinder.size());
+//    AppManager::getInstance().getOscManager().sendNumberContours(m_contourFinder.size());
+//    for(int i = 0; i < m_contourFinder.size(); i++) {
+//        ofPolyline p = m_contourFinder.getPolyline(i).getSmoothed(m_smoothingSize, m_smoothingShape);
+//        p.simplify(m_simplifyTolerance);
+//        AppManager::getInstance().getOscManager().sendContour(p, i);
+//    }
+    
+    vector <ofPolyline> countours;
     for(int i = 0; i < m_contourFinder.size(); i++) {
         ofPolyline p = m_contourFinder.getPolyline(i).getSmoothed(m_smoothingSize, m_smoothingShape);
         p.simplify(m_simplifyTolerance);
@@ -320,11 +353,15 @@ void TrackingManager::drawContourTracking()
 {
     ofPushMatrix();
         ofTranslate( LayoutManager::PADDING , LayoutManager::PADDING);
-        if(m_sendAllContours){
-            this->drawAllContours();
-        }
-        else{
-            this->drawTrackedContour();
+//        if(m_sendAllContours){
+//            this->drawAllContours();
+//        }
+//        else{
+//            this->drawTrackedContour();
+//        }
+        for(int i = 0; i < m_contours.size(); i++)
+        {
+            m_contours[i].draw();
         }
     ofPopMatrix();
 }

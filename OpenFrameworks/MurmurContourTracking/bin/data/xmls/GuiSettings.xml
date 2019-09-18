@@ -1,20 +1,20 @@
 <?xml version="1.0"?>
 <MurmurContourTracking>
-	<FPS>59.3211</FPS>
+	<FPS>60.0126</FPS>
 	<Camera>
 		<NearClipping>14</NearClipping>
 		<FarClipping>4946</FarClipping>
-		<BlurScale>0.693878</BlurScale>
+		<BlurScale>0</BlurScale>
 		<BlurRotation>-1.78237</BlurRotation>
 	</Camera>
 	<Tracking>
 		<Threshold>148</Threshold>
 		<BackgroundThreshold>21</BackgroundThreshold>
-		<MinArea>33</MinArea>
-		<MaxArea>410</MaxArea>
-		<SimplifyContour>1.23265</SimplifyContour>
-		<SmoothingSize>4.59184</SmoothingSize>
-		<SmoothingShape>0.416327</SmoothingShape>
+		<MinArea>8</MinArea>
+		<MaxArea>377</MaxArea>
+		<SimplifyContour>1.28163</SimplifyContour>
+		<SmoothingSize>2.38776</SmoothingSize>
+		<SmoothingShape>0.395918</SmoothingShape>
 		<BackgroundSubstraction>0</BackgroundSubstraction>
 		<SendAllContours>1</SendAllContours>
 		<CropLeft>0</CropLeft>
