@@ -102,6 +102,7 @@ void AppManager::draw()
     
     m_trackingManager.draw();
     m_audioManager.draw();
+    m_oscManager.draw();
     m_guiManager.draw();
 }
 

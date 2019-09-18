@@ -71,24 +71,37 @@ void OscManager::setupText()
     string host = AppManager::getInstance().getSettingsManager().getIpAddress();
     string text = ">> OSC sending -> Host: " + host + ", Port: " + ofToString(portSend);
     
-    m_sendingInformation =  ofPtr<TextVisual> (new TextVisual(position, width, height));
-    m_sendingInformation->setText(text, "fonts/open-sans/OpenSans-Semibold.ttf", fontSize);
-    m_sendingInformation->setColor(ofColor::white);
-    m_sendingInformation->setLineHeight(2.5);
+    m_sendingInformation =  TextVisual(position, width, height);
+    m_sendingInformation.setText(text, "fonts/open-sans/OpenSans-Semibold.ttf", fontSize);
+    m_sendingInformation.setColor(ofColor::white);
+    m_sendingInformation.setLineHeight(2.5);
     
-    AppManager::getInstance().getViewManager().addOverlay(m_sendingInformation);
+    position.y += 2*fontSize;
+    m_sendingInformation1 =  TextVisual(position, width, height);
+    m_sendingInformation1.setText(text, "fonts/open-sans/OpenSans-Semibold.ttf", fontSize);
+    m_sendingInformation1.setColor(ofColor::white);
+    m_sendingInformation1.setLineHeight(2.5);
+    
+    //AppManager::getInstance().getViewManager().addOverlay(m_sendingInformation);
     
     
     int porReceive = AppManager::getInstance().getSettingsManager().getPortReceive();
     text = ">> OSC receiving -> Port: " + ofToString(porReceive);
     
-    position.y += (height + 3*fontSize);
-    m_receivingInformation =  ofPtr<TextVisual> (new TextVisual(position, width, height));
-    m_receivingInformation->setText(text, "fonts/open-sans/OpenSans-Semibold.ttf", fontSize);
-    m_receivingInformation->setColor(ofColor::white);
-    m_receivingInformation->setLineHeight(2.5);
+    position.y += (height + 2*fontSize);
+    m_receivingInformation =  TextVisual(position, width, height);
+    m_receivingInformation.setText(text, "fonts/open-sans/OpenSans-Semibold.ttf", fontSize);
+    m_receivingInformation.setColor(ofColor::white);
+    m_receivingInformation.setLineHeight(2.5);
     
-    AppManager::getInstance().getViewManager().addOverlay(m_receivingInformation);
+    
+    position.y += 2*fontSize;
+    m_receivingInformation1 =  TextVisual(position, width, height);
+    m_receivingInformation1.setText(" ", "fonts/open-sans/OpenSans-Semibold.ttf", fontSize);
+    m_receivingInformation1.setColor(ofColor::white);
+    m_receivingInformation1.setLineHeight(2.5);
+    
+    //AppManager::getInstance().getViewManager().addOverlay(m_receivingInformation);
     
 }
 
@@ -214,8 +227,11 @@ void OscManager::update()
 
 void OscManager::draw()
 {
-    m_sendingInformation->draw();
-    m_receivingInformation->draw();
+    m_sendingInformation.draw();
+    m_receivingInformation.draw();
+    
+    m_sendingInformation1.draw();
+    m_receivingInformation1.draw();
 }
 
 void OscManager::sendNumberContours(int num)
@@ -260,8 +276,10 @@ void OscManager::updateSendText()
     string host = AppManager::getInstance().getSettingsManager().getIpAddress();
     string text = ">> OSC sending -> Host: " + host + ", Port: " + ofToString(portSend);
     
-    text += ("\n   " + this->getMessageAsString(m_latestOscMessage));
-    m_sendingInformation->setText(text);
+    m_sendingInformation.setText(text);
+    
+    text = ("    " + this->getMessageAsString(m_latestOscMessage));
+    m_sendingInformation1.setText(text);
 }
 
 void OscManager::updateReceiveText()
@@ -269,8 +287,10 @@ void OscManager::updateReceiveText()
     int porReceive = AppManager::getInstance().getSettingsManager().getPortReceive();
     string text = ">> OSC receiving -> Port: " + ofToString(porReceive);
     
-    text += ("\n   " + this->getMessageAsString(m_latestOscMessage));
-    m_receivingInformation->setText(text);
+    m_receivingInformation.setText(text);
+    
+    text = ("    " + this->getMessageAsString(m_latestOscMessage));
+    m_receivingInformation1.setText(text);
 }
 
 

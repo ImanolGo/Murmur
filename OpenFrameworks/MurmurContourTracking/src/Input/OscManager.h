@@ -74,12 +74,12 @@ private:
 
  private:
     
-     ofxOscReceiver m_oscReceiver;          ///< OSC receiver class
-     ofxOscSender   m_oscSender;            ///< OSC sender class
-     ofxOscMessage  m_latestOscMessage;    ///< latest OSC message
-    
-     ofPtr<TextVisual>     m_sendingInformation;
-     ofPtr<TextVisual>     m_receivingInformation;
+    ofxOscReceiver m_oscReceiver;          ///< OSC receiver class
+    ofxOscSender   m_oscSender;            ///< OSC sender class
+    ofxOscMessage  m_latestOscMessage;    ///< latest OSC message
+
+    TextVisual     m_sendingInformation, m_sendingInformation1;
+    TextVisual     m_receivingInformation, m_receivingInformation1;
 
 };
 
