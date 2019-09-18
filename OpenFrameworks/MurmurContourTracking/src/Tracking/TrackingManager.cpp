@@ -168,10 +168,10 @@ void TrackingManager::updateKinectCamera()
             ofPushStyle();
             ofSetColor(0);
             ofFill();
-            ofRect(0,0,m_cropLeft,DEPTH_CAMERA_HEIGHT);
-            ofRect(0,0,DEPTH_CAMERA_WIDTH,m_cropTop);
-            ofRect(DEPTH_CAMERA_WIDTH-m_cropRight,0, m_cropRight, DEPTH_CAMERA_HEIGHT);
-            ofRect(0,DEPTH_CAMERA_HEIGHT-m_cropBottom,DEPTH_CAMERA_WIDTH,m_cropBottom);
+            ofDrawRectangle(0,0,m_cropLeft,DEPTH_CAMERA_HEIGHT);
+            ofDrawRectangle(0,0,DEPTH_CAMERA_WIDTH,m_cropTop);
+            ofDrawRectangle(DEPTH_CAMERA_WIDTH-m_cropRight,0, m_cropRight, DEPTH_CAMERA_HEIGHT);
+            ofDrawRectangle(0,DEPTH_CAMERA_HEIGHT-m_cropBottom,DEPTH_CAMERA_WIDTH,m_cropBottom);
             ofPopStyle();
 
             
@@ -204,10 +204,10 @@ void TrackingManager::updateWebCamera()
                 ofPushStyle();
                 ofSetColor(0);
                 ofFill();
-                ofRect(0,0,m_cropLeft,DEPTH_CAMERA_HEIGHT);
-                ofRect(0,0,DEPTH_CAMERA_WIDTH,m_cropTop);
-                ofRect(DEPTH_CAMERA_WIDTH-m_cropRight,0, m_cropRight, DEPTH_CAMERA_HEIGHT);
-                ofRect(0,DEPTH_CAMERA_HEIGHT-m_cropBottom,DEPTH_CAMERA_WIDTH,m_cropBottom);
+                ofDrawRectangle(0,0,m_cropLeft,DEPTH_CAMERA_HEIGHT);
+                ofDrawRectangle(0,0,DEPTH_CAMERA_WIDTH,m_cropTop);
+                ofDrawRectangle(DEPTH_CAMERA_WIDTH-m_cropRight,0, m_cropRight, DEPTH_CAMERA_HEIGHT);
+                ofDrawRectangle(0,DEPTH_CAMERA_HEIGHT-m_cropBottom,DEPTH_CAMERA_WIDTH,m_cropBottom);
                 ofPopStyle();
             
             m_depthFbo.end();
@@ -310,7 +310,7 @@ void TrackingManager::drawCamera()
 {
     ofPushStyle();
     ofSetColor(255);
-        ofRect(0, 0, DEPTH_CAMERA_WIDTH + LayoutManager::PADDING*2, DEPTH_CAMERA_HEIGHT + LayoutManager::PADDING*2);
+        ofDrawRectangle(0, 0, DEPTH_CAMERA_WIDTH + LayoutManager::PADDING*2, DEPTH_CAMERA_HEIGHT + LayoutManager::PADDING*2);
         m_blurredFbo.draw(LayoutManager::PADDING,LayoutManager::PADDING);
     ofPopStyle();
 }

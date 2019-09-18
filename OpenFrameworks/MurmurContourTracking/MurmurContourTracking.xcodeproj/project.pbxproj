@@ -13,13 +13,20 @@
 		08CEB1E5233177B1005FD7CE /* usb-1.0.0-superspeed.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 12B9A95D5AD3248EC5D99D3F /* usb-1.0.0-superspeed.a */; };
 		08CEB1E6233177E9005FD7CE /* libturbojpeg.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FCCFA3B1943FD5E47DD4EC89 /* libturbojpeg.dylib */; };
 		08CEB1E823317804005FD7CE /* libturbojpeg.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 08CEB1E723317804005FD7CE /* libturbojpeg.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		08CEB1F123329894005FD7CE /* UdpManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08CEB1ED23329894005FD7CE /* UdpManager.cpp */; };
+		08CEB1F223329894005FD7CE /* OscManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08CEB1EE23329894005FD7CE /* OscManager.cpp */; };
+		08CEB1F323329894005FD7CE /* KeyboardManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08CEB1F023329894005FD7CE /* KeyboardManager.cpp */; };
+		08CEB20323329A1C005FD7CE /* ofxTCPClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08CEB1F623329A1B005FD7CE /* ofxTCPClient.cpp */; };
+		08CEB20423329A1C005FD7CE /* ofxTCPManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08CEB1FC23329A1C005FD7CE /* ofxTCPManager.cpp */; };
+		08CEB20523329A1C005FD7CE /* ofxNetworkUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08CEB1FD23329A1C005FD7CE /* ofxNetworkUtils.cpp */; };
+		08CEB20623329A1C005FD7CE /* ofxUDPManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08CEB20023329A1C005FD7CE /* ofxUDPManager.cpp */; };
+		08CEB20723329A1C005FD7CE /* ofxTCPServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08CEB20223329A1C005FD7CE /* ofxTCPServer.cpp */; };
 		09BA41DA98429DB7A260CBB7 /* ofxBaseGui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5F00EA04F115C8D0D70EF6C /* ofxBaseGui.cpp */; };
 		09ED54706505544D745E4A18 /* stage2.fs in Sources */ = {isa = PBXBuildFile; fileRef = 723FC6A71AF1C02E069EC084 /* stage2.fs */; };
 		0EC363316CB8457FF2D3B372 /* libfreenect2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F090CEBDCC7423A18B8368FF /* libfreenect2.cpp */; };
 		120E55AFC0A6A8E77E8B1069 /* ofxInputField.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 82FFA0D794895AC2D5B96A06 /* ofxInputField.cpp */; };
 		1508358F4B3C5FEF70848856 /* Utilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F1CCDFB25AB4F5437503DF50 /* Utilities.cpp */; };
 		164749BE807528BDF13DFEDD /* usb-1.0.0-superspeed.a in Sources */ = {isa = PBXBuildFile; fileRef = 12B9A95D5AD3248EC5D99D3F /* usb-1.0.0-superspeed.a */; };
-		18E1C71898DBDC3A23B3D23E /* KeyboardManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46427E49D73D5E0749213503 /* KeyboardManager.cpp */; };
 		1A3100DF805276113B617DB4 /* ofxFFTBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A8C10576CE2A624C8161140 /* ofxFFTBase.cpp */; };
 		1AF15FCF93D2DDD6D4285C8E /* AppManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5056FC61E30B9810903B814D /* AppManager.cpp */; };
 		1BC69A963DD4596E2FB4418A /* MurmurContourTrackingApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7E8F87881FEF3D20D182D8DB /* MurmurContourTrackingApp.cpp */; };
@@ -107,7 +114,6 @@
 		E085DB981EA2384B4E1BB1E1 /* ofxButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA4069A5017D647260BE178C /* ofxButton.cpp */; };
 		E14C0D3CE4949E3DED0CACFD /* double_buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 317B7C74AAA5E9A26220CAFE /* double_buffer.cpp */; };
 		E3C2E0716C29DDFC8B02BBCA /* ofxOscMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B403B802D0BCDC132819FBF1 /* ofxOscMessage.cpp */; };
-		E65BE17DF9F91A7AF0DA23B1 /* OscManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 68B13D66D1C1226AC3624175 /* OscManager.cpp */; };
 		E681E5F9D501D87D7C63B5EC /* resource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D3A3FDC902C27BE5DF60FF1C /* resource.cpp */; };
 		E8EC4151169DE6C1688DE544 /* ofxToggle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 849EAD06CEA42788906A8BF0 /* ofxToggle.cpp */; };
 		EF36DA65EB611A19BA137DA5 /* frame_listener_impl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2102E21C8451792EDEA92909 /* frame_listener_impl.cpp */; };
@@ -151,6 +157,25 @@
 		0893123374DE4A7ADCCF93BB /* windows_common.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = windows_common.h; path = src/Addons/ofxMultiKinectV2/libs/libusb/include/libusb/os/windows_common.h; sourceTree = SOURCE_ROOT; };
 		08CEB1E323317796005FD7CE /* OpenCL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenCL.framework; path = System/Library/Frameworks/OpenCL.framework; sourceTree = SDKROOT; };
 		08CEB1E723317804005FD7CE /* libturbojpeg.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libturbojpeg.dylib; path = "src/Addons/ofxTurboJpeg/libs/turbo-jpeg/lib/osx/libturbojpeg.dylib"; sourceTree = "<group>"; };
+		08CEB1EB23329894005FD7CE /* KeyboardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeyboardManager.h; path = I0/KeyboardManager.h; sourceTree = "<group>"; };
+		08CEB1EC23329894005FD7CE /* OscManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OscManager.h; path = I0/OscManager.h; sourceTree = "<group>"; };
+		08CEB1ED23329894005FD7CE /* UdpManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = UdpManager.cpp; path = I0/UdpManager.cpp; sourceTree = "<group>"; };
+		08CEB1EE23329894005FD7CE /* OscManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OscManager.cpp; path = I0/OscManager.cpp; sourceTree = "<group>"; };
+		08CEB1EF23329894005FD7CE /* UdpManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UdpManager.h; path = I0/UdpManager.h; sourceTree = "<group>"; };
+		08CEB1F023329894005FD7CE /* KeyboardManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = KeyboardManager.cpp; path = I0/KeyboardManager.cpp; sourceTree = "<group>"; };
+		08CEB1F623329A1B005FD7CE /* ofxTCPClient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxTCPClient.cpp; path = ../../../../../../../../../Applications/of_v0.10.1_osx_release/addons/ofxNetwork/src/ofxTCPClient.cpp; sourceTree = "<group>"; };
+		08CEB1F723329A1B005FD7CE /* ofxUDPManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxUDPManager.h; path = ../../../../../../../../../Applications/of_v0.10.1_osx_release/addons/ofxNetwork/src/ofxUDPManager.h; sourceTree = "<group>"; };
+		08CEB1F823329A1B005FD7CE /* ofxUDPSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxUDPSettings.h; path = ../../../../../../../../../Applications/of_v0.10.1_osx_release/addons/ofxNetwork/src/ofxUDPSettings.h; sourceTree = "<group>"; };
+		08CEB1F923329A1C005FD7CE /* ofxTCPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxTCPClient.h; path = ../../../../../../../../../Applications/of_v0.10.1_osx_release/addons/ofxNetwork/src/ofxTCPClient.h; sourceTree = "<group>"; };
+		08CEB1FA23329A1C005FD7CE /* ofxTCPSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxTCPSettings.h; path = ../../../../../../../../../Applications/of_v0.10.1_osx_release/addons/ofxNetwork/src/ofxTCPSettings.h; sourceTree = "<group>"; };
+		08CEB1FB23329A1C005FD7CE /* ofxNetworkUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxNetworkUtils.h; path = ../../../../../../../../../Applications/of_v0.10.1_osx_release/addons/ofxNetwork/src/ofxNetworkUtils.h; sourceTree = "<group>"; };
+		08CEB1FC23329A1C005FD7CE /* ofxTCPManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxTCPManager.cpp; path = ../../../../../../../../../Applications/of_v0.10.1_osx_release/addons/ofxNetwork/src/ofxTCPManager.cpp; sourceTree = "<group>"; };
+		08CEB1FD23329A1C005FD7CE /* ofxNetworkUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxNetworkUtils.cpp; path = ../../../../../../../../../Applications/of_v0.10.1_osx_release/addons/ofxNetwork/src/ofxNetworkUtils.cpp; sourceTree = "<group>"; };
+		08CEB1FE23329A1C005FD7CE /* ofxNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxNetwork.h; path = ../../../../../../../../../Applications/of_v0.10.1_osx_release/addons/ofxNetwork/src/ofxNetwork.h; sourceTree = "<group>"; };
+		08CEB1FF23329A1C005FD7CE /* ofxTCPManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxTCPManager.h; path = ../../../../../../../../../Applications/of_v0.10.1_osx_release/addons/ofxNetwork/src/ofxTCPManager.h; sourceTree = "<group>"; };
+		08CEB20023329A1C005FD7CE /* ofxUDPManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxUDPManager.cpp; path = ../../../../../../../../../Applications/of_v0.10.1_osx_release/addons/ofxNetwork/src/ofxUDPManager.cpp; sourceTree = "<group>"; };
+		08CEB20123329A1C005FD7CE /* ofxTCPServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxTCPServer.h; path = ../../../../../../../../../Applications/of_v0.10.1_osx_release/addons/ofxNetwork/src/ofxTCPServer.h; sourceTree = "<group>"; };
+		08CEB20223329A1C005FD7CE /* ofxTCPServer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxTCPServer.cpp; path = ../../../../../../../../../Applications/of_v0.10.1_osx_release/addons/ofxNetwork/src/ofxTCPServer.cpp; sourceTree = "<group>"; };
 		08E869C099BB668F9895B293 /* scan.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = scan.hpp; path = ../../../../../../../../../Applications/of_v0.10.1_osx_release/addons/ofxOpenCv/libs/opencv/include/opencv2/core/cuda/scan.hpp; sourceTree = SOURCE_ROOT; };
 		09071842D474DEF0374ABE0C /* objdetect.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = objdetect.hpp; path = ../../../../../../../../../Applications/of_v0.10.1_osx_release/addons/ofxOpenCv/libs/opencv/include/opencv2/objdetect.hpp; sourceTree = SOURCE_ROOT; };
 		09F8F2DF1D53E65319F30B96 /* LightManager.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = LightManager.cpp; path = src/Engine/3D/LightManager.cpp; sourceTree = SOURCE_ROOT; };
@@ -280,7 +305,6 @@
 		3EB4C331185049A6D755726F /* Wrappers.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = Wrappers.cpp; path = src/Addons/ofxCv/libs/ofxCv/src/Wrappers.cpp; sourceTree = SOURCE_ROOT; };
 		3EF626F0334B88E17FB20E93 /* debug.fs */ = {isa = PBXFileReference; explicitFileType = file; fileEncoding = 4; name = debug.fs; path = src/Addons/ofxMultiKinectV2/libs/protonect/src/shader/debug.fs; sourceTree = SOURCE_ROOT; };
 		3F5D840BCC78C8CD0CD490D8 /* ocl_perf.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ocl_perf.hpp; path = ../../../../../../../../../Applications/of_v0.10.1_osx_release/addons/ofxOpenCv/libs/opencv/include/opencv2/ts/ocl_perf.hpp; sourceTree = SOURCE_ROOT; };
-		3FFB9CDDF88A93D281E8C85C /* KeyboardManager.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = KeyboardManager.h; path = src/Input/KeyboardManager.h; sourceTree = SOURCE_ROOT; };
 		407C30AEF8192EAAB821F219 /* video.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = video.hpp; path = ../../../../../../../../../Applications/of_v0.10.1_osx_release/addons/ofxOpenCv/libs/opencv/include/opencv2/video.hpp; sourceTree = SOURCE_ROOT; };
 		4092389A84F0AE76BE2F5D1F /* linear_index.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = linear_index.h; path = ../../../../../../../../../Applications/of_v0.10.1_osx_release/addons/ofxOpenCv/libs/opencv/include/opencv2/flann/linear_index.h; sourceTree = SOURCE_ROOT; };
 		409F110661F80A82DFA3099C /* cudabgsegm.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = cudabgsegm.hpp; path = ../../../../../../../../../Applications/of_v0.10.1_osx_release/addons/ofxOpenCv/libs/opencv/include/opencv2/cudabgsegm.hpp; sourceTree = SOURCE_ROOT; };
@@ -295,7 +319,6 @@
 		44E6E44F53FC307A812F9A9E /* intrin_cpp.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = intrin_cpp.hpp; path = ../../../../../../../../../Applications/of_v0.10.1_osx_release/addons/ofxOpenCv/libs/opencv/include/opencv2/core/hal/intrin_cpp.hpp; sourceTree = SOURCE_ROOT; };
 		4529BD187A6D7B39E991F0F0 /* calib3d_c.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = calib3d_c.h; path = ../../../../../../../../../Applications/of_v0.10.1_osx_release/addons/ofxOpenCv/libs/opencv/include/opencv2/calib3d/calib3d_c.h; sourceTree = SOURCE_ROOT; };
 		460E5A9B41AEBD25E3E7A2CF /* persistence.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = persistence.hpp; path = ../../../../../../../../../Applications/of_v0.10.1_osx_release/addons/ofxOpenCv/libs/opencv/include/opencv2/core/persistence.hpp; sourceTree = SOURCE_ROOT; };
-		46427E49D73D5E0749213503 /* KeyboardManager.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = KeyboardManager.cpp; path = src/Input/KeyboardManager.cpp; sourceTree = SOURCE_ROOT; };
 		46E617041993177D88C15ADA /* ml.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ml.h; path = ../../../../../../../../../Applications/of_v0.10.1_osx_release/addons/ofxOpenCv/libs/opencv/include/opencv/ml.h; sourceTree = SOURCE_ROOT; };
 		47A840D02203A57257E48EEF /* IpEndpointName.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = IpEndpointName.cpp; path = ../../../../../../../../../Applications/of_v0.10.1_osx_release/addons/ofxOsc/libs/oscpack/src/ip/IpEndpointName.cpp; sourceTree = SOURCE_ROOT; };
 		482DE856ADDCD74B2A8C0E80 /* Kalman.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = Kalman.cpp; path = src/Addons/ofxCv/libs/ofxCv/src/Kalman.cpp; sourceTree = SOURCE_ROOT; };
@@ -353,7 +376,6 @@
 		5E2661F3F93E8C76DA1B2FC0 /* cuda_perf.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = cuda_perf.hpp; path = ../../../../../../../../../Applications/of_v0.10.1_osx_release/addons/ofxOpenCv/libs/opencv/include/opencv2/ts/cuda_perf.hpp; sourceTree = SOURCE_ROOT; };
 		5ECBE25FF0E74FC96384B313 /* ofxCvBlob.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxCvBlob.h; path = ../../../../../../../../../Applications/of_v0.10.1_osx_release/addons/ofxOpenCv/src/ofxCvBlob.h; sourceTree = SOURCE_ROOT; };
 		5ED44868B9B16A48A5527795 /* TimerListener.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = TimerListener.h; path = ../../../../../../../../../Applications/of_v0.10.1_osx_release/addons/ofxOsc/libs/oscpack/src/ip/TimerListener.h; sourceTree = SOURCE_ROOT; };
-		5F13D325211CBCEF900C961E /* OscManager.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = OscManager.h; path = src/Input/OscManager.h; sourceTree = SOURCE_ROOT; };
 		5F95FC385ED168C4FC460810 /* reduce.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = reduce.hpp; path = ../../../../../../../../../Applications/of_v0.10.1_osx_release/addons/ofxOpenCv/libs/opencv/include/opencv2/core/cuda/reduce.hpp; sourceTree = SOURCE_ROOT; };
 		5FA64D51DA6D1619944A259C /* ResourceManager.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = ResourceManager.cpp; path = src/Engine/Resources/ResourceManager.cpp; sourceTree = SOURCE_ROOT; };
 		605FBA5BFC3CD94E4982A0C1 /* reduce.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = reduce.hpp; path = ../../../../../../../../../Applications/of_v0.10.1_osx_release/addons/ofxOpenCv/libs/opencv/include/opencv2/cudev/block/reduce.hpp; sourceTree = SOURCE_ROOT; };
@@ -374,7 +396,6 @@
 		682CD55D28B06CEDCFD63D68 /* CameraManager.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = CameraManager.h; path = src/Engine/3D/CameraManager.h; sourceTree = SOURCE_ROOT; };
 		683DFF72FF37943E38CCEE3B /* widget_accessor.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = widget_accessor.hpp; path = ../../../../../../../../../Applications/of_v0.10.1_osx_release/addons/ofxOpenCv/libs/opencv/include/opencv2/viz/widget_accessor.hpp; sourceTree = SOURCE_ROOT; };
 		68A02C9D01ED911C09E9874B /* ViewManager.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ViewManager.h; path = src/Engine/Visuals/ViewManager.h; sourceTree = SOURCE_ROOT; };
-		68B13D66D1C1226AC3624175 /* OscManager.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = OscManager.cpp; path = src/Input/OscManager.cpp; sourceTree = SOURCE_ROOT; };
 		68E6754126F387A9E2AC4DC2 /* stitching.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = stitching.hpp; path = ../../../../../../../../../Applications/of_v0.10.1_osx_release/addons/ofxOpenCv/libs/opencv/include/opencv2/stitching.hpp; sourceTree = SOURCE_ROOT; };
 		694B0F9D057370C7089C6007 /* filter2.fs */ = {isa = PBXFileReference; explicitFileType = file; fileEncoding = 4; name = filter2.fs; path = src/Addons/ofxMultiKinectV2/libs/protonect/src/shader/filter2.fs; sourceTree = SOURCE_ROOT; };
 		6ABC8AC1A67B02E98E8C5195 /* features2d.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = features2d.hpp; path = ../../../../../../../../../Applications/of_v0.10.1_osx_release/addons/ofxOpenCv/libs/opencv/include/opencv2/features2d/features2d.hpp; sourceTree = SOURCE_ROOT; };
@@ -928,6 +949,34 @@
 				08CEB1E323317796005FD7CE /* OpenCL.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		08CEB1F4233299F9005FD7CE /* ofxNetwork */ = {
+			isa = PBXGroup;
+			children = (
+				08CEB1F523329A12005FD7CE /* src */,
+			);
+			name = ofxNetwork;
+			sourceTree = "<group>";
+		};
+		08CEB1F523329A12005FD7CE /* src */ = {
+			isa = PBXGroup;
+			children = (
+				08CEB1FE23329A1C005FD7CE /* ofxNetwork.h */,
+				08CEB1FD23329A1C005FD7CE /* ofxNetworkUtils.cpp */,
+				08CEB1FB23329A1C005FD7CE /* ofxNetworkUtils.h */,
+				08CEB1F623329A1B005FD7CE /* ofxTCPClient.cpp */,
+				08CEB1F923329A1C005FD7CE /* ofxTCPClient.h */,
+				08CEB1FC23329A1C005FD7CE /* ofxTCPManager.cpp */,
+				08CEB1FF23329A1C005FD7CE /* ofxTCPManager.h */,
+				08CEB20223329A1C005FD7CE /* ofxTCPServer.cpp */,
+				08CEB20123329A1C005FD7CE /* ofxTCPServer.h */,
+				08CEB1FA23329A1C005FD7CE /* ofxTCPSettings.h */,
+				08CEB20023329A1C005FD7CE /* ofxUDPManager.cpp */,
+				08CEB1F723329A1B005FD7CE /* ofxUDPManager.h */,
+				08CEB1F823329A1B005FD7CE /* ofxUDPSettings.h */,
+			);
+			name = src;
 			sourceTree = "<group>";
 		};
 		0F07FE174552DEF007BF5AD5 /* opencv2 */ = {
@@ -2034,6 +2083,7 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				08CEB1F4233299F9005FD7CE /* ofxNetwork */,
 				480A780D8D0308AE4A368801 /* ofxGui */,
 				A0B90D3B0ADB9C1716816714 /* ofxOpenCv */,
 				E6053AB7FEC63D5F83825B88 /* ofxOsc */,
@@ -2049,15 +2099,17 @@
 			name = include;
 			sourceTree = "<group>";
 		};
-		BCDDCD40C16594B9C08407FD /* Input */ = {
+		BCDDCD40C16594B9C08407FD /* IO */ = {
 			isa = PBXGroup;
 			children = (
-				46427E49D73D5E0749213503 /* KeyboardManager.cpp */,
-				3FFB9CDDF88A93D281E8C85C /* KeyboardManager.h */,
-				68B13D66D1C1226AC3624175 /* OscManager.cpp */,
-				5F13D325211CBCEF900C961E /* OscManager.h */,
+				08CEB1F023329894005FD7CE /* KeyboardManager.cpp */,
+				08CEB1EB23329894005FD7CE /* KeyboardManager.h */,
+				08CEB1EE23329894005FD7CE /* OscManager.cpp */,
+				08CEB1EC23329894005FD7CE /* OscManager.h */,
+				08CEB1ED23329894005FD7CE /* UdpManager.cpp */,
+				08CEB1EF23329894005FD7CE /* UdpManager.h */,
 			);
-			name = Input;
+			name = IO;
 			sourceTree = "<group>";
 		};
 		BD193AC1FFD788D7A3F75315 /* include */ = {
@@ -2564,7 +2616,7 @@
 				AD642137CCDF61FB3E6CCEA2 /* Addons */,
 				6BD9FC8FE8460E5570DFAB86 /* Audio */,
 				E2C62C2B4F591B9A20DAF22A /* Engine */,
-				BCDDCD40C16594B9C08407FD /* Input */,
+				BCDDCD40C16594B9C08407FD /* IO */,
 				375D8B140B52B55EB32EB487 /* Layout */,
 				AF4FDCF7E02C59FCC5FE54A2 /* Main */,
 				25FC25C742AAAD6F43C34A66 /* Tracking */,
@@ -2811,13 +2863,16 @@
 				8225FEFFA6DE54DA1666C95B /* ObjectFinder.cpp in Sources */,
 				92816584F3A8BBE485B3E937 /* RunningBackground.cpp in Sources */,
 				6898A5265F3CF322F4741F0A /* Tracker.cpp in Sources */,
+				08CEB20523329A1C005FD7CE /* ofxNetworkUtils.cpp in Sources */,
 				1508358F4B3C5FEF70848856 /* Utilities.cpp in Sources */,
 				381CF14DD1C9AC2B7831FB73 /* Wrappers.cpp in Sources */,
 				F8C291B007AAEA1B9F5F7A9F /* license.md in Sources */,
 				4AD347A6A933136555557495 /* ofxaddons_thumbnail.png in Sources */,
+				08CEB20323329A1C005FD7CE /* ofxTCPClient.cpp in Sources */,
 				AD5EFDFC4D6F07508DEA3EC4 /* readme.md in Sources */,
 				C261EB83EE12835059FC057B /* update-projects.py in Sources */,
 				39A9274AF238E10BCCE3F5E9 /* fft.cpp in Sources */,
+				08CEB20623329A1C005FD7CE /* ofxUDPManager.cpp in Sources */,
 				F1950385802C10B470211B0C /* ofxaddons_thumbnail.png in Sources */,
 				CEC7EEB6844C5EDB5ADF51F4 /* README in Sources */,
 				1A3100DF805276113B617DB4 /* ofxFFTBase.cpp in Sources */,
@@ -2859,6 +2914,7 @@
 				48F94177806B5CB8D3C0F283 /* CameraAnimations.cpp in Sources */,
 				C6B3BFC2668F137F745DC3C6 /* CameraAnimationsManager.cpp in Sources */,
 				8C9DFFBD826A20F752ED0CD6 /* CameraManager.cpp in Sources */,
+				08CEB20423329A1C005FD7CE /* ofxTCPManager.cpp in Sources */,
 				DC16DA963E4E5873F0AE7C9E /* LightManager.cpp in Sources */,
 				6F36C225B48477DFCCA6FB64 /* ResourceManager.cpp in Sources */,
 				3A6C7D72771284673CBE247D /* ImageVisual.cpp in Sources */,
@@ -2867,18 +2923,19 @@
 				9D9E0E996DA1B9AC9952C889 /* ViewManager.cpp in Sources */,
 				875651AF8693D3DE4CC23485 /* VisualEffects.cpp in Sources */,
 				B790DA4F42194210B9259E42 /* VisualEffectsManager.cpp in Sources */,
-				18E1C71898DBDC3A23B3D23E /* KeyboardManager.cpp in Sources */,
-				E65BE17DF9F91A7AF0DA23B1 /* OscManager.cpp in Sources */,
 				5D33A9513B2A4C6DBD3188C7 /* GuiManager.cpp in Sources */,
+				08CEB1F223329894005FD7CE /* OscManager.cpp in Sources */,
 				93510377552D47B6620A7586 /* LayoutManager.cpp in Sources */,
 				1AF15FCF93D2DDD6D4285C8E /* AppManager.cpp in Sources */,
 				DA22DA3A4F2E611DF50078F2 /* main.cpp in Sources */,
+				08CEB1F123329894005FD7CE /* UdpManager.cpp in Sources */,
 				1BC69A963DD4596E2FB4418A /* MurmurContourTrackingApp.cpp in Sources */,
 				58BCEB4034B30CB4A3456FC7 /* SettingsManager.cpp in Sources */,
 				C238AF6E2C96220F486FA389 /* TrackingManager.cpp in Sources */,
 				09BA41DA98429DB7A260CBB7 /* ofxBaseGui.cpp in Sources */,
 				E085DB981EA2384B4E1BB1E1 /* ofxButton.cpp in Sources */,
 				A99E17A0797F4F303F3BE73B /* ofxColorPicker.cpp in Sources */,
+				08CEB20723329A1C005FD7CE /* ofxTCPServer.cpp in Sources */,
 				A09366F3EEF4C8E97444F7EA /* ofxGuiGroup.cpp in Sources */,
 				120E55AFC0A6A8E77E8B1069 /* ofxInputField.cpp in Sources */,
 				F0A07BCC1DBA338F4D7250A4 /* ofxLabel.cpp in Sources */,
@@ -2897,6 +2954,7 @@
 				4FEB83C222DF471C00581659 /* NetworkingUtils.cpp in Sources */,
 				37E2C945A648181A2EFCD78E /* UdpSocket.cpp in Sources */,
 				27700E01330AC5E99E88C9D6 /* OscOutboundPacketStream.cpp in Sources */,
+				08CEB1F323329894005FD7CE /* KeyboardManager.cpp in Sources */,
 				55D28C958C473E62D9D81626 /* OscPrintReceivedElements.cpp in Sources */,
 				A1349235104525CC8BFA8B6F /* OscReceivedElements.cpp in Sources */,
 				C25C08741C967333FAE18BB7 /* OscTypes.cpp in Sources */,

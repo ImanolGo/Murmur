@@ -1,6 +1,6 @@
 /*
  *  GuiManager.cpp
- *  Murmur
+ *  Murmur Contour Tracking
  *
  *  Created by Imanol Gomez on 17/06/15.
  *
