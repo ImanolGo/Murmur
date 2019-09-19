@@ -105,7 +105,7 @@ void GuiManager::setupTrackingGui()
     m_maxArea.addListener(trackingManager, &TrackingManager::onMaxAreaChange);
     m_parametersTracking.add(m_maxArea);
     
-    m_simplifyContour.set("SimplifyContour", 0.0, 0.0, 2.0);
+    m_simplifyContour.set("SimplifyContour", 0.0, 0.0, 10.0);
     m_simplifyContour.addListener(trackingManager, &TrackingManager::onSimplifyChange);
     m_parametersTracking.add(m_simplifyContour);
     

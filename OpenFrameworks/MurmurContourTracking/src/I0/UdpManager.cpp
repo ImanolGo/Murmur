@@ -126,8 +126,8 @@ string UdpManager::getContourData(const vector<ofPolyline>& contours)
         
         for (ofPoint blobPoint : contour.getVertices())
         {
-            Float32 x = blobPoint.x;
-            Float32 y = blobPoint.y;
+            Float32 x = blobPoint.x / TrackingManager::DEPTH_CAMERA_WIDTH;
+            Float32 y = blobPoint.y / TrackingManager::DEPTH_CAMERA_HEIGHT;
             
             s = (unsigned char*)& x;
             message+= s[0];  message+= s[1]; message+= s[2];  message+= s[3];

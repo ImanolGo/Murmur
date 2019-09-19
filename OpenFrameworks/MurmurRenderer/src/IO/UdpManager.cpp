@@ -233,7 +233,7 @@ void UdpManager::parseContour(char * buffer, int size)
     
     
     int num_blobs = s;
-    ofLogNotice() <<"UdpManager::parseContour -> num blobs  " << num_blobs;
+    //ofLogNotice() <<"UdpManager::parseContour -> num blobs  " << num_blobs;
     
     AppManager::getInstance().getContourManager().resetContours();
     
@@ -246,11 +246,11 @@ void UdpManager::parseContour(char * buffer, int size)
         b[0] = buffer[index++]; b[1] = buffer[index++];
         memcpy(&s, &b, sizeof(s));
         unsigned int size_blob = s;
-        ofLogNotice() <<"UdpManager::parseContour -> size blobs  " << size_blob;
+        //ofLogNotice() <<"UdpManager::parseContour -> size blobs  " << size_blob;
         
         
         vector<float> contourPoints;
-        
+        // std::cout<< "points: ";
          for(unsigned int j = 0; j< size_blob; j++)
          {
              if(index+7>=size){
@@ -259,16 +259,21 @@ void UdpManager::parseContour(char * buffer, int size)
              
              char bytes[4] ;
              float f;
+            
              bytes[0] = buffer[index++]; bytes[1] = buffer[index++]; bytes[2] = buffer[index++]; bytes[3] = buffer[index++];
              memcpy(&f, &bytes, sizeof(f));
              contourPoints.push_back(f); //x
-             
+             //std::cout<< " " << f;
+ 
              bytes[0] = buffer[index++]; bytes[1] = buffer[index++]; bytes[2] = buffer[index++]; bytes[3] = buffer[index++];
              memcpy(&f, &bytes, sizeof(f));
              contourPoints.push_back(f);//y
+             //std::cout<< " " << f;
              
          }
         
+        //std::cout<< " " << std::endl;
+       
         AppManager::getInstance().getContourManager().setContour(contourPoints);
         
     }
