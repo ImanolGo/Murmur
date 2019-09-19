@@ -114,8 +114,15 @@ string UdpManager::getContourHeader(const vector<ofPolyline>& contours)
 string UdpManager::getContourData(const vector<ofPolyline>& contours)
 {
     string message="";
-    unsigned short num_blobs = contours.size();
-    unsigned char * s = (unsigned char*)& num_blobs;
+    unsigned short blobs_width = TrackingManager::DEPTH_CAMERA_WIDTH;
+    unsigned char * s = (unsigned char*)& blobs_width;
+    message+= s[0];  message+= s[1];
+    unsigned short blobs_height = TrackingManager::DEPTH_CAMERA_HEIGHT;
+    s = (unsigned char*)& blobs_height;
+    message+= s[0];  message+= s[1];
+    
+    unsigned short num_contours = contours.size();
+    s = (unsigned char*)& num_contours;
     message+= s[0];  message+= s[1];
     
     for(auto& contour: contours)
@@ -126,14 +133,14 @@ string UdpManager::getContourData(const vector<ofPolyline>& contours)
         
         for (ofPoint blobPoint : contour.getVertices())
         {
-            Float32 x = blobPoint.x / TrackingManager::DEPTH_CAMERA_WIDTH;
-            Float32 y = blobPoint.y / TrackingManager::DEPTH_CAMERA_HEIGHT;
+            unsigned short x = blobPoint.x;
+            unsigned short y = blobPoint.y;
             
             s = (unsigned char*)& x;
-            message+= s[0];  message+= s[1]; message+= s[2];  message+= s[3];
+            message+= s[0];  message+= s[1];
             
             s = (unsigned char*)& y;
-            message+= s[0];  message+= s[1]; message+= s[2];  message+= s[3];
+            message+= s[0];  message+= s[1];
             
         }
     }
@@ -172,11 +179,12 @@ string UdpManager::getAudioData(float value)
 unsigned short UdpManager::getContourDataSize(const vector<ofPolyline>& contours)
 {
     unsigned short size = 0;
-    size+=2; // Num_blobs = 2 bytes
-    size += (2*contours.size()); //2 bytes * num_contours
+    size+= sizeof(unsigned short) ; // Num_blobs = 2 bytes
+    size+=2*sizeof(unsigned short); // W x H
+    size += (sizeof(unsigned short)*contours.size()); //2 bytes * num_contours
     
     for(auto& contour: contours){
-        size+= 4*2*contour.size(); //4 bytes per coordinate (x,y)
+        size+= sizeof(unsigned short)*2*contour.size(); //4 bytes per coordinate (x,y)
     }
     
     return size;

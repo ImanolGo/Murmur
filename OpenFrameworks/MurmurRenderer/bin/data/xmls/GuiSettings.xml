@@ -26,7 +26,7 @@
 	<MaxSizeFloor>0.5</MaxSizeFloor>
 	<LineWidthFloor>0</LineWidthFloor>
 	<CropLeft>0</CropLeft>
-	<CropRight>0</CropRight>
+	<CropRight>332</CropRight>
 	<CropTop>0</CropTop>
 	<CropBottom>0</CropBottom>
 	<OffsetBeautiful>0, 0</OffsetBeautiful>

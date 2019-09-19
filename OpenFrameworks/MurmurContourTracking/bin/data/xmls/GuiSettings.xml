@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <MurmurContourTracking>
-	<FPS>59.4749</FPS>
+	<FPS>58.8742</FPS>
 	<Camera>
 		<NearClipping>14</NearClipping>
 		<FarClipping>4946</FarClipping>
-		<BlurScale>0</BlurScale>
+		<BlurScale>0.897959</BlurScale>
 		<BlurRotation>-1.78237</BlurRotation>
 	</Camera>
 	<Tracking>

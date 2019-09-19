@@ -66,11 +66,15 @@ private:
     
     bool isHandsMessage(char * buffer, int size);
     
+    bool isContourMessage(char * buffer, int size);
+    
     void parseMessage(char * buffer, int size);
     
     void parseKinect(char * buffer, int size);
     
     void parseContour(char * buffer, int size);
+    
+    void parseContourData(char * buffer, int size);
     
     void parseAudio(char * buffer, int size);
     

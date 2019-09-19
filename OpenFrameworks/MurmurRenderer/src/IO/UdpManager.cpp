@@ -207,68 +207,67 @@ void UdpManager::parseAudio(char * buffer, int size)
 
 void UdpManager::parseContour(char * buffer, int size)
 {
-    unsigned int header_size = 6;
-    if(size< header_size){
+   
+    if(!this->isContourMessage(buffer, size)){
         return;
     }
     
-    unsigned short s;
-    char b[] = {buffer[4], buffer[5]};
+    unsigned int index = 6;
+    char b[2];
     
-    memcpy(&s, &b, sizeof(s));
-    // ofLogNotice() <<"UdpManager::parseContour -> num bytes total " << size;
-    //ofLogNotice() <<"UdpManager::parseContour -> num bytes data " << s;
-    
-    int h_s = size - s;
-    
-    if(h_s != header_size){
-        return;
-    }
-    
-    
-    unsigned int index = header_size;
-    
+    //Get data width
+    unsigned short width;
     b[0] = buffer[index++]; b[1] = buffer[index++];
-    memcpy(&s, &b, sizeof(s));
+    memcpy(&width, &b, sizeof(width));
     
+    //Get data height
+    unsigned short height;
+    b[0] = buffer[index++]; b[1] = buffer[index++];
+    memcpy(&height, &b, sizeof(height));
     
-    int num_blobs = s;
-    //ofLogNotice() <<"UdpManager::parseContour -> num blobs  " << num_blobs;
+    //Get num contours height
+    unsigned short num_contours;
+    b[0] = buffer[index++]; b[1] = buffer[index++];
+    memcpy(&num_contours, &b, sizeof(num_contours));
+    
+    //ofLogNotice() <<"UdpManager::parseContour -> width  " << width;
+    //ofLogNotice() <<"UdpManager::parseContour -> height  " << height;
+    //ofLogNotice() <<"UdpManager::parseContour -> num contours  " << num_contours;
     
     AppManager::getInstance().getContourManager().resetContours();
     
-    for(unsigned int i = 0; i< num_blobs; i++){
+    for(unsigned short i = 0; i< num_contours; i++){
         
         if(index+1>=size){
             return;
         }
         
+        unsigned short contour_size;
         b[0] = buffer[index++]; b[1] = buffer[index++];
-        memcpy(&s, &b, sizeof(s));
-        unsigned int size_blob = s;
-        //ofLogNotice() <<"UdpManager::parseContour -> size blobs  " << size_blob;
+        memcpy(&contour_size, &b, sizeof(contour_size));
+        //ofLogNotice() <<"UdpManager::parseContour -> contour size  " << contour_size;
         
         
         vector<float> contourPoints;
         // std::cout<< "points: ";
-         for(unsigned int j = 0; j< size_blob; j++)
+         for(unsigned short j = 0; j< contour_size; j++)
          {
              if(index+7>=size){
                  return;
              }
              
-             char bytes[4] ;
-             float f;
-            
-             bytes[0] = buffer[index++]; bytes[1] = buffer[index++]; bytes[2] = buffer[index++]; bytes[3] = buffer[index++];
-             memcpy(&f, &bytes, sizeof(f));
-             contourPoints.push_back(f); //x
-             //std::cout<< " " << f;
- 
-             bytes[0] = buffer[index++]; bytes[1] = buffer[index++]; bytes[2] = buffer[index++]; bytes[3] = buffer[index++];
-             memcpy(&f, &bytes, sizeof(f));
-             contourPoints.push_back(f);//y
-             //std::cout<< " " << f;
+             unsigned short coordinate;
+             b[0] = buffer[index++]; b[1] = buffer[index++];
+             memcpy(&coordinate, &b, sizeof(coordinate));
+             float x = float(coordinate) / width;
+             contourPoints.push_back(x); //x
+             //std::cout<< " " << x;
+             
+             b[0] = buffer[index++]; b[1] = buffer[index++];
+             memcpy(&coordinate, &b, sizeof(coordinate));
+             float y = float(coordinate) / height;
+             contourPoints.push_back(y); //y
+             //std::cout<< " " << y;
              
          }
         
@@ -280,7 +279,29 @@ void UdpManager::parseContour(char * buffer, int size)
 }
 
 
-
+bool UdpManager::isContourMessage(char * buffer, int size)
+{
+    unsigned int header_size = 6;
+    if(size< header_size){
+        return false;
+    }
+    
+    //Get data size
+    unsigned short s;
+    char b[] = {buffer[4], buffer[5]};
+    
+    memcpy(&s, &b, sizeof(s));
+    // ofLogNotice() <<"UdpManager::parseContour -> num bytes total " << size;
+    //ofLogNotice() <<"UdpManager::parseContour -> num bytes data " << s;
+    
+    //Check data size
+    int data_size = size - header_size;
+    if(data_size != s){
+        return false;
+    }
+    
+     return true;
+}
 
 bool UdpManager::isKinectMessage(char * buffer, int size)
 {

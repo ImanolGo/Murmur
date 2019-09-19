@@ -194,7 +194,7 @@ void TrackingManager::updateWebCamera()
     
     m_vidGrabber.update();
     if (m_vidGrabber.isFrameNew()) {
-        m_depthTexture.loadData(m_vidGrabber.getPixelsRef());
+        m_depthTexture.loadData(m_vidGrabber.getPixels());
         
         if (m_depthTexture.isAllocated()) {
             m_depthFbo.begin();
