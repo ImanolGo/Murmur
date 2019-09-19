@@ -67,7 +67,13 @@ void UdpManager::setupHeaders()
     m_audioHeader.f2 = 0x41;
     m_audioHeader.f3 = 0x37;
     m_audioHeader.size = 4;
-    m_contourHeader.command = 'a';
+    m_audioHeader.command = 'a';
+    
+    m_trackingHeader.f1 = 0x10;
+    m_trackingHeader.f2 = 0x41;
+    m_trackingHeader.f3 = 0x37;
+    m_trackingHeader.size = 4;
+    m_trackingHeader.command = 't';
 }
 
 void UdpManager::setupText()
@@ -182,11 +188,14 @@ void UdpManager::parseKinect(char * buffer, int size)
     char command = buffer[3];
     //ofLogNotice() <<"UdpManager::parseKinect -> command  " << buffer[3];
     //this->printHex( buffer, size);
-    if(command == 'c'){
+    if(command == m_contourHeader.command){
         this->parseContour( buffer, size);
     }
-    else if(command == 'a'){
+    else if(command == m_audioHeader.command){
         this->parseAudio( buffer, size);
+    }
+    else if(command == m_trackingHeader.command){
+        this->parseTracking( buffer, size);
     }
 }
 
@@ -202,8 +211,33 @@ void UdpManager::parseAudio(char * buffer, int size)
     memcpy(&f, &b, sizeof(f));
     AppManager::getInstance().getAudioManager().setAudioMax(f);
    // ofLogNotice() <<"UdpManager::parseAudio -> audio max  " << f;
+}
+
+void UdpManager::parseTracking(char * buffer, int size)
+{
+    if(size< 14){
+        return;
+    }
+    
+    ofVec2f pos;
+    int index = 6;
+    float f;
+    char b[4];
+    
+    // x coordinate
+    b[0] = buffer[index++]; b[1] = buffer[index++];b[2] = buffer[index++]; b[3] = buffer[index++];
+    memcpy(&f, &b, sizeof(f));
+    pos.x = f;
+    
+    // y coordinate
+    b[0] = buffer[index++]; b[1] = buffer[index++];b[2] = buffer[index++]; b[3] = buffer[index++];
+    memcpy(&f, &b, sizeof(f));
+    pos.y = f;
+    
+    AppManager::getInstance().getFloorManager().setPosition(pos);
     
 }
+
 
 void UdpManager::parseContour(char * buffer, int size)
 {
@@ -232,11 +266,12 @@ void UdpManager::parseContour(char * buffer, int size)
     
     //ofLogNotice() <<"UdpManager::parseContour -> width  " << width;
     //ofLogNotice() <<"UdpManager::parseContour -> height  " << height;
-    //ofLogNotice() <<"UdpManager::parseContour -> num contours  " << num_contours;
+   // ofLogNotice() <<"UdpManager::parseContour -> num contours  " << num_contours;
     
     AppManager::getInstance().getContourManager().resetContours();
     
-    for(unsigned short i = 0; i< num_contours; i++){
+    for(unsigned short i = 0; i< num_contours; i++)
+    {
         
         if(index+1>=size){
             return;
@@ -252,7 +287,7 @@ void UdpManager::parseContour(char * buffer, int size)
         // std::cout<< "points: ";
          for(unsigned short j = 0; j< contour_size; j++)
          {
-             if(index+7>=size){
+             if(index+3>=size){
                  return;
              }
              

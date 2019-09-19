@@ -136,7 +136,7 @@ private:
     
     void sendTrackedContour();
     
-    void sendAllContours();
+    void sendContours();
     
     void drawTracking();
     

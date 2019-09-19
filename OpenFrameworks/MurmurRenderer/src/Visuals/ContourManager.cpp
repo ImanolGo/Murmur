@@ -76,6 +76,7 @@ void ContourManager::update()
     
     if(m_isFrameNew)
     {
+        //ofLogNotice() <<"ContourManager::update-> num_cntours " << m_contours.size();
         ofPushStyle();
         //ofEnableBlendMode(OF_BLENDMODE_DISABLED);
         m_contourFbo.begin();

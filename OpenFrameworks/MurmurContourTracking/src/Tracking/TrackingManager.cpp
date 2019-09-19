@@ -245,11 +245,11 @@ void TrackingManager::updateContourTracking()
         }
         
         this->updateTrackedContour();
-        
-        AppManager::getInstance().getUdpManager().sendContour(m_contours);
+        this->sendContours();
+
         
 //        if(m_sendAllContours){
-//            this->sendAllContours();
+//            this->sendContours();
 //        }
 //        else{
 //            this->sendTrackedContour();
@@ -303,14 +303,14 @@ void TrackingManager::sendTrackedContour()
     AppManager::getInstance().getOscManager().sendContour(p, 0);
 }
 
-void TrackingManager::sendAllContours()
+void TrackingManager::sendContours()
 {
-    AppManager::getInstance().getOscManager().sendNumberContours(m_contourFinder.size());
-    for(int i = 0; i < m_contourFinder.size(); i++) {
-        ofPolyline p = m_contourFinder.getPolyline(i).getSmoothed(m_smoothingSize, m_smoothingShape);
-        p.simplify(m_simplifyTolerance);
-        AppManager::getInstance().getOscManager().sendContour(p, i);
-    }
+//    AppManager::getInstance().getOscManager().sendNumberContours(m_contours.size());
+//    for(int i = 0; i < m_contours.size(); i++) {
+//        AppManager::getInstance().getOscManager().sendContour(m_contours[i], i);
+//    }
+    
+    AppManager::getInstance().getUdpManager().sendContour(m_contours);
 }
 
 

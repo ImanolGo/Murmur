@@ -68,6 +68,8 @@ private:
     
     bool isContourMessage(char * buffer, int size);
     
+    bool isTrackingMessage(char * buffer, int size);
+    
     void parseMessage(char * buffer, int size);
     
     void parseKinect(char * buffer, int size);
@@ -77,6 +79,8 @@ private:
     void parseContourData(char * buffer, int size);
     
     void parseAudio(char * buffer, int size);
+    
+    void parseTracking(char * buffer, int size);
     
     void printHex(char * buffer, int size);
     
@@ -90,6 +94,7 @@ private:
     
     udp_header    m_contourHeader;
     udp_header    m_audioHeader;
+    udp_header    m_trackingHeader;
     
 };
 
