@@ -21,6 +21,7 @@
 #include "ViewManager.h"
 #include "KeyboardManager.h"
 #include "OscManager.h"
+#include "UdpManager.h"
 #include "PaperThrowerManager.h"
 
 //========================== class AppManager ==============================
@@ -75,6 +76,9 @@ public:
     //! Returns the  OSC manager
     OscManager&  getOscManager() { return m_oscManager; }
     
+    //! Returns the  UDP manager
+    UdpManager&  getUdpManager() { return m_udpManager; }
+    
     //! Returns the  paper thrower manager
     PaperThrowerManager&  getPaperThrowerManager() { return m_paperThrowerManager; }
 
@@ -119,6 +123,7 @@ private:
     ViewManager                     m_viewManager;              ///< Manages the visuals
     VisualEffectsManager            m_visualEffectsManager;     ///< Manages the visual effects
     OscManager                      m_oscManager;               ///< Manages the OSC messages
+    UdpManager                      m_udpManager;               ///< Manages the UDP messages
     KeyboardManager                 m_keyboardManager;          ///< Manages the keboard input
     PaperThrowerManager             m_paperThrowerManager;      ///< Manages the paper thrower
 

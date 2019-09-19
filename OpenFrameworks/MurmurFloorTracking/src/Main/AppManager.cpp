@@ -67,6 +67,7 @@ void AppManager::setupManagers()
     m_settingsManager.setup();
     m_layoutManager.setup();
     m_oscManager.setup();
+    m_udpManager.setup();
     m_trackingManager.setup();
     m_keyboardManager.setup();
     m_paperThrowerManager.setup();
@@ -101,6 +102,7 @@ void AppManager::draw()
     }
     
     m_oscManager.draw();
+    m_udpManager.draw();
     m_trackingManager.draw();
     m_guiManager.draw();
 }

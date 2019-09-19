@@ -54,7 +54,8 @@ class SettingsManager: public Manager
         int getPortReceive() const {return m_portReceive;}
     
         int getPortSend() const {return m_portSend;}
-
+    
+        int getUdpPortSend() const {return m_portUdpSend;}
 
     private:
 
@@ -94,6 +95,7 @@ class SettingsManager: public Manager
         int                     m_portReceive;          ///< stores the UDP port to receive from
         int                     m_portSend;             ///< stores the UDP port to send to
         string                  m_ipAddress;             ///< stores the Ip Address used for the Network communications
+        int                     m_portUdpSend;          ///< stores the UDP port used for the OSC Sending communications
 };
 
 

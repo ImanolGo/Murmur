@@ -12,6 +12,7 @@
 
 #include "ofMain.h"
 #include "ofxNetwork.h"
+#include "TextVisual.h"
 #include "Manager.h"
 
 
@@ -48,6 +49,9 @@ public:
     //! updates the udp manager
     void update();
     
+    //! draw the udp manager
+    void draw();
+    
     //! send contours
     void sendContour(const vector<ofPolyline>& contours);
     
@@ -71,10 +75,18 @@ private:
     
     string getAudioData(float value);
     
+    //! setups the text visuals
+    void setupText();
+    
+    //! updates the sending information text visuals
+    void updateSendText(float value);
+    
 private:
     
     ofxUDPManager m_udpConnection;
     udp_header    m_contourHeader;
     udp_header    m_audioHeader;
+    
+    TextVisual     m_sendingInformation, m_sendingInformation1;
 };
 

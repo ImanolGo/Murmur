@@ -36,6 +36,7 @@ void UdpManager::setup()
     
     this->setupHeaders();
     this->setupUdpConnection();
+    this->setupText();
 
     ofLogNotice() <<"UdpManager::initialized" ;
 }
@@ -73,6 +74,34 @@ void UdpManager::setupUdpConnection()
     
 }
 
+void UdpManager::setupText()
+{
+    ofVec3f position;
+    ofVec2f positionTrackingVisual = AppManager::getInstance().getTrackingManager().getPosition();
+    int width = AppManager::getInstance().getTrackingManager().getWidth();
+    int fontSize = 12;
+    position.x = positionTrackingVisual.x;
+    position.y = positionTrackingVisual.y +  AppManager::getInstance().getTrackingManager().getWidth() + LayoutManager::MARGIN;
+    int height = fontSize*3;
+    
+    int portSend = AppManager::getInstance().getSettingsManager().getUdpPortSend();
+    string host = AppManager::getInstance().getSettingsManager().getIpAddress();
+    string text = ">> UDP sending -> Host: " + host + ", Port: " + ofToString(portSend);
+    
+    m_sendingInformation =  TextVisual(position, width, height);
+    m_sendingInformation.setText(text, "fonts/open-sans/OpenSans-Semibold.ttf", fontSize);
+    m_sendingInformation.setColor(ofColor::white);
+    m_sendingInformation.setLineHeight(2.5);
+    
+    text = "";
+    position.y += 2*fontSize;
+    m_sendingInformation1 =  TextVisual(position, width, height);
+    m_sendingInformation1.setText(text, "fonts/open-sans/OpenSans-Semibold.ttf", fontSize);
+    m_sendingInformation1.setColor(ofColor::white);
+    m_sendingInformation1.setLineHeight(2.5);
+    
+}
+
 
 void UdpManager::update()
 {
@@ -94,7 +123,21 @@ void UdpManager::sendAudioMax(float value)
     message+= this->getAudioHeader();
     message+= this->getAudioData(value);
     m_udpConnection.Send(message.c_str(),message.length());
+    this->updateSendText(value);
 }
+
+void UdpManager::updateSendText(float value)
+{
+    string text = "Audio Max: " + ofToString(value);
+    m_sendingInformation1.setText(text);
+}
+
+void UdpManager::draw()
+{
+    m_sendingInformation.draw();
+    m_sendingInformation1.draw();
+}
+
 
 string UdpManager::getContourHeader(const vector<ofPolyline>& contours)
 {

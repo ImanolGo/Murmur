@@ -76,6 +76,7 @@ void OscManager::setupText()
     m_sendingInformation.setColor(ofColor::white);
     m_sendingInformation.setLineHeight(2.5);
     
+    text = "";
     position.y += 2*fontSize;
     m_sendingInformation1 =  TextVisual(position, width, height);
     m_sendingInformation1.setText(text, "fonts/open-sans/OpenSans-Semibold.ttf", fontSize);
@@ -94,7 +95,7 @@ void OscManager::setupText()
     m_receivingInformation.setColor(ofColor::white);
     m_receivingInformation.setLineHeight(2.5);
     
-    
+    text = "";
     position.y += 2*fontSize;
     m_receivingInformation1 =  TextVisual(position, width, height);
     m_receivingInformation1.setText(" ", "fonts/open-sans/OpenSans-Semibold.ttf", fontSize);
@@ -227,10 +228,10 @@ void OscManager::update()
 
 void OscManager::draw()
 {
-    m_sendingInformation.draw();
+    //m_sendingInformation.draw();
     m_receivingInformation.draw();
     
-    m_sendingInformation1.draw();
+   // m_sendingInformation1.draw();
     m_receivingInformation1.draw();
 }
 
@@ -267,7 +268,7 @@ void OscManager::sendAudioMax(float value)
     m.addFloatArg(value);
     m_oscSender.sendMessage(m);
     m_latestOscMessage = m;
-    this->updateSendText();
+    //this->updateSendText();
 }
 
 void OscManager::updateSendText()

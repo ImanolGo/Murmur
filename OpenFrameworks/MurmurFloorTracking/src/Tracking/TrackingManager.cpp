@@ -375,7 +375,8 @@ void TrackingManager::onReverseCoordinatesChange(bool & value)
 void TrackingManager::onTrackingPosChange(ofVec2f & value)
 {
     m_trackingPosition = value;
-    AppManager::getInstance().getOscManager().sendPosition(m_trackingPosition);
+    //AppManager::getInstance().getOscManager().sendPosition(m_trackingPosition);
+    AppManager::getInstance().getUdpManager().sendPosition(m_trackingPosition);
 }
 
 
