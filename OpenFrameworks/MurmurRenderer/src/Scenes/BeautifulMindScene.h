@@ -13,8 +13,6 @@
 
 #include "ofxScene.h"
 
-#include "ofxMask.h"
-
 
 class BeautifulMindScene : public ofxScene {
 
@@ -92,7 +90,9 @@ private:
      VideoVisual   m_video;
     
      ofFbo           m_fboVideo;
-     ofxMask         m_mask;
+
+	 ofShader        m_maskShader;
+     ofFbo           m_maskFbo;
 
 };
 

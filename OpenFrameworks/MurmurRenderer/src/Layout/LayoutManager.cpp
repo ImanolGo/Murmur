@@ -102,9 +102,11 @@ void LayoutManager::setupWindowFrames()
 
 void LayoutManager::resetWindowRects()
 {
+	auto settings = WindowSettingsManager::getInstance().getWindowsSettings(0);
+
     float gui_offset = AppManager::getInstance().getGuiManager().getWidth() +  AppManager::getInstance().getGuiManager().getPosition().x;
-    float frame_width = ofGetWindowWidth() - gui_offset;
-    float frame_height= ofGetWindowHeight()*0.5;
+    float frame_width = settings.getWidth() - gui_offset;
+    float frame_height= settings.getHeight()*0.5;
     
     
     float max_width = frame_width - 2*MARGIN;

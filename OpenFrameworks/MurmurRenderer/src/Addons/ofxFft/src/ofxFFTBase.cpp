@@ -10,6 +10,8 @@
 #include "ofxFFTBase.h"
 #include "fft.h"
 
+#define M_E 2.71828182845904523536
+
 ofxFFTBase::ofxFFTBase() {
     _fft = NULL;
     buffer = NULL;

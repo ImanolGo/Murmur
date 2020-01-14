@@ -12,7 +12,7 @@
 #include "ofMain.h"
 #include "Manager.h"
 
-#include "SyphonVisual.h"
+#include "VideoFrameSharingVisual.h"
 #include "BirdsSwarmVisual.h"
 #include "VisualEffects.h"
 
@@ -72,7 +72,7 @@ public:
     
 private:
     
-    void setupSyphon();
+    void setupVideoFrameSharingVisual();
     
     void setupShader();
     
@@ -88,7 +88,8 @@ private:
     ofPtr<BirdsNumberEffect>            m_numberEffect;
     ofPtr<BirdsSpeedEffect>             m_speedEffect;
     
-    SyphonVisual        m_syphonVisual;
+	ofPtr<VideoFrameSharingVisual>		m_videoFrameSharingVisual;
+
     ofShader            m_shader;
 };
 

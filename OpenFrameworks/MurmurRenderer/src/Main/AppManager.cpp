@@ -10,6 +10,7 @@
 
 
 #include "AppManager.h"
+#include "WindowSettingsManager.h"
 
 AppManager& AppManager::getInstance()
 {
@@ -59,7 +60,7 @@ void AppManager::setupOF()
 {
     ofLogNotice() << "AppManager::setupOF";
     
-    ofSetVerticalSync(true);
+   // ofSetVerticalSync(true);
     ofSetEscapeQuitsApp(false);
     ofEnableAlphaBlending();
     //ofEnableSmoothing();
@@ -98,63 +99,71 @@ void AppManager::update()
     }
     
     ofEnableAlphaBlending();
+
+	m_audioManager.update();
+	m_oscManager.update();
+
+	m_udpManager.update();
+	m_visualEffectsManager.update();
+	m_contourManager.update();
+	m_birdsManager.update();
+	m_sceneManager.update();
+	m_handsManager.update();
+
+	m_layoutManager.update();
     
-    m_audioManager.update();
-    m_oscManager.update();
-    m_udpManager.update();
-    m_visualEffectsManager.update();
-    m_contourManager.update();
-    m_birdsManager.update();
-    m_sceneManager.update();
-    m_handsManager.update();
-    m_layoutManager.update();
     m_guiManager.update();
 }
 
 
+
 void AppManager::draw()
 {
-    
-   
-    
-    if(!m_initialized){
-        return;
-    }
-    
-    ofEnableAlphaBlending();
-    ofClear(0);
-    ofBackground(40);
-    m_layoutManager.draw();
-    m_guiManager.draw();
-    
-//    ofEnableBlendMode(OF_BLENDMODE_ADD);
-//    img1.draw(0,0);
-//    img2.draw(100,100);
-//    ofDisableBlendMode();
 
+	if (!m_initialized) {
+		return;
+	}
+
+	ofEnableAlphaBlending();
+	ofClear(0);
+	ofBackground(40);
+	this->draw1();
+	this->draw2();
+	this->draw3();
+
+}
+
+void AppManager::draw1()
+{
+	auto settings = WindowSettingsManager::getInstance().getWindowsSettings(0);
+
+	ofPushStyle();
+		ofTranslate(settings.getPosition());
+		m_layoutManager.draw();
+		m_guiManager.draw();
+	ofPopStyle();
 }
 
 void AppManager::draw2()
 {
-    ofClear(0);
-    //ofBackground(0);
-    if(!m_initialized){
-        return;
-    }
-    
-    m_layoutManager.drawFront();
+
+	auto settings = WindowSettingsManager::getInstance().getWindowsSettings(1);
+
+	ofPushStyle();
+		ofTranslate(settings.getPosition());
+		m_layoutManager.drawFront();
+	ofPopStyle();
 }
 
 void AppManager::draw3()
 {
-    
-    ofClear(0);
-    //ofBackground(0);
-    if(!m_initialized){
-        return;
-    }
-    
-    m_layoutManager.drawTop();
+	auto settings = WindowSettingsManager::getInstance().getWindowsSettings(2);
+
+	ofPushStyle();
+	ofTranslate(settings.getPosition());
+	m_layoutManager.drawTop();
+	ofPopStyle();
+
 }
 
 

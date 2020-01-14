@@ -46,6 +46,9 @@ void BeautifulMindScene::setupFbos()
     auto windowsSettings = AppManager::getInstance().getSceneManager().getWindowSettings(this);
     m_fboVideo.allocate(windowsSettings.getWidth(), windowsSettings.getHeight(),GL_RGB);
     m_fboVideo.begin(); ofClear(0, 0, 0);  ; m_fboVideo.end();
+
+	m_maskFbo.allocate(windowsSettings.getWidth(), windowsSettings.getHeight(), GL_RGBA, 4);
+	m_maskFbo.begin(); ofClear(0, 0, 0); ; m_maskFbo.end();
     
 }
 
@@ -70,9 +73,15 @@ void BeautifulMindScene::setupImages()
 
 void BeautifulMindScene::setupShader()
 {
-    auto windowsSettings = AppManager::getInstance().getSceneManager().getWindowSettings(this);
-    
-    m_mask.allocate(windowsSettings.getWidth(), windowsSettings.getHeight(), ofxMask::LUMINANCE);
+   
+	string path = "shaders/shadersGL2/BlackMask";
+	if (ofIsGLProgrammableRenderer()) {
+		path = "shaders/shadersGL3/BlackMask";
+	}
+
+	m_maskShader.load(path);
+	ofLogNotice() << "BeautifulMindScene::setupShader -> " << path;
+
     this->setupMask();
 }
 
@@ -80,11 +89,11 @@ void BeautifulMindScene::setupShader()
 void BeautifulMindScene::setupMask()
 {
     // creating masker texture
-    m_mask.beginMask();
+    m_maskFbo.begin();
         ofClear(0, 0, 0);
         m_images["frame_beautifulmind"]->draw();
     // draw masker here in gray scale
-    m_mask.endMask();
+	m_maskFbo.end();
 }
 
 void BeautifulMindScene::setupVideo()
@@ -153,17 +162,12 @@ void BeautifulMindScene::draw() {
 
 void BeautifulMindScene::drawScene()
 {
-    // creating maskee texture
-    m_mask.begin();
-    // draw maskee here
-        this->drawVideo();
-    m_mask.end();
-    
-    // draw result
-    m_mask.draw();
-    
-    //m_video.draw();
-    
+	ofEnableAlphaBlending();
+	m_maskShader.begin();
+	m_maskShader.setUniformTexture("imageMask", m_maskFbo.getTexture(), 1);
+		this->drawVideo();
+	m_maskShader.end();
+
     //this->drawVideo();
 }
 

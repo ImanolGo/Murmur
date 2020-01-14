@@ -164,7 +164,7 @@ ofRectangle MaskManager::getFrontMaskRectangle()
     int windowIndex = 1;
     
     if(windowIndex<0 ||  windowIndex > (m_masks.size()-1)){
-        return;
+        return ofRectangle();
     }
     
     LayoutManager& layoutManager = AppManager::getInstance().getLayoutManager();

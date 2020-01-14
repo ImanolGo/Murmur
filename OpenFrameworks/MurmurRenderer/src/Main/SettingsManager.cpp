@@ -81,8 +81,8 @@ void SettingsManager::setWindowProperties()
         float width  = ofGetScreenWidth();
         float height = ofGetScreenHeight();
         
-        ofSetFullscreen(fullscreen);
-        ofSetWindowShape(width, height);
+        //ofSetFullscreen(fullscreen);
+        //ofSetWindowShape(width, height);
         if(!fullscreen){
             ofSetWindowPosition(x,y);
         }

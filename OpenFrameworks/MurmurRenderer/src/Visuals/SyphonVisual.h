@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "BasicVisual.h"
+#include "VideoFrameSharingVisual.h"
 #include "ofxSyphon.h"
 
 
@@ -15,10 +15,10 @@
 //============================================================================
 /** \class SyphonVisual SyphonVisual.h
  *	\brief Represents a syphon visual
- *	\details Creates a Syphon Client and renders the Spython Server output into a texture
+ *	\details Creates a Syphon Receiver and renders the Spout Sender's output into a texture
  */
 
-class SyphonVisual: public BasicVisual
+class SyphonVisual: public VideoFrameSharingVisual
 {
 
 public:
@@ -37,9 +37,6 @@ public:
 
 	//! Draws the syphon visual
 	virtual void draw();
-    
-    //! Sets the texture to be binded to the quad
-    virtual void setCentred(bool centred) {m_centred = centred;}
 
     //! Set the width
     virtual void setWidth(float width, bool keepRatio=false);
@@ -57,9 +54,7 @@ public:
 
 protected:
 
-    ofxSyphonClient     m_client;           ///< syphon client
-    bool                m_centred;          ///< defines if the visual should be centred or not
-    ofVec3f             m_resizer;          ///< it deales with the resize of the picture
+	ofxSyphonClient     m_client;           ///< syphon client
 
 };
 

@@ -38,6 +38,9 @@ public:
     //! calls the view manager to draw
     void draw();
     
+	//! calls the view manager to draw 2
+	void draw1();
+
     //! calls the view manager to draw 2
     void draw2();
     

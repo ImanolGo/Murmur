@@ -39,6 +39,8 @@ public:
     static WindowSettingsManager& getInstance();
     
     const WindowSettingsVector&  getWindowsSettings(){return m_windows;}
+
+	const ofGLFWWindowSettings&  getMainWindowSettings() { return m_mainWindow; }
     
     ofGLFWWindowSettings getWindowsSettings(int index);
 
@@ -62,11 +64,14 @@ private:
     //! Read all the window settings
     void readSettings();
 
+	void setupMainWindow();
+
 
 private:
 
     
-    WindowSettingsVector           m_windows;                 ///< Vector holding all the window settings
+    WindowSettingsVector			m_windows;				///< Vector holding all the window settings
+	ofGLFWWindowSettings			m_mainWindow;			///< Main Window Setting
 
 };
 

@@ -12,13 +12,13 @@
 #include "SyphonVisual.h"
 
 
-SyphonVisual::SyphonVisual(): BasicVisual(), m_centred(false), m_resizer(1,1,1)
+SyphonVisual::SyphonVisual(): VideoFrameSharingVisual()
 {
     //Intentionally left empty
 }
 
 
-SyphonVisual::SyphonVisual(const BasicVisual& visual, bool centred): BasicVisual(visual), m_centred(centred), m_resizer(1,1,1)
+SyphonVisual::SyphonVisual(const BasicVisual& visual, bool centred): VideoFrameSharingVisual(visual, centred)
 {
     //Intentionally left empty 
 }

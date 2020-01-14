@@ -7,10 +7,17 @@
  */
 
 
+
+
 #include "AppManager.h"
 #include "BirdsManager.h"
 #include "WindowSettingsManager.h"
 
+#ifdef TARGET_WIN32
+	#include "SpoutVisual.h"
+#else
+	#include "SyphonVisual.h"
+#endif
 
 BirdsManager::BirdsManager()
 {
@@ -31,22 +38,28 @@ void BirdsManager::setup()
     
     ofLogNotice() <<"BirdsManager::initialized" ;
     
-    this->setupSyphon();
+    this->setupVideoFrameSharingVisual();
     this->setupShader();
     this->setupEffects();
 }
 
 
-void BirdsManager::setupSyphon()
+void BirdsManager::setupVideoFrameSharingVisual()
 {
     int windowIndex = 1;
     auto windowsSettings = WindowSettingsManager::getInstance().getWindowsSettings(windowIndex);
+
+	#ifdef TARGET_WIN32
+		m_videoFrameSharingVisual = ofPtr<SpoutVisual>(new SpoutVisual());
+	#else
+		m_videoFrameSharingVisual = ofPtr<SyphonVisual>(new SyphonVisual());
+	#endif
     
-    m_syphonVisual.setWidth(windowsSettings.getWidth()); m_syphonVisual.setHeight(windowsSettings.getHeight());
+	m_videoFrameSharingVisual->setWidth(windowsSettings.getWidth()); m_videoFrameSharingVisual->setHeight(windowsSettings.getHeight());
     
-    //m_syphonVisual.setup("","Simple Server");
-    //m_syphonVisual.setup("Main Camera","Unity");
-    m_syphonVisual.setup("Main Camera","birds");
+    //m_videoFrameSharingVisual->setup("","Simple Server");
+    //m_videoFrameSharingVisual->setup("Main Camera","Unity");
+	m_videoFrameSharingVisual->setup("Main Camera","birds");
 }
 
 void BirdsManager::setupShader()
@@ -75,6 +88,8 @@ void BirdsManager::setupEffects()
 
 void BirdsManager::update()
 {
+	m_videoFrameSharingVisual->update();
+
     if(!m_moveEffect->isFinished()){
          //ofLogNotice() <<"ContourManager::update -> " << m_swarm->getPosition().y ;
         AppManager::getInstance().getGuiManager().setBirdsPosition(m_swarm->getPosition());
@@ -100,10 +115,10 @@ void BirdsManager::update()
 void BirdsManager::draw()
 {
     //m_shader.begin();
-      //  m_syphonVisual.draw();
+      //  m_videoFrameSharingVisual->draw();
     //m_shader.end();
     
-    m_syphonVisual.draw();
+	m_videoFrameSharingVisual->draw();
 }
 
 

@@ -120,7 +120,7 @@ void HandsManager::readHands(char const* data, int num_bytes)
         
         for(int i = 0; i < numberOfHands; i++) //Extract all the hands
         {
-            Float32 x, y;
+            float x, y;
             p = extract(p, x); // p contains next position to read
             
             //x = htonl(x);
