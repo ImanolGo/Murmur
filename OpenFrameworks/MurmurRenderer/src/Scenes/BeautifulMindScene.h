@@ -87,7 +87,7 @@ private:
      ImageMap      m_images;
     
      bool          m_initialized;
-     VideoVisual   m_video;
+	 ofVideoPlayer   m_video;
     
      ofFbo           m_fboVideo;
 

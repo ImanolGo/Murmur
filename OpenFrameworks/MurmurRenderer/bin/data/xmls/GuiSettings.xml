@@ -29,7 +29,7 @@
 	<CropRight>0</CropRight>
 	<CropTop>0</CropTop>
 	<CropBottom>0</CropBottom>
-	<OffsetBeautiful>0, 0</OffsetBeautiful>
+	<OffsetBeautiful>-0.009, 0.009</OffsetBeautiful>
 	<ScaleBeautiful>1, 1</ScaleBeautiful>
 	<FloorOn>0</FloorOn>
 	<SpeedBeutiful>1</SpeedBeutiful>

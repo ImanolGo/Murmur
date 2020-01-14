@@ -65,6 +65,8 @@ public:
     
     void setFrame(int frame) {m_video.setFrame(frame);}
 
+	bool isFrameNew() { return m_video.isFrameNew(); }
+
 
 protected:
 

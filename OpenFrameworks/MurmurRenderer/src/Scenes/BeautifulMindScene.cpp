@@ -44,11 +44,15 @@ void BeautifulMindScene::setup() {
 void BeautifulMindScene::setupFbos()
 {
     auto windowsSettings = AppManager::getInstance().getSceneManager().getWindowSettings(this);
-    m_fboVideo.allocate(windowsSettings.getWidth(), windowsSettings.getHeight(),GL_RGB);
+    m_fboVideo.allocate(windowsSettings.getWidth(), windowsSettings.getHeight(),GL_RGBA);
     m_fboVideo.begin(); ofClear(0, 0, 0);  ; m_fboVideo.end();
 
-	m_maskFbo.allocate(windowsSettings.getWidth(), windowsSettings.getHeight(), GL_RGBA, 4);
-	m_maskFbo.begin(); ofClear(0, 0, 0); ; m_maskFbo.end();
+	m_maskFbo.allocate(windowsSettings.getWidth(), windowsSettings.getHeight(), GL_RGB);
+	m_maskFbo.begin(); ofClear(0, 0, 0);  m_maskFbo.end();
+
+	ofLogNotice() << "BeautifulMindScene::setupFbos -> w = " << m_maskFbo.getWidth() << ", h = " << m_maskFbo.getHeight();
+
+	ofLogNotice() << "BeautifulMindScene::setupFbos -> w = " << m_fboVideo.getWidth() << ", h = " << m_fboVideo.getHeight();
     
 }
 
@@ -67,6 +71,8 @@ void BeautifulMindScene::setupImages()
     image = ofPtr<ImageVisual>(new ImageVisual(position,resourceName));
     image->setHeight(windowsSettings.getHeight()); image->setWidth(windowsSettings.getWidth());
     m_images[resourceName] = image;
+
+	ofLogNotice() << "BeautifulMindScene::setupImages -> w = " << m_images[resourceName]->getWidth() << ", h = " << m_images[resourceName]->getHeight();
     
 }
 
@@ -88,20 +94,28 @@ void BeautifulMindScene::setupShader()
 
 void BeautifulMindScene::setupMask()
 {
+
+	string resourceName = "frame_beautifulmind";
+	auto texture = AppManager::getInstance().getResourceManager().getTexture(resourceName);
+
     // creating masker texture
     m_maskFbo.begin();
-        ofClear(0, 0, 0);
-        m_images["frame_beautifulmind"]->draw();
+        ofClear(0);
+        //m_images["frame_beautifulmind"]->draw();
+		texture->draw(0, 0, texture->getWidth(), texture->getHeight());
     // draw masker here in gray scale
 	m_maskFbo.end();
+
+	ofLogNotice() << "BeautifulMindScene::setupMask -> w = " << m_maskFbo.getWidth() << ", h = " << m_maskFbo.getHeight();
 }
 
 void BeautifulMindScene::setupVideo()
 {
     string videoFileName = "videos/BeautifulMind.mov";
-    m_video.setResource(videoFileName);
-    m_video.setWidth(m_fboVideo.getWidth()); m_video.setHeight(m_fboVideo.getHeight());
+	m_video.load(videoFileName);
     m_video.setLoopState(OF_LOOP_NORMAL);
+
+	ofLogNotice() << "BeautifulMindScene::setupVideo -> w = " << m_video.getWidth() << ", h = " << m_video.getHeight();
 }
 
 
@@ -109,22 +123,33 @@ void BeautifulMindScene::setupVideo()
 void BeautifulMindScene::update()
 {
     this->updateVideo();
-    this->updateMask();
+    //this->updateMask();
 }
 
 void BeautifulMindScene::updateVideo()
 {
     m_video.update();
     
-    auto area = getDrawingArea();
-    m_video.setHeight(area.height); m_video.setWidth(area.width);
-    ofVec2f pos(area.x,area.y);
-    m_video.setPosition(pos);
+    //auto area = getDrawingArea();
+    //m_video.setHeight(area.height); m_video.setWidth(area.width);
+    //ofVec2f pos(area.x,area.y);
+    //m_video.setPosition(pos);
+
+	if (m_video.isFrameNew())
+	{
+		ofEnableAlphaBlending();
+		m_fboVideo.begin();
+			ofClear(0);
+			m_maskShader.begin();
+			m_maskShader.setUniformTexture("imageMask", m_maskFbo.getTexture(), 1);
+			m_video.draw(0,0, m_maskFbo.getWidth(), m_maskFbo.getHeight());
+			m_maskShader.end();
+
+			//m_maskFbo.draw(0,0);
+		m_fboVideo.end();
+	}
     
-    m_fboVideo.begin();
-        ofClear(0, 0, 0);
-        m_video.draw();
-    m_fboVideo.end();
+    
 
 }
 
@@ -163,12 +188,7 @@ void BeautifulMindScene::draw() {
 void BeautifulMindScene::drawScene()
 {
 	ofEnableAlphaBlending();
-	m_maskShader.begin();
-	m_maskShader.setUniformTexture("imageMask", m_maskFbo.getTexture(), 1);
-		this->drawVideo();
-	m_maskShader.end();
-
-    //this->drawVideo();
+    this->drawVideo();
 }
 
 void BeautifulMindScene::drawCalibration()
@@ -187,7 +207,8 @@ void BeautifulMindScene::drawCalibration()
 
 void BeautifulMindScene::drawVideo() {
     
-    m_fboVideo.draw(0,0);
+	auto area = getDrawingArea();
+    m_fboVideo.draw(area);
 }
 
 ofRectangle BeautifulMindScene::getDrawingArea()
