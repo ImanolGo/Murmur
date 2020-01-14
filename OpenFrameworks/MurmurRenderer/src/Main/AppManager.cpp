@@ -60,8 +60,8 @@ void AppManager::setupOF()
 {
     ofLogNotice() << "AppManager::setupOF";
     
-   // ofSetVerticalSync(true);
-    ofSetEscapeQuitsApp(false);
+    ofSetVerticalSync(true);
+   // ofSetEscapeQuitsApp(false);
     ofEnableAlphaBlending();
     //ofEnableSmoothing();
 }
@@ -129,7 +129,7 @@ void AppManager::draw()
 	ofBackground(40);
 	this->draw1();
 	this->draw2();
-	this->draw3();
+	//this->draw3();
 
 }
 
@@ -151,6 +151,9 @@ void AppManager::draw2()
 
 	ofPushStyle();
 		ofTranslate(settings.getPosition());
+		ofSetColor(0);
+		ofDrawRectangle(0,0, settings.getWidth(), settings.getHeight());
+		ofSetColor(255);
 		m_layoutManager.drawFront();
 	ofPopStyle();
 }
@@ -160,8 +163,11 @@ void AppManager::draw3()
 	auto settings = WindowSettingsManager::getInstance().getWindowsSettings(2);
 
 	ofPushStyle();
-	ofTranslate(settings.getPosition());
-	m_layoutManager.drawTop();
+		ofTranslate(settings.getPosition());
+		ofSetColor(0);
+		ofDrawRectangle(0, 0, settings.getWidth(), settings.getHeight());
+		ofSetColor(255);
+		m_layoutManager.drawTop();
 	ofPopStyle();
 
 }
