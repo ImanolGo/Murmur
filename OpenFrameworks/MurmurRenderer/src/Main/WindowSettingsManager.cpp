@@ -77,8 +77,7 @@ void WindowSettingsManager::readSettings()
 	int numDisplays;
 	GLFWmonitor** monitors = glfwGetMonitors(&numDisplays);
 	cout << "WindowSettingsManager::readSettings-> Number of screens found: " << numDisplays << endl;
-    
-	float x = 0;
+   
 
     for(int displayID = 0; displayID<numDisplays; displayID++)
     {
@@ -110,9 +109,21 @@ void WindowSettingsManager::readSettings()
 
     }
     
+	float x = 0;
+	for (auto windowSettings : m_windows)
+	{	
+		float xPos = windowSettings.getPosition().x + windowSettings.getWidth();
+		if (x < xPos) {
+			x = xPos;
+		}
+	}
+
     for(int displayID = numDisplays; displayID<MAX_NUM_WINDOWS; displayID++)
     {
-        m_windows.push_back(m_windows.front());
+		auto windowSettings = m_windows.front();
+		windowSettings.setPosition(glm::vec2(x, windowSettings.getPosition().y));
+        m_windows.push_back(windowSettings);
+		x += windowSettings.getWidth();
     }
     
     
