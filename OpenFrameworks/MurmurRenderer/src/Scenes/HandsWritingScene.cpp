@@ -45,7 +45,7 @@ void HandsWritingScene::setupFbo()
     auto windowsSettings = AppManager::getInstance().getSceneManager().getWindowSettings((ofxScene*)this);
     m_drawArea = ofRectangle(0, 0, windowsSettings.getWidth(), windowsSettings.getHeight());
     
-    m_fbo.allocate(windowsSettings.getWidth(), windowsSettings.getHeight());
+    m_fbo.allocate(windowsSettings.getWidth(), windowsSettings.getHeight(), GL_RGBA32F_ARB);
     m_fbo.begin(); ofClear(0); m_fbo.end();
 }
 
@@ -59,7 +59,7 @@ void HandsWritingScene::setupBrush()
 {
     string resourceName = "hands_brush";
     m_brush.setResource(resourceName);
-    m_brush.setColor(ofColor::blue);
+    m_brush.setColor(ofColor(10,10,255));
     m_brush.setCentred(true);
     
     float size = AppManager::getInstance().getHandsManager().getSize();
@@ -87,8 +87,8 @@ void HandsWritingScene::updateHands()
     
     m_brush.setWidth(m_brush.getOriginalWidth()*size,true);
     
-    float decrease = 3.0;
-    float framesToDie = 255.0/decrease;
+    float fadeAmnt = 3.0;
+    float framesToDie = 255.0/ fadeAmnt;
     float dt = ofGetLastFrameTime();
     int numSkipFrames = fadeTime/(framesToDie*dt);
     m_skipFrames++;
@@ -98,7 +98,7 @@ void HandsWritingScene::updateHands()
     m_fbo.begin();
     ofPushStyle();
         if(m_skipFrames>=numSkipFrames){
-            ofSetColor(0,0,0,decrease);
+            ofSetColor(0,0,0, fadeAmnt);
             ofDrawRectangle(0,0,m_fbo.getWidth(),m_fbo.getHeight());
             m_skipFrames = 0;
         }

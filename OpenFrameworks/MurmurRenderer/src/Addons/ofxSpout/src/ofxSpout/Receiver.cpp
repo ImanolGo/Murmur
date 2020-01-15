@@ -75,7 +75,7 @@ namespace ofxSpout {
 			return true;
 		}
 		catch (const char * e) {
-			//ofLogError(__FUNCTION__) << e;
+			ofLogError(__FUNCTION__) << e;
 			return false;
 		}
 	}

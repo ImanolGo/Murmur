@@ -78,7 +78,7 @@ void SonicBoomParticle::draw()
 
 
 
-SonicBoomVisual::SonicBoomVisual(): m_elapsedTime(10000), m_newParticleTime(0.15), m_index(0)
+SonicBoomVisual::SonicBoomVisual(): m_elapsedTime(10000), m_newParticleTime(0.05), m_index(0)
 {
     this->setup();
 }

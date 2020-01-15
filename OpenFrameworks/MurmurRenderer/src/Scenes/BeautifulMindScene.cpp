@@ -149,8 +149,6 @@ void BeautifulMindScene::updateVideo()
 		m_fboVideo.end();
 	}
     
-    
-
 }
 
 

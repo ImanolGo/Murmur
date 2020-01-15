@@ -55,11 +55,14 @@ void BirdsManager::setupVideoFrameSharingVisual()
 		m_videoFrameSharingVisual = ofPtr<SyphonVisual>(new SyphonVisual());
 	#endif
     
+
+	m_videoFrameSharingVisual->setup("Main Camera", "birds");
 	m_videoFrameSharingVisual->setWidth(windowsSettings.getWidth()); m_videoFrameSharingVisual->setHeight(windowsSettings.getHeight());
-    
+ //   
+	//receiver.init();
     //m_videoFrameSharingVisual->setup("","Simple Server");
     //m_videoFrameSharingVisual->setup("Main Camera","Unity");
-	m_videoFrameSharingVisual->setup("Main Camera","birds");
+	
 }
 
 void BirdsManager::setupShader()
@@ -89,7 +92,6 @@ void BirdsManager::setupEffects()
 void BirdsManager::update()
 {
 	m_videoFrameSharingVisual->update();
-
     if(!m_moveEffect->isFinished()){
          //ofLogNotice() <<"ContourManager::update -> " << m_swarm->getPosition().y ;
         AppManager::getInstance().getGuiManager().setBirdsPosition(m_swarm->getPosition());
@@ -119,6 +121,7 @@ void BirdsManager::draw()
     //m_shader.end();
     
 	m_videoFrameSharingVisual->draw();
+
 }
 
 
