@@ -45,14 +45,9 @@ public:
     void draw();
     
     void windowResized(int w, int h);
-    
-    int getCropLeft() const {return m_cropLeft;}
-    
-    int getCropRight() const {return m_cropRight;}
-    
-    int getCropTop() const {return m_cropTop;}
-    
-    int getCropBottom() const {return m_cropBottom;}
+
+	const ofRectangle & getFrontLayout() const { return m_frontLayout; }
+ 
     
     void setIsMasked(bool value){m_isMasked = value;}
     
@@ -62,13 +57,13 @@ public:
     
     bool isMasked() const {return m_isMasked;}
     
-    void onCropLeft( int & pixels);
+    void onCropLeft( float & value);
     
-    void onCropRight( int & pixels);
+    void onCropRight(float & value);
     
-    void onCropTop( int & pixels);
+    void onCropTop(float & value);
     
-    void onCropBottom( int & pixels);
+    void onCropBottom(float & value);
     
     ofPtr<ofRectangle> getWindowRect(string& name) {return m_windowRects[name];}
     
@@ -131,13 +126,12 @@ private:
     TextMap             m_textVisuals;             ///< map storing the text visuals attached to a name
     ImageMap            m_imageVisuals;            ///< map storing the image visuals attached to a name
     
-    ofRectangle         m_layoutRect;
+    ofRectangle         m_frontLayout;
     
     FboRectangles       m_windowRects;
     FboFrames           m_windowFrames;
     FboMap              m_fbos;
-    
-    int                 m_cropLeft, m_cropRight, m_cropTop, m_cropBottom;
+
     ofPoint             m_circleOffset;
     
     bool                m_isMasked;

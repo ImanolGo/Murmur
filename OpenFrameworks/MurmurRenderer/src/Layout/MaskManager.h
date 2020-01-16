@@ -47,8 +47,6 @@ private:
     
     void setMaskWindowTop();
        
-    ofRectangle getFrontMaskRectangle();
-    
 
 private:
     

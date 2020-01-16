@@ -128,13 +128,13 @@ public:
     
     void setBeautifulMindCalibrationOn(bool value) {m_beautifulMindCalibrationOn = value;}
     
-    void setCropLeft(unsigned int value) {m_cropLeft = value;}
+    void setCropLeft(float value) {m_cropLeft = value;}
     
-    void setCropRight(unsigned int value) {m_cropRight = value;}
+    void setCropRight(float value) {m_cropRight = value;}
     
-    void setCropTop(unsigned int value) {m_cropTop = value;}
+    void setCropTop(float value) {m_cropTop = value;}
     
-    void setCropBottom(unsigned int value) {m_cropBottom = value;}
+    void setCropBottom(float value) {m_cropBottom = value;}
     
     void setFullScreen(bool value) {m_fullscreen = value;}
     
@@ -214,7 +214,7 @@ private:
     ofParameter<float>      m_sceneOpacityTop;
     ofParameter<float>      m_sceneTransitionTime;
     
-    ofParameter<int>        m_cropLeft, m_cropRight, m_cropTop, m_cropBottom;
+    ofParameter<float>      m_cropLeft, m_cropRight, m_cropTop, m_cropBottom;
     ofParameter<bool>       m_fullscreen;
     
     ofParameter<float>      m_contourThickness;

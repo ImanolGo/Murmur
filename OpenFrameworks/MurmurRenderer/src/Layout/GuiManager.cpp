@@ -304,19 +304,19 @@ void GuiManager::setupLayoutGui()
     
     m_parametersLayout.setName("Layout");
 
-    m_cropLeft.set("CropLeft", 0.0, 0.0, 500.0);
+    m_cropLeft.set("CropLeft", 0.0, 0.0, 0.5);
     m_cropLeft.addListener(layoutManager, &LayoutManager::onCropLeft);
     m_parameters.add(m_cropLeft);
     
-    m_cropRight.set("CropRight", 0.0, 0.0, 500.0);
+    m_cropRight.set("CropRight", 0.0, 0.0, 0.5);
     m_cropRight.addListener(layoutManager, &LayoutManager::onCropRight);
     m_parameters.add(m_cropRight);
     
-    m_cropTop.set("CropTop", 0.0, 0.0, 500.0);
+    m_cropTop.set("CropTop", 0.0, 0.0, 0.5);
     m_cropTop.addListener(layoutManager, &LayoutManager::onCropTop);
     m_parameters.add(m_cropTop);
     
-    m_cropBottom.set("CropBottom", 0.0, 0.0, 500.0);
+    m_cropBottom.set("CropBottom", 0.0, 0.0, 0.5);
     m_cropBottom.addListener(layoutManager, &LayoutManager::onCropBottom);
     m_parameters.add(m_cropBottom);
     

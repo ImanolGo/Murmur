@@ -32,13 +32,13 @@ void BlankScene::update() {
 void BlankScene::draw() {
     //ofBackground(0,0,0);
     ofClear(0);
-    //AppManager::getInstance().getSceneManager().clearBackground(this);
-//    auto windowsSettings = AppManager::getInstance().getSceneManager().getWindowSettings(this);
-//    
-//    ofPushStyle();
-//    ofSetColor(0,255,0);
-//    ofDrawRectangle(0, 0, windowsSettings.getWidth(), windowsSettings.getHeight());
-//    ofPopStyle();
+    AppManager::getInstance().getSceneManager().clearBackground(this);
+    auto windowsSettings = AppManager::getInstance().getSceneManager().getWindowSettings(this);
+    
+    ofPushStyle();
+    ofSetColor(255);
+    ofDrawRectangle(0, 0, windowsSettings.getWidth(), windowsSettings.getHeight());
+    ofPopStyle();
 }
 
 void BlankScene::willFadeIn() {

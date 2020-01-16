@@ -86,20 +86,34 @@ void MaskManager::setMaskWindowFront()
     }
     
     ofLogNotice() <<"MaskManager::setup Front Mask ";
+
+	ofShader shader;
+
+	string path = "shaders/shadersGL2/RectMask";
+	if (ofIsGLProgrammableRenderer()) {
+		path = "shaders/shadersGL3/RectMask";
+	}
+
+	shader.load(path);
+	ofLogNotice() << "MaskManager::setMaskWindowFront -> " << path;
     
-    ofRectangle rect = getFrontMaskRectangle();
+    ofRectangle rect = AppManager::getInstance().getLayoutManager().getFrontLayout();
     
-    ofLogNotice() <<"MaskManager::Rect-> x = " << rect.getX() << ", w = " << rect.getWidth();
+    ofLogNotice() <<"MaskManager::setMaskWindowFront: Rect-> x = " << rect.getX() << ", w = " << rect.getWidth();
+	ofLogNotice() << "MaskManager::setMaskWindowFront: Rect-> y = " << rect.getY() << ", h = " << rect.getHeight();
     
-    ImageVisual gradientMask = ImageVisual(ofPoint(0,0), "frame_mask" );
-    //gradientMask.setWidth(m_masks[windowIndex]->getWidth()); gradientMask.setHeight(m_masks[windowIndex]->getHeight());
-    gradientMask.setWidth(rect.getWidth()); gradientMask.setHeight(rect.getHeight());
-    gradientMask.setPosition(ofPoint(rect.getX(),rect.getY()));
+
+	glm::vec2 resolution(m_masks[windowIndex]->getWidth(), m_masks[windowIndex]->getHeight());
     
     
     m_masks[windowIndex]->begin();
-        ofClear(0, 0, 0);
-        gradientMask.draw();
+		ofClear(0);
+		shader.begin();
+		shader.setUniform2f("iResolution", resolution);
+		shader.setUniform3f("BottomLeft", rect.getTopLeft());
+		shader.setUniform3f("TopRight", rect.getBottomRight());
+		ofDrawRectangle(0, 0, resolution.x, resolution.y);
+		shader.end();
     m_masks[windowIndex]->end();
 
 }
@@ -113,14 +127,30 @@ void MaskManager::setMaskWindowTop()
     }
     
     ofLogNotice() <<"MaskManager::setup Top Mask ";
+	ofShader shader;
+
+	string path = "shaders/shadersGL2/CircleMask";
+	if (ofIsGLProgrammableRenderer()) {
+		path = "shaders/shadersGL3/CircleMask";
+	}
+
+	shader.load(path);
+	ofLogNotice() << "MaskManager::setMaskWindowTop -> " << path;
     
     ImageVisual gradientMask = ImageVisual(ofPoint(m_masks[windowIndex]->getWidth()*0.5,m_masks[windowIndex]->getHeight()*0.5), "floor_mask", true );
     gradientMask.setHeight(m_masks[windowIndex]->getHeight(), true);
 
+	glm::vec2 resolution(m_masks[windowIndex]->getWidth(), m_masks[windowIndex]->getHeight());
+
   
     m_masks[windowIndex]->begin();
-        ofClear(0, 0, 0);
-        gradientMask.draw();
+        ofClear(0);
+		shader.begin();
+		shader.setUniform2f("iResolution", resolution);
+		ofDrawRectangle(0, 0, resolution.x, resolution.y);
+		shader.end();
+
+        //gradientMask.draw();
     m_masks[windowIndex]->end();
    
 }
@@ -159,23 +189,7 @@ void MaskManager::end(int windowIndex)
 }
 
 
-ofRectangle MaskManager::getFrontMaskRectangle()
-{
-    int windowIndex = 1;
-    
-    if(windowIndex<0 ||  windowIndex > (m_masks.size()-1)){
-        return ofRectangle();
-    }
-    
-    LayoutManager& layoutManager = AppManager::getInstance().getLayoutManager();
-    float x = layoutManager.getCropLeft();
-    float y = layoutManager.getCropTop();
-    float w = m_masks[windowIndex]->getWidth() - layoutManager.getCropRight() - x;
-    float h = m_masks[windowIndex]->getHeight() - layoutManager.getCropBottom() - y;
-    
-    
-    return ofRectangle(x, y, w, h);
-}
+
 
 
 

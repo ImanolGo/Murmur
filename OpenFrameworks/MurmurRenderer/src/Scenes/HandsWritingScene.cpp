@@ -72,7 +72,7 @@ void HandsWritingScene::setupBrush()
 void HandsWritingScene::update()
 {
     //this->updateFluid();
-    this->updateHands();
+    this->updateHands(); 
 }
 
 void HandsWritingScene::updateHands()

@@ -434,25 +434,25 @@ void OscManager::update()
         }
         
         else if(m.getAddress() == "/MurmurRenderer/CropLeft"){
-            int value  =  m.getArgAsInt32(0);
+			float value = m.getArgAsFloat(0);
             AppManager::getInstance().getGuiManager().setCropLeft(value);
             //this->updateReceiveText();
         }
         
         else if(m.getAddress() == "/MurmurRenderer/CropRight"){
-            int value  =  m.getArgAsInt32(0);
+			float value = m.getArgAsFloat(0);
             AppManager::getInstance().getGuiManager().setCropRight(value);
             //this->updateReceiveText();
         }
         
         else if(m.getAddress() == "/MurmurRenderer/CropTop"){
-            int value  =  m.getArgAsInt32(0);
+			float value = m.getArgAsFloat(0);
             AppManager::getInstance().getGuiManager().setCropTop(value);
             //this->updateReceiveText();
         }
         
         else if(m.getAddress() == "/MurmurRenderer/CropBottom"){
-            int value  =  m.getArgAsInt32(0);
+            float value  =  m.getArgAsFloat(0);
             AppManager::getInstance().getGuiManager().setCropBottom(value);
             //this->updateReceiveText();
         }

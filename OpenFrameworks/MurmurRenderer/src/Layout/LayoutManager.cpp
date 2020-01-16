@@ -23,7 +23,7 @@ const string LayoutManager::LAYOUT_FONT =  "fonts/roboto/Roboto-Medium.ttf";
 const string LayoutManager::LAYOUT_FONT_LIGHT =  "fonts/roboto/Roboto-Light.ttf";
 
 
-LayoutManager::LayoutManager(): Manager(), m_cropLeft(0), m_cropRight(0), m_cropTop(0), m_cropBottom(0), m_isMasked(true)
+LayoutManager::LayoutManager(): Manager(), m_isMasked(true)
 {
     //Intentionally left empty
 }
@@ -47,6 +47,8 @@ void LayoutManager::setup()
     
     this->createTextVisuals();
     this->createImageVisuals();
+
+	m_frontLayout = ofRectangle(0.0, 0.0, 1.0, 1.0);
     
     //this->addVisuals();
     
@@ -338,27 +340,37 @@ void LayoutManager::windowResized(int w, int h)
 }
 
 
-void LayoutManager::onCropLeft( int & pixels)
+void LayoutManager::onCropLeft(float & value)
 {
-    m_cropLeft = pixels;
+	float w = m_frontLayout.getRight() - value;
+	m_frontLayout.setX(value);
+	m_frontLayout.setWidth(w);
     AppManager::getInstance().getMaskManager().setMaskWindowFront();
 }
 
-void LayoutManager::onCropRight( int & pixels)
+void LayoutManager::onCropRight( float & value)
 {
-    m_cropRight = pixels;
+	float v = 1.0 - value;
+	float w = v - m_frontLayout.getLeft();
+	m_frontLayout.setWidth(w);
+
     AppManager::getInstance().getMaskManager().setMaskWindowFront();
 }
 
-void LayoutManager::onCropTop( int & pixels)
+void LayoutManager::onCropTop(float & value)
 {
-    m_cropTop = pixels;
+	float h = m_frontLayout.getBottom() - value;
+	m_frontLayout.setY(value);
+	m_frontLayout.setHeight(h);
+
     AppManager::getInstance().getMaskManager().setMaskWindowFront();
 }
 
-void LayoutManager::onCropBottom(int & pixels)
+void LayoutManager::onCropBottom(float & value)
 {
-    m_cropBottom = pixels;
+	float v = 1.0 - value;
+	float h = v - m_frontLayout.getTop();
+	m_frontLayout.setHeight(h);
     AppManager::getInstance().getMaskManager().setMaskWindowFront();
 }
 
