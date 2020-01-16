@@ -238,7 +238,7 @@ void OscManager::draw()
 void OscManager::sendNumberContours(int num)
 {
     ofxOscMessage m;
-    m.setAddress("/MurmurRenderer/NumContours");
+    m.setAddress("/MurmurRenderer/	");
     m.addIntArg(num);
     m_oscSender.sendMessage(m);
     m_latestOscMessage = m;

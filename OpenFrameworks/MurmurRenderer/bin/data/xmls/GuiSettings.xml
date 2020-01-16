@@ -14,11 +14,11 @@
 	<OffsetContour>0, 0</OffsetContour>
 	<ScaleContour>1, 1</ScaleContour>
 	<SmokeBrightness>0.5</SmokeBrightness>
-	<On>0</On>
+	<On>1</On>
 	<OffsetHands>0, 0</OffsetHands>
 	<ScaleHands>1.142, 0.757</ScaleHands>
 	<SizeHands>1.387</SizeHands>
-	<FadeTimeHands>5.483</FadeTimeHands>
+	<FadeTimeHands>3.025</FadeTimeHands>
 	<OffsetFloor>0, 0</OffsetFloor>
 	<ScaleFloor>1, 1</ScaleFloor>
 	<Inverted_Coordinates>0</Inverted_Coordinates>
