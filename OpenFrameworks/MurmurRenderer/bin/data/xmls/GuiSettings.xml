@@ -4,17 +4,16 @@
 	<Opacity>0</Opacity>
 	<OpacityFront>0</OpacityFront>
 	<OpacityTop>0</OpacityTop>
-	<PositionBirds>0, 0.289845, 0</PositionBirds>
+	<PositionBirds>0, 0, 0</PositionBirds>
 	<SizeBirds>1</SizeBirds>
-	<SwarmSize>1, 1, 1</SwarmSize>
-	<BirdsNumber>100</BirdsNumber>
-	<SpeedBirds>8.5</SpeedBirds>
-	<RandomnessBirds>5</RandomnessBirds>
+	<SwarmSize>24.9971, 24.9971, 24.9971</SwarmSize>
+	<SpeedBirds>15.966</SpeedBirds>
+	<RandomnessBirds>25</RandomnessBirds>
 	<Thickness>0.235</Thickness>
 	<OffsetContour>0, 0</OffsetContour>
 	<ScaleContour>1, 1</ScaleContour>
 	<SmokeBrightness>0.5</SmokeBrightness>
-	<On>1</On>
+	<On>0</On>
 	<OffsetHands>0, 0</OffsetHands>
 	<ScaleHands>1.142, 0.757</ScaleHands>
 	<SizeHands>1.45</SizeHands>

@@ -3,15 +3,15 @@
 uniform vec2       iResolution;
 uniform vec3       BottomLeft;
 uniform vec3       TopRight;
-float              thickness = 0.03;
+float              thickness = 0.02;
 
 // returns 1.0 if inside the disk
 float rectangle(vec2 r, vec2 bottomLeft, vec2 topRight, vec2 d) {
 	float ret;
-	ret = smoothstep(bottomLeft.x, bottomLeft.x+d.x, r.x);
-	ret *= smoothstep(bottomLeft.y, bottomLeft.y+d.y, r.y);
-	ret *= 1.0 - smoothstep(topRight.y-d.y, topRight.y, r.y);
-	ret *= 1.0 - smoothstep(topRight.x-d.x, topRight.x, r.x);
+	ret = mix(bottomLeft.x, bottomLeft.x+d.x, r.x);
+	ret *= mix(bottomLeft.y, bottomLeft.y+d.y, r.y);
+	ret *= 1.0 - mix(topRight.y-d.y, topRight.y, r.y);
+	ret *= 1.0 - mix(topRight.x-d.x, topRight.x, r.x);
 	return ret;
 }
 

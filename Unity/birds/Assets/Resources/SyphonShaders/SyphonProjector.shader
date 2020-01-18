@@ -1,4 +1,7 @@
-﻿Shader "Projector/SyphonProjector MultiplyCG"
+﻿// Upgrade NOTE: replaced '_Projector' with 'unity_Projector'
+// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+Shader "Projector/SyphonProjector MultiplyCG"
 
 { 
 
@@ -70,7 +73,7 @@ sampler2D _ShadowTex;
 
 float4 _Color;
 
-float4x4 _Projector;
+float4x4 unity_Projector;
 
  
 
@@ -80,9 +83,9 @@ v2f vert(appdata_tan v)
 
     v2f o;
 
-    o.pos = mul (UNITY_MATRIX_MVP, v.vertex);
+    o.pos = UnityObjectToClipPos (v.vertex);
 
-    o.uv_Main = mul (_Projector, v.vertex);
+    o.uv_Main = mul (unity_Projector, v.vertex);
 
     return o;
 

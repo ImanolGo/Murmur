@@ -52,7 +52,7 @@ void BirdsAndPaperScene::setInitialParameters()
 {
     AppManager::getInstance().getBirdsManager().stopEffects();
     
-    m_visual.setScale(ofVec3f(3.0,3.0,3.0));
+    m_visual.setScale(ofVec3f(4.0,4.0,4.0));
     m_visual.setPosition(ofVec3f(0,0,0));
     
     //AppManager::getInstance().getGuiManager().setBirdsSize(1.2);
@@ -66,7 +66,7 @@ void BirdsAndPaperScene::setInitialParameters()
     AppManager::getInstance().getGuiManager().setBirdsSpeed(7.0);
     AppManager::getInstance().getGuiManager().setBirdsSize(m_visual.getScale());
     
-     AppManager::getInstance().getGuiManager().setBirdsRandomness(0);
+     AppManager::getInstance().getGuiManager().setBirdsRandomness(25);
 }
 
 void BirdsAndPaperScene::willDraw()
@@ -77,7 +77,7 @@ void BirdsAndPaperScene::willDraw()
 
 void BirdsAndPaperScene::startBirds()
 {
-    m_visual.setScale(ofVec3f(20,20,20));
+    m_visual.setScale(ofVec3f(25,25,25));
     m_visual.setPosition(ofVec3f(0,0,0));
     m_visual.m_speed = 15;
     m_visual.m_randomness = 30;
@@ -90,7 +90,7 @@ void BirdsAndPaperScene::startBirds()
     AppManager::getInstance().getBirdsManager().addScaleEffect(m_visual.getScale(), animationTime, delayTime);
     AppManager::getInstance().getBirdsManager().addSpeedEffect(m_visual.m_speed, animationTime, delayTime);
     AppManager::getInstance().getBirdsManager().addNumberEffect(m_visual.m_number, animationTime, delayTime);
-    AppManager::getInstance().getBirdsManager().addRandomnessEffect(m_visual.m_randomness, animationTime, delayTime);
+   // AppManager::getInstance().getBirdsManager().addRandomnessEffect(m_visual.m_randomness, animationTime, delayTime);
     
     //AppManager::getInstance().getGuiManager().setBirdsPosition(m_visual.getPosition());
     //AppManager::getInstance().getGuiManager().setBirdsSize(m_visual.getScale());

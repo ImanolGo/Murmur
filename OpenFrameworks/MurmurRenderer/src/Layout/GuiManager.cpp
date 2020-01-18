@@ -133,9 +133,9 @@ void GuiManager::setupBirdsGui()
     m_birdsSwarmSizeVector.addListener(birdsManager, &BirdsManager::onChangeSwarmSize);
     m_parameters.add(m_birdsSwarmSizeVector);
     
-    m_birdsNumber.set("BirdsNumber", 250, 0, 1000);
+    m_birdsNumber.set("BirdsNumber", 0, 0, 1000);
     m_birdsNumber.addListener(birdsManager, &BirdsManager::onChangeSwarmNumber);
-    m_parameters.add(m_birdsNumber);
+    //m_parameters.add(m_birdsNumber);
     
     m_birdsSpeed.set("SpeedBirds", 10, 0, 20);
     m_birdsSpeed.addListener(birdsManager, &BirdsManager::onChangeSpeed);

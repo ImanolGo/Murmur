@@ -54,13 +54,13 @@ void BirdsOpeningScene::setInitialParameters() {
     //AppManager::getInstance().getGuiManager().setBirdsSize(2.0);
     //AppManager::getInstance().getGuiManager().setBirdsNumber(100);
     
-    ofVec3f position(0,-0.7,0);
+    ofVec3f position(0,-0.6,0);
     AppManager::getInstance().getGuiManager().setBirdsPosition(position);
     
-    m_swarmSize = 1.0;
+    m_swarmSize = 4.0;
     AppManager::getInstance().getGuiManager().onSetBirdsSwarmSize(m_swarmSize);
     
-    AppManager::getInstance().getGuiManager().setBirdsSpeed(8.5);
+    AppManager::getInstance().getGuiManager().setBirdsSpeed(7);
     
 }
 
@@ -76,16 +76,16 @@ void BirdsOpeningScene::startBirds()
     //AppManager::getInstance().getGuiManager().setBirdsNumber(0);
     AppManager::getInstance().getGuiManager().setBirdsNumber(100);
     
-    ofVec3f position(0,-0.3,0);
+    ofVec3f position(0, -0.6, 0);
     AppManager::getInstance().getGuiManager().setBirdsPosition(position);
     
-    position = ofVec3f(0,0.3,0);
+    position = ofVec3f(0,0.0,0);
     AppManager::getInstance().getBirdsManager().addMoveEffect(position, 1,2);
     
-    m_swarmSize = 1.0;
+    m_swarmSize = 4.0;
     AppManager::getInstance().getGuiManager().onSetBirdsSwarmSize(m_swarmSize);
     
-    AppManager::getInstance().getGuiManager().setBirdsRandomness(5);
+    AppManager::getInstance().getGuiManager().setBirdsRandomness(25);
     
 
 }

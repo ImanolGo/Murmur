@@ -77,6 +77,8 @@ private:
     void setupShader();
     
     void setupEffects();
+
+	void resetBirds();
     
     
 private:

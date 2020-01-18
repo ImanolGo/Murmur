@@ -1,7 +1,7 @@
 #version 120
 
 uniform vec2       iResolution;
-float              thickness = 0.07;
+float              thickness = 0.05;
 
 void main()
 {

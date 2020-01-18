@@ -41,6 +41,7 @@ void BirdsManager::setup()
     this->setupVideoFrameSharingVisual();
     this->setupShader();
     this->setupEffects();
+	this->resetBirds();
 }
 
 
@@ -88,6 +89,12 @@ void BirdsManager::setupEffects()
 }
 
 
+void BirdsManager::resetBirds()
+{
+	int numBirds = 0;
+	this->onChangeSwarmNumber(numBirds);
+}
+
 
 void BirdsManager::update()
 {
@@ -127,7 +134,7 @@ void BirdsManager::draw()
 
 void BirdsManager::onChangePosition(ofVec3f& target)
 {
-    float scale = 50;
+    float scale = 25;
     m_swarm->setPosition(target);
     
     ofxOscMessage m;
@@ -135,13 +142,11 @@ void BirdsManager::onChangePosition(ofVec3f& target)
     m.addFloatArg(target.x*scale);
     AppManager::getInstance().getOscManager().sendMessageToUnity(m);
     
-    scale = 30;
     m.clear();
     m.setAddress("/MurmurBirds/position/y");
     m.addFloatArg(target.y*scale);
     AppManager::getInstance().getOscManager().sendMessageToUnity(m);
     
-    scale = 30;
     m.clear();
     m.setAddress("/MurmurBirds/position/z");
     m.addFloatArg(target.z*scale);
