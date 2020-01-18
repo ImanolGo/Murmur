@@ -3,19 +3,28 @@
 uniform vec2       iResolution;
 uniform vec3       BottomLeft;
 uniform vec3       TopRight;
-float              thickness = 0.03;
+float              thickness = 0.05;
 
 out vec4 outputColor;
+
+float expsmoothstep(float edge0, float edge1, float x) {
+  // Scale, bias and saturate x to 0..1 range
+  x = clamp((x - edge0) / (edge1 - edge0), 0.0, 1.0); 
+  //return x;
+  // Evaluate polynomial
+  return x*x*x;
+}
 
 // returns 1.0 if inside the disk
 float rectangle(vec2 r, vec2 bottomLeft, vec2 topRight, vec2 d) {
 	float ret;
-	ret = smoothstep(bottomLeft.x, bottomLeft.x+d.x, r.x);
-	ret *= smoothstep(bottomLeft.y, bottomLeft.y+d.y, r.y);
-	ret *= 1.0 - smoothstep(topRight.y-d.y, topRight.y, r.y);
-	ret *= 1.0 - smoothstep(topRight.x-d.x, topRight.x, r.x);
+	ret = 1.0 - expsmoothstep(bottomLeft.x+d.x, bottomLeft.x, r.x);
+	ret *= 1.0 - expsmoothstep(bottomLeft.y+d.y, bottomLeft.y, r.y);
+	ret *= 1.0 - expsmoothstep(topRight.y-d.y, topRight.y, r.y);
+	ret *= 1.0 - expsmoothstep(topRight.x-d.x, topRight.x, r.x);
 	return ret;
 }
+
 
 
 void main()
