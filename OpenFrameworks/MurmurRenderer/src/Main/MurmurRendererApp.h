@@ -9,9 +9,7 @@
 #pragma once
 
 #include "ofMain.h"
-#include "ofxFlowTools.h"
-
-using namespace flowTools;
+#include "MurmurRendererScreen.h"
 
 class MurmurRendererApp : public ofBaseApp{
 
@@ -27,6 +25,9 @@ class MurmurRendererApp : public ofBaseApp{
         //void keyPressed2(ofKeyEventArgs &e);
         void drawScreen3(ofEventArgs & args);
         //void keyPressed3(ofKeyEventArgs &e);
+
+		shared_ptr<MurmurRendererScreen> window2;
+		shared_ptr<MurmurRendererScreen> window3;
     
     private:
     

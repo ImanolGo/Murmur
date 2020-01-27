@@ -4,20 +4,20 @@
 	<Opacity>0</Opacity>
 	<OpacityFront>0</OpacityFront>
 	<OpacityTop>0</OpacityTop>
-	<PositionBirds>0, 0, 0</PositionBirds>
+	<PositionBirds>0, 0.299834, 0</PositionBirds>
 	<SizeBirds>1</SizeBirds>
-	<SwarmSize>24.997, 24.997, 24.997</SwarmSize>
-	<SpeedBirds>14.9989</SpeedBirds>
-	<RandomnessBirds>25</RandomnessBirds>
-	<Thickness>0.235</Thickness>
+	<SwarmSize>1, 1, 1</SwarmSize>
+	<SpeedBirds>8.5</SpeedBirds>
+	<RandomnessBirds>5</RandomnessBirds>
+	<Thickness>0.336</Thickness>
 	<OffsetContour>0, 0</OffsetContour>
 	<ScaleContour>1, 1</ScaleContour>
 	<SmokeBrightness>0.5</SmokeBrightness>
 	<On>0</On>
 	<OffsetHands>0, 0</OffsetHands>
 	<ScaleHands>1.142, 0.757</ScaleHands>
-	<SizeHands>1.45</SizeHands>
-	<FadeTimeHands>2.269</FadeTimeHands>
+	<SizeHands>1.387</SizeHands>
+	<FadeTimeHands>3.025</FadeTimeHands>
 	<OffsetFloor>0, 0</OffsetFloor>
 	<ScaleFloor>1, 1</ScaleFloor>
 	<Inverted_Coordinates>0</Inverted_Coordinates>
@@ -28,7 +28,7 @@
 	<CropRight>0</CropRight>
 	<CropTop>0</CropTop>
 	<CropBottom>0</CropBottom>
-	<OffsetBeautiful>-0.009, 0.009</OffsetBeautiful>
+	<OffsetBeautiful>0, 0</OffsetBeautiful>
 	<ScaleBeautiful>1, 1</ScaleBeautiful>
 	<FloorOn>0</FloorOn>
 	<SpeedBeutiful>1</SpeedBeutiful>

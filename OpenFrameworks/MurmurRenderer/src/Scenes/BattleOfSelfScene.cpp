@@ -140,7 +140,7 @@ void BattleOfSelfScene::drawFluid()
     
     //ofClear(0, 0, 0);
     
-    ofSetColor(0,0,0,80);
+    ofSetColor(0,0,0,60);
     ofDrawRectangle(0,0,m_fbo.getWidth(),m_fbo.getHeight());
     
     ofEnableBlendMode(OF_BLENDMODE_ADD);

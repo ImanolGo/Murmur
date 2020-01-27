@@ -250,6 +250,7 @@ void OscManager::update()
         else if(m.getAddress() == "/MurmurRenderer/NumContours"){
             m_numberOfContours = m.getArgAsInt32(0);
             AppManager::getInstance().getContourManager().resetContours();
+			//ofLogNotice() << "NumberOfContours -> " << m_numberOfContours;
             //this->updateReceiveText();
         }
         
@@ -540,11 +541,11 @@ void OscManager::update()
         
         else{
             
-            for (int i = 0; i<m_numberOfContours; i++) {
+		for (int i = 0; i < m_numberOfContours; i++) {
                 string contourAddr = "/MurmurRenderer/Contour/" + ofToString(i);
-                
+				//ofLogNotice() << ""/MurmurRenderer/Contour/ -> " << m_numberOfContours;
                 if(m.getAddress() == contourAddr){
-                    
+					ofLogNotice() << contourAddr;
                     vector<float> contourPoints;
                     for (int n = 0; n < m.getNumArgs(); n++) {
                         contourPoints.push_back(m.getArgAsFloat(n));

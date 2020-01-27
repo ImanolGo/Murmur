@@ -36,7 +36,7 @@ void BlankScene::draw() {
     auto windowsSettings = AppManager::getInstance().getSceneManager().getWindowSettings(this);
     
     ofPushStyle();
-    ofSetColor(255);
+    ofSetColor(0);
     ofDrawRectangle(0, 0, windowsSettings.getWidth(), windowsSettings.getHeight());
     ofPopStyle();
 }

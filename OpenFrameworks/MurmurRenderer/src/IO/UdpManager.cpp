@@ -49,10 +49,17 @@ void UdpManager::setupUdpReceiver()
     int portReceive = AppManager::getInstance().getSettingsManager().getUdpPortReceive();
     
     m_udpConnection.Create(); //create the socket
-    m_udpConnection.Bind(portReceive); //and bind to port
+    bool success = m_udpConnection.Bind(portReceive); //and bind to port
     m_udpConnection.SetNonBlocking(true);
+
+	if (success) {
+		ofLogNotice() << "UdpManager::setupUdpReceiver -> connected to port  " << portReceive;
+	}
+	else {
+		ofLogNotice() << "UdpManager::setupUdpReceiver -> unable to connect to port  " << portReceive;
+	}
     
-     ofLogNotice() <<"UdpManager::setupUdpReceiver -> unable to connect to port  " << portReceive;
+   
 }
 
 void UdpManager::setupHeaders()
@@ -172,6 +179,7 @@ void UdpManager::updateReceiveText(const string& message)
 void UdpManager::parseMessage(char * buffer, int size)
 {
     if(this->isKinectMessage(buffer, size)){
+		//ofLogNotice() << ">>UdpManager::isKinectMessage -> message: " << buffer;
         this->parseKinect(buffer, size);
     }
     else if(this->isHandsMessage(buffer, size)){
@@ -345,11 +353,11 @@ bool UdpManager::isKinectMessage(char * buffer, int size)
     }
 
     if(buffer[0] != m_contourHeader.f1  && buffer[1] != m_contourHeader.f2  && buffer[2] != m_contourHeader.f3 ){
-       // ofLogNotice() <<"UdpManager::isMessage -> FALSE ";
+      // ofLogNotice() <<"UdpManager::isKinectMessage -> FALSE ";
         return false;
     }
     
-   // ofLogNotice() <<"UdpManager::isMessage -> TRUE ";
+  // ofLogNotice() <<"UdpManager::isKinectMessage -> TRUE ";
     return true;
 }
 

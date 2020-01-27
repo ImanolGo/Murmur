@@ -4,7 +4,7 @@
   <of_settings>
 
     <debug showCursor="1" setVerbose="0"/>
-      <network ipFloor="10.0.0.14"  portOscFloor="7890" ipContour="murmurrear.local" portOscContour="7890" portOscReceive="50000" portUdpReceive="44409" portOscUnity="8000"/>
+      <network ipFloor="10.0.0.4"  portOscFloor="7890" ipContour="10.0.0.3" portOscContour="7890" portOscReceive="50000" portUdpReceive="44409" portOscUnity="8000"/>
 
   	<window title="Murmur Renderer" x="0" y="0" width="1920" height="1200" fullscreen="0" showCursor="1"/>
     <window title="Murmur Front" x="1920" y="0" width="1920" height="1200" fullscreen="1" showCursor="0"/>
@@ -28,7 +28,7 @@
     <texture name="floor_mask_transp" path="images/floor/FloorGradientMaskTransparent.png"/>
     <texture name="calibration_image" path="images/calibration/CalibrationImage.png"/>
     <texture name="frame_mask" path="images/general/FrameMask.png"/>
-    <texture name="frame_beautifulmind" path="images/general/FrameMaskWithObject.png"/>
+    <texture name="frame_beautifulmind" path="images/general/FrameMaskWithObject2.png"/>
     <texture name="postshow" path="images/general/postshow.png"/>
 
   </textures>

@@ -52,7 +52,7 @@ void AppManager::setup()
 
 void AppManager::setupOF()
 {
-   ofSetVerticalSync(true);
+   ofSetVerticalSync(false);
    ofSetFrameRate(60);
    ofShowCursor();
 }

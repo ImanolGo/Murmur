@@ -44,8 +44,8 @@ void BeautifulMindScene::setup() {
 void BeautifulMindScene::setupFbos()
 {
     auto windowsSettings = AppManager::getInstance().getSceneManager().getWindowSettings(this);
-    m_fboVideo.allocate(windowsSettings.getWidth(), windowsSettings.getHeight(),GL_RGBA);
-    m_fboVideo.begin(); ofClear(0, 0, 0);  ; m_fboVideo.end();
+    m_fboVideo.allocate(windowsSettings.getWidth(), windowsSettings.getHeight(),GL_RGBA, ofFbo::maxSamples());
+    m_fboVideo.begin(); ofClear(0, 0, 0, 0);  ; m_fboVideo.end();
 
 	m_maskFbo.allocate(windowsSettings.getWidth(), windowsSettings.getHeight(), GL_RGB);
 	m_maskFbo.begin(); ofClear(0, 0, 0);  m_maskFbo.end();
@@ -139,7 +139,7 @@ void BeautifulMindScene::updateVideo()
 	{
 		ofEnableAlphaBlending();
 		m_fboVideo.begin();
-			ofClear(0);
+			ofClear(0,255);
 			m_maskShader.begin();
 			m_maskShader.setUniformTexture("imageMask", m_maskFbo.getTexture(), 1);
 			m_video.draw(0,0, m_maskFbo.getWidth(), m_maskFbo.getHeight());
@@ -172,6 +172,12 @@ void BeautifulMindScene::draw() {
    ofClear(0);
     
     bool calibration = AppManager::getInstance().getBeautifulMindManager().isCalibrationOn();
+
+	auto windowsSettings = AppManager::getInstance().getSceneManager().getWindowSettings(this);
+	ofPushStyle();
+	ofSetColor(0);
+	ofDrawRectangle(0, 0, windowsSettings.getWidth(), windowsSettings.getHeight());
+	ofPopStyle();
     
     if(calibration){
         this->drawCalibration();

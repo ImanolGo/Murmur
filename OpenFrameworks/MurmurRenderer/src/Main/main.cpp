@@ -1,17 +1,10 @@
+
 #include "ofMain.h"
 #include "WindowSettingsManager.h"
 #include "MurmurRendererApp.h"
+#include "MurmurRendererScreen.h"
+#include "ofAppGLFWWindow.h"
 
-
-//========================================================================
-int main( ){
-    
-	auto settingsGL = WindowSettingsManager::getInstance().getMainWindowSettings();
-
-	ofCreateWindow(settingsGL);
-	ofRunApp(new MurmurRendererApp());
-
-}
 
 
 #ifndef TARGET_WIN32

@@ -224,7 +224,7 @@ void GuiManager::setupHandsGui()
     m_handsOffset.addListener(handsManager, &HandsManager::setOffset);
     m_parameters.add(m_handsOffset);
     
-    m_handsScale.set("ScaleHands", ofVec2f(1.0,1.0) , ofVec2f(-1.5,-1.5) , ofVec2f(1.5,1.5) );
+    m_handsScale.set("ScaleHands", ofVec2f(1.0,1.0) , ofVec2f(-2.0,-2.0) , ofVec2f(2.0,2.0) );
     m_handsScale.addListener(handsManager, &HandsManager::setScale);
     m_parameters.add(m_handsScale);
     
@@ -347,8 +347,8 @@ void GuiManager::drawGui()
     m_gui.begin();
     
     auto mainSettings  = ofxImGui::Settings();
-    //ofxImGui::Settings().windowPos  = ofVec2f(-LayoutManager::MARGIN,-LayoutManager::MARGIN);
-    // ofxImGui::Settings().windowSize = ofVec2f(GUI_WIDTH,ofGetHeight());
+   // ofxImGui::Settings().windowPos  = ofVec2f(-LayoutManager::MARGIN,-LayoutManager::MARGIN);
+    ///ofxImGui::Settings().windowSize = ofVec2f(GUI_WIDTH,ofGetHeight());
     if (ofxImGui::BeginWindow(GUI_SETTINGS_NAME, mainSettings, false))
     {
         

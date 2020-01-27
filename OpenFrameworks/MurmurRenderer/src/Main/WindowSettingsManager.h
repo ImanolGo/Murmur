@@ -41,6 +41,8 @@ public:
     const WindowSettingsVector&  getWindowsSettings(){return m_windows;}
 
 	const ofGLFWWindowSettings&  getMainWindowSettings() { return m_mainWindow; }
+
+	const ofGLFWWindowSettings&  getWorkAreaWindowSettings() { return m_workAreaWindow; }
     
     ofGLFWWindowSettings getWindowsSettings(int index);
 
@@ -72,6 +74,7 @@ private:
     
     WindowSettingsVector			m_windows;				///< Vector holding all the window settings
 	ofGLFWWindowSettings			m_mainWindow;			///< Main Window Setting
+	ofGLFWWindowSettings			m_workAreaWindow;			///<  Working Area Window Setting
 
 };
 

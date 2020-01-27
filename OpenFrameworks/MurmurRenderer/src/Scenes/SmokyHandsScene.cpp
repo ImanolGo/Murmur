@@ -62,8 +62,10 @@ void SmokyHandsScene::drawFluid()
     ofEnableBlendMode(OF_BLENDMODE_DISABLED);
     
     //AppManager::getInstance().getContourManager().draw(m_drawArea);
+	int value = 255*AppManager::getInstance().getContourManager().getSmokeBrightness();
     
     ofEnableBlendMode(OF_BLENDMODE_ADD);
+	ofSetColor(value);
     m_smokeFluid.draw(m_drawArea);
     //m_smokeFluid.drawGui();
 
